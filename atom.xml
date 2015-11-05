@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
+  <title>void* nigh</title>
+  <id>nigh.github.io</id>
+  <updated>2015-11-06T00:33:53+08:00</updated>
+  <subtitle>may the codes guide you.</subtitle>
+  <link href="nigh.github.io"></link>
+  <author>
+    <name>void* nigh</name>
+  </author>
+  <entry>
+    <title>first inkpaper post</title>
+    <updated>1970-01-01T08:00:00+08:00</updated>
+    <id>tag:,1970-01-01:nigh.github.io/post/2015/11/06/first_ink_paper.html</id>
+    <content type="html">first inkpaper post</content>
+    <link href="nigh.github.io/post/2015/11/06/first_ink_paper.html"></link>
+    <author>
+      <name>nigh</name>
+    </author>
+  </entry>
+  <entry>
+    <title>test</title>
+    <updated>1970-01-01T08:00:00+08:00</updated>
+    <id>tag:,1970-01-01:nigh.github.io/post/2015/10/07/test.html</id>
+    <content type="html">first hexo post</content>
+    <link href="nigh.github.io/post/2015/10/07/test.html"></link>
+    <author>
+      <name>nigh</name>
+    </author>
+  </entry>
+</feed>
