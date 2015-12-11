@@ -6,18 +6,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
         <meta name="keywords" content="trial,">
         <meta name="description" content="first hexo post">
-        <link rel="stylesheet" href="./css/index.min.css">
-        <link rel="stylesheet" href="./css/github.min.css">
-        <link rel="shortcut icon" href="./favicon.png">
+        <link rel="stylesheet" href="/css/index.min.css">
+        <link rel="stylesheet" href="/css/github.min.css">
+        <link rel="shortcut icon" href="/favicon.png">
         <title>first hexo post</title>
     </head>
     <body>
         <article class="container">
             <ul class="menu">
-    <li class="menu-item"><a href="./atom.xml">订阅</a></li>
-    <li class="menu-item"><a href="./archive.html">归档</a></li>
-    <li class="menu-item"><a href="./tag.html">标签</a></li>
-    <li class="menu-item"><a href="./">首页</a></li>
+    <li class="menu-item"><a href="/atom.xml"></a></li>
+    <li class="menu-item"><a href="/archive.html"></a></li>
+    <li class="menu-item"><a href="/tag.html"></a></li>
+    <li class="menu-item"><a href="/"></a></li>
 </ul>
             <article class="main article">
                 <h1 class="title">first hexo post</h1>
@@ -26,32 +26,34 @@
                         <span class="from"></span>
                         
                     </span>
-                    <span class="tags"><a class="tag" href="./tag/trial/index.html">trial</a></span>
+                    <span class="tags"><a class="tag" href="/tag/trial/index.html">trial</a></span>
                 </section>
                 <article class="content"><h2>first hexo post</h2>
 
 <p>试用hexo</p>
 </article>
                 <section class="author">
-                    <div class="avatar" style="background-image: url(./images/avatar.png);"></div>
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
                     <a class="name">nigh</a>
                     <div class="intro">nigh is going home</div>
                 </section>
                 <section class="recommend">
                     
                     <section class="nav prev">
-                        <div class="head">Prev Reading</div>
-                        <a class="link" href="./post/2015/11/06/first_ink_paper.html">first inkpaper post</a>
+                        <div class="head"></div>
+                        <a class="link" href="/post/2015/11/first_ink_paper.html">first inkpaper post</a>
                     </section>
                     
                     
                 </section>
-                <section id="disqus_thread"></section>
+                
+                <div class="ds-thread" data-thread-key="a-00000" data-title="first hexo post" data-url="post/2015/10/test.html"></div>
+                
             </article>
         </article>
         <footer class="footer">
     <span class="copyright">
-        <a href="./">void* nigh</a> ©
+        <a href="/">void* nigh</a> ©
         <script type="text/javascript">
             document.write(new Date().getFullYear());
         </script>
@@ -60,17 +62,23 @@
     <span class="publish">Any Copy is Rejected / Powered By <a href="http://www.inkpaper.io/" target="_blank">Ink</a></span>
 </footer>
 
-            <script src="./js/jquery-1.11.2.min.js"></script>
-    <script src="./js/index.js"></script>
-    <script src="./js/SmoothScroll.js"></script>
-        <script src="./js/highlight.pack.js"></script>
-        <script src="./js/jquery.unveil.js"></script>
+            <script src="/js/jquery-1.11.2.min.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/SmoothScroll.js"></script>
+        <script src="/js/highlight.pack.js"></script>
+        <script src="/js/jquery.unveil.js"></script>
+        
         <script type="text/javascript">
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
+        var duoshuoQuery = {short_name:"code-moe"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
         </script>
+        
     </body>
 </html>
