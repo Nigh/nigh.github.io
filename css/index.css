@@ -48,7 +48,7 @@ a{
 
 a:hover{
   color:#f89;
-  opacity:0.9;
+  opacity:0.8;
 }
 
 *::selection{
@@ -81,13 +81,14 @@ a:hover{
 }
 
 .menu .menu-item a{
-  color:#aaa;
-  padding:3px;
+  color:#999;
+  padding:3px 13px 3px 13px;
   font-weight:normal;
 }
 
 .menu .menu-item a:hover{
-  color:#555555;
+  color:#fff;
+  background-color:#f89;
 }
 
 a.name{
@@ -198,7 +199,33 @@ a.name{
   margin-bottom:10px;
   padding-bottom:10px;
 }
+.main.page .article-list .article .cover {
+  color: #fff;
+  width: 100%;
+  height: 260px;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.main.page .article-list .article .cover:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.main.page .article-list .article a.title:hover {
+  animation:zoomin 0.8s cubic-bezier(0.1,0.1,0.1,1.4);
+  padding-left: 5px;letter-spacing:3px;
+}
 
+@keyframes zoomin
+{
+from{padding-left: 0px;letter-spacing:0px;}
+to{padding-left: 5px;letter-spacing:3px;}
+}
 .main.page .article-list .article .preview{
   font-family:PTSerif-Regular,Georgia,Cambria,"Times New Roman",Times,"Hiragino Sans GB","STHeiti","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei";
   display:inline-block;
@@ -610,10 +637,6 @@ a.name{
   margin-top:8px;
   font-size:14px;
   color:#bbb;
-}
-
-.main.article #disqus_thread{
-  margin-top:50px;
 }
 
 .main.about .content{
