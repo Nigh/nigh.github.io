@@ -552,7 +552,8 @@ a.name{
 .main.article .recommend .nav .head{
   font-size:12px;
   font-style:italic;
-  margin-bottom:10px;
+  margin-top:5px;
+  margin-bottom:5px;
   color:#c4c4c4;
   text-align:center;
 }
@@ -566,18 +567,22 @@ a.name{
 .main.article .recommend .nav.prev.more{
   width:40%;
   height:50px;
+  background-image:url(/icon/prev_page.png);
+  background-position:left;
+  background-size:contain;
+  background-repeat:no-repeat;
   text-align:left;
   float:left;
   vertical-align:bottom;
-  padding-left:30px;
-  border-left:2px solid #4A4A4A;
+  padding-left:60px;
+/*  border-left:2px solid #4A4A4A;
   border-bottom:2px solid #4A4A4A;
-  border-top-left-radius:35px;
-  border-bottom-left-radius:20px;
-  -webkit-border-top-left-radius:35px;
-  -webkit-border-bottom-left-radius:20px;
-  -moz-border-radius-topleft:35px;
-  -moz-border-radius-bottomleft:20px;
+  border-top-left-radius:50px;
+  border-bottom-left-radius:0px;
+  -webkit-border-top-left-radius:50px;
+  -webkit-border-bottom-left-radius:0px;
+  -moz-border-radius-topleft:50px;
+  -moz-border-radius-bottomleft:0px;*/
 }
 
 .main.article .recommend .nav.prev.more .head,.main.article .recommend .nav.prev.more .link{
@@ -587,18 +592,22 @@ a.name{
 .main.article .recommend .nav.next.more{
   width:40%;
   height:50px;
+  background-image:url(/icon/next_page.png);
+  background-position:right;
+  background-size:contain;
+  background-repeat:no-repeat;
   text-align:right;
   float:right;
   vertical-align:bottom;
-  padding-right:30px;
-  border-right:2px solid #4A4A4A;
+  padding-right:60px;
+/*  border-right:2px solid #4A4A4A;
   border-bottom:2px solid #4A4A4A;
-  border-top-right-radius:35px;
-  border-bottom-right-radius:20px;
-  -webkit-border-top-right-radius:35px;
-  -webkit-border-bottom-right-radius:20px;
-  -moz-border-radius-topright:35px;
-  -moz-border-radius-bottomright:20px;
+  border-top-right-radius:50px;
+  border-bottom-right-radius:0px;
+  -webkit-border-top-right-radius:50px;
+  -webkit-border-bottom-right-radius:0px;
+  -moz-border-radius-topright:50px;
+  -moz-border-radius-bottomright:0px;*/
 }
 
 .main.article .recommend .nav.next.more .head,.main.article .recommend .nav.next.more .link{
