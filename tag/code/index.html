@@ -2,94 +2,348 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
-        <meta name="keywords" content="void* nigh, may the codes guide you.">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="void* nigh">
+<meta name="twitter:description" content="may the codes guide you.">
+<meta name="twitter:image:src" content="http://code-moe.cc/images/avatar.png">
+
+<meta property="og:url" content="http://code-moe.cc">
+<meta property="og:title" content="void* nigh">
+<meta property="og:description" content="may the codes guide you.">
+<meta property="og:site_name" content="void* nigh">
+<meta property="og:image" content="http://code-moe.cc/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="void* nigh">
+<meta itemprop="description" content="may the codes guide you.">
+<meta itemprop="image" content="http://code-moe.cc/images/avatar.png">
+
+<link rel="canonical" href="http://code-moe.cc">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="/bundle/css/prism.css">
+<link type="text/css" rel="stylesheet" href="/bundle/css/zoom.css">
+<link type="text/css" rel="stylesheet" href="/bundle/css/main.css">
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+
+<script>var cPlayers = [];var cPlayerOptions = [];</script>
+
+
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: ' years ago',
+        month: ' months ago',
+        day: ' days ago',
+        hour: ' hours ago',
+        minute: ' minutes ago',
+        second: ' seconds ago'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="may the codes guide you.">
         <meta name="description" content="may the codes guide you.">
-        <link rel="stylesheet" href="/css/index.min.css">
-        <link rel="shortcut icon" href="/favicon.png">
         <title>void* nigh</title>
     </head>
     <body>
-        <article class="container">
-            <ul class="menu">
-    <li class="menu-item"><a href="/atom.xml">RSS</a></li>
-    <li class="menu-item"><a href="/archive.html">ARCHIVE</a></li>
-    <li class="menu-item"><a href="/tag.html">TAGS</a></li>
-    <li class="menu-item"><a href="/">HOME</a></li>
-</ul>
-            <article class="main page">
-                <header class="header site">
-                    
-                        <h1 class="tag">code</h1>
-                        <h2 class="tag-sub">2 Articles</h2>
-                    
-                </header>
-                <ul class="article-list">
-                    
-                    <li class="article">
-                        <a class="title" href="/post/2016/01/inkpaper-on-raspberrypi.html">在树莓派上搭建inkpaper环境</a>
-                        
-                        <div class="cover" style="background-image:url(http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fcover2.jpg);" onclick="location='/post\/2016\/01\/inkpaper-on-raspberrypi.html'"></div>
-                        
-                        
-                        <section class="preview">
-
-*注：本篇文章的编写，编译生成以及部署全部在树莓派上完成。*
-
-...</section>
-                        
-                        <section class="info">
-                            <span class="date" data-time="1451988600">
-                                <span class="from"></span>
-                                
-                            </span>
-                            <span class="tags">
-                            <a class="tag" href="/tag/code/index.html">code</a><a class="tag" href="/tag/raspberry%20Pi/index.html">raspberry Pi</a><a class="tag" href="/tag/inkpaper/index.html">inkpaper</a>
-                            </span>
-                        </section>
-                    </li>
-                    
-                    <li class="article">
-                        <a class="title" href="/post/2016/05/pulse-sensor.html">光学脉搏测量 - PulseSensor试用</a>
-                        
-                        <div class="cover" style="background-image:url(http://7xozbx.com1.z0.glb.clouddn.com/pulsesensor/cover.png);" onclick="location='/post\/2016\/05\/pulse-sensor.html'"></div>
-                        
-                        
-                        <section class="info">
-                            <span class="date" data-time="1462852800">
-                                <span class="from"></span>
-                                
-                            </span>
-                            <span class="tags">
-                            <a class="tag" href="/tag/code/index.html">code</a><a class="tag" href="/tag/arduino/index.html">arduino</a><a class="tag" href="/tag/love2d/index.html">love2d</a>
-                            </span>
-                        </section>
-                    </li>
-                    
-                </ul>
-                <section class="page-nav">
-                    
-                    
-                    
-                </section>
-            </article>
-        </article>
-        <footer class="footer">
-    <span class="copyright">
-        <a href="/">void* nigh</a> ©
-        <script type="text/javascript">
-            document.write(new Date().getFullYear());
-        </script>
-        <a href="http://www.miitbeian.gov.cn/" target="_blank"> 粤ICP备15106612</a>
-    </span>
-    <span class="publish">Any Copy is Rejected / Powered By <a href="http://www.inkpaper.io/" target="_blank">Ink</a></span>
+        
+        <header id="header" class="clearfix">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="logo">
+              <div class="header-logo">
+                <script>
+                  var getwbclass = function() {
+                    var wbclass = ['b', 'w'];
+                    return wbclass[Math.floor(Math.random()*wbclass.length)];
+                  }
+                  var sitetitle = "void* nigh";
+                  for (i in sitetitle) {
+                    document.write('<a href="/"><span class="' + getwbclass() + ' titlechar">' + sitetitle.charAt(i) + '</span></a>');
+                  }          
+                  
+                </script>
+                
+                <a id="btn-menu" href="javascript:isMenu();">
+                    <span class="b">·</span>
+                </a>
+                <a href="javascript:isMenu1();">
+                    <span id="menu-1" class="bf">1</span>
+                </a>
+                <a href="javascript:isMenu2();">
+                    <span id="menu-2" class="bf">2</span>
+                </a>
+                <a href="javascript:isMenu3();">
+                    <span id="menu-3" class="bf">3</span>
+                </a>
+              </div>
+              <div id="menu-page">
+                <a href="/archive.html"><li>ARCHIVE</li></a>
+                <a href="/tag.html"><li>TAG</li></a>
+                
+                <a href="/atom.xml"><li>RSS</li></a>
+                
+                <a href="/about.html"><li>ABOUT</li></a>
+              </div>
+              <div id="search-box">
+                  <div id="search">
+                      <input autocomplete="off" type="text" name="s" id="menu-search" placeholder="Search..." data-root="" />
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </header>
+        <div id="body" class="clearfix">
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="main" role="main">
+                        <ul class="post-list clearfix">
+                            
+                            <li class="post-item grid-item" itemscope itemtype="http://schema.org/BlogPosting">
+                                <a class="post-link" href="/post/2016/01/inkpaper-on-raspberrypi.html">
+                                    <h3 class="post-title">
+                                        <time class="index-time" datetime="1451988600" itemprop="datePublished"></time>
+                                        <br>
+                                        在树莓派上搭建inkpaper环境
+                                    </h3>
+                                    <div class="post-meta">
+                                        code						</div>
+                                </a>
+                            </li>
+                            
+                            <li class="post-item grid-item" itemscope itemtype="http://schema.org/BlogPosting">
+                                <a class="post-link" href="/post/2016/05/pulse-sensor.html">
+                                    <h3 class="post-title">
+                                        <time class="index-time" datetime="1462852800" itemprop="datePublished"></time>
+                                        <br>
+                                        光学脉搏测量 - PulseSensor试用
+                                    </h3>
+                                    <div class="post-meta">
+                                        code						</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="nav-page">
+                        <ol class="page-navigator">
+                            
+                            
+                            <script>
+                                var currentpagenum =  1 ;
+                                var totalpagenum =  1 ;
+                                for(var i=1;i<=totalpagenum;i++) {
+                                    if (i==currentpagenum) {
+                                        document.write('<li class="current"><a href="');
+                                        if (i==1) {
+                                            document.write('/');
+                                        }
+                                        else {
+                                            document.write('page'+i+'.html');
+                                        }
+                                        document.write('">'+i+'</a></li>');
+                                    }
+                                    else {
+                                        document.write('<li><a href="');
+                                        if (i==1) {
+                                            document.write('/');
+                                        }
+                                        else {
+                                            document.write('page'+i+'.html');
+                                        }
+                                        document.write('">'+i+'</a></li>');
+                                    }
+                                }
+                            </script>
+                            
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer id="footer" role="contentinfo">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-12">
+            &copy; 
+            <script type="text/javascript">
+                document.write(new Date().getFullYear());
+            </script>
+            <a href="/">void* nigh</a>.
+            Using <a target="_blank" href="http://www.chole.io/">Ink</a> & <a target="_blank" href="/">Story</a>.
+        </div>
+        </div>
+    </div>
 </footer>
 
-    </body>
-        <script src="/js/jquery-1.11.2.min.js"></script>
-    <script src="/js/index.js"></script>
-    <script src="/js/SmoothScroll.js"></script>
-    <script src="/js/fix.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/bundle/js/prism.js"></script>
+<script src="/bundle/js/zoom-vanilla.min.js"></script>
+<script src="/bundle/js/main.js"></script>
 
+<script>
+    window.onload=function(){
+        var b = document.getElementsByClassName('b');
+        var w =  document.getElementsByClassName('w');
+        var menupgMargin = (b.length+w.length)*28;
+        var srhboxMargin = (b.length+w.length+3)*28;
+        var menusrhWidth = (b.length+w.length-1)*28;
+        document.getElementById('menu-page').style['margin-left'] = menupgMargin+'px';
+        document.getElementById('search-box').style['margin-left'] = srhboxMargin+'px';
+        document.getElementById('menu-search').style['width'] = menusrhWidth+'px';
+        if (window.location.hash!='') {
+          var i=window.location.hash.indexOf('#comment');
+          var ii=window.location.hash.indexOf('#respond-post');
+          if (i != '-1' || ii != '-1') {
+            document.getElementById('btn-comments').innerText='hide comments';
+            document.getElementById('comments').style.display='block';
+          }
+        }
+    }
+
+    function isMenu(){
+        if(document.getElementById('menu-1').style.display=='inline'||document.getElementById('menu-1').style.display=='block'){
+            $('#search-box').fadeOut(200);
+            $('#menu-page').fadeOut(200);
+            $('#menu-1').fadeOut(500);
+            $('#menu-2').fadeOut(400);
+            $('#menu-3').fadeOut(300);
+        } else {
+            $('#menu-1').fadeIn(150);
+            $('#menu-2').fadeIn(150);
+            $('#menu-3').fadeIn(150);
+        }
+    }
+
+    function isMenu1(){
+        if(document.getElementById('menu-page').style.display=='block'){
+            $('#menu-page').fadeOut(300);
+        } else {
+            $('#menu-page').fadeIn(300);
+        }
+    }
+
+    function isMenu2(){
+        if(document.getElementById('torTree')){
+            if(document.getElementById('torTree').style.display=='block'){
+                $('#torTree').fadeOut(300);
+            } else {
+                $('#torTree').fadeIn(300);
+            }
+        }
+    }
+
+    function isMenu3(){
+        if($('#search-box').css('display')!='none'){
+            $('#search-box').fadeOut(300);
+        } else {
+            $('#search-box').fadeIn(300);
+        }
+    }
+
+    function isComments(){
+        if(document.getElementById('btn-comments').innerText=='show comments'){
+            document.getElementById('btn-comments').innerText='hide comments';
+            document.getElementById('comments').style.display='block';
+            site_comment_load();
+        } else {
+            document.getElementById('btn-comments').innerText='show comments';
+            document.getElementById('comments').style.display='none';
+        }
+    }
+
+    function Search404(){
+        $('#menu-1').fadeIn(150);
+        $('#menu-2').fadeIn(150);
+        $('#menu-3').fadeIn(150);
+        $('#search-box').fadeIn(300);
+    }
+
+    function goBack(){
+        window.history.back();
+    }
+</script>
+
+
+<script async>
+"use strict";
+(function(){
+var cp = function(){
+    var len = cPlayerOptions.length;
+    for(var i=0;i<len;i++){
+        var element = document.getElementById('player' + cPlayerOptions[i]['id'])
+        while (element.hasChildNodes()) {
+            element.removeChild(element.firstChild);
+        };
+        cPlayers[i] = new cPlayer({
+            element: element,
+            list: cPlayerOptions[i]['list'],
+            });
+    };
+    cPlayers = [];cPlayerOptions = [];
+};
+var script = document.createElement('script');
+script.type = "text/javascript";
+script.src = "https://cdn.bootcss.com/cplayer/3.2.1/cplayer.js";
+script.async = true;
+if(script.readyState){  
+    script.onreadystatechange = function(){
+        if (script.readyState == "loaded" ||
+            script.readyState == "complete"){
+            script.onreadystatechange = null;
+            cp();
+        }
+    };
+}else{  
+    script.onload = function(){
+        cp();
+    };
+}
+document.head.appendChild(script);
+})();
+</script>
+
+    </body>
 </html>
