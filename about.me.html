@@ -2,23 +2,21 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
-        <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/index.css">
-        <title>ABOUT</title>
-    </head>
-    <body>
-        <div class="container">
-            <header id="header" class="clearfix">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="logo">
-              <div class="header-logo">
-                <script>
-                  var getwbclass = function() {
-                    var wbclass = ['b', 'w'];
-                    void* nigh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="void* nigh">
+<meta name="twitter:description" content="may the codes guide you.">
+<meta name="twitter:image:src" content="http://code-moe.cc/images/avatar.png">
+
+<meta property="og:url" content="http://code-moe.cc">
+<meta property="og:title" content="void* nigh">
 <meta property="og:description" content="may the codes guide you.">
 <meta property="og:site_name" content="void* nigh">
 <meta property="og:image" content="http://code-moe.cc/images/avatar.png">
@@ -178,6 +176,7 @@
             $.getScript('https://imsun.github.io/gitment/dist/gitment.browser.js', function() {
                 var gitment_config = 'Nigh:nigh.github.com:33cb8f2db7ecd963a797:ce8e54d19eae11b659003e983e7cd5d27ed97832'.split(':');
                 var gitment = new Gitment({
+                    id: '<%= page.date %>',
                     owner: gitment_config[0],
                     repo: gitment_config[1],
                     oauth: {

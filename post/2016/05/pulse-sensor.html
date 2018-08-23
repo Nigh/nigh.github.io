@@ -290,6 +290,7 @@ ps.. 第3点是因为love2d使用了luajit，无法正常调用luars232，替换
             $.getScript('https://imsun.github.io/gitment/dist/gitment.browser.js', function() {
                 var gitment_config = 'Nigh:nigh.github.com:33cb8f2db7ecd963a797:ce8e54d19eae11b659003e983e7cd5d27ed97832'.split(':');
                 var gitment = new Gitment({
+                    id: '<%= page.date %>',
                     owner: gitment_config[0],
                     repo: gitment_config[1],
                     oauth: {
