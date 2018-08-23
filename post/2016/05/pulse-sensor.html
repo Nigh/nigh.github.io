@@ -55,28 +55,6 @@
     var root = '';
 </script>
 
-<script type="text/javascript">
-    var conn, reloadTimer, connectTimer;
-    var connect = function() {
-        conn = new WebSocket('ws://' + location.host + '/live');
-        conn.onmessage = function(event) {
-            if (event.data === 'change') {
-                if (reloadTimer) clearTimeout(reloadTimer);
-                reloadTimer = setTimeout(function() {
-                    window.location.reload();
-                }, 200);
-            }
-        };
-        conn.onclose = function() {
-            if (connectTimer) clearTimeout(connectTimer);
-            connectTimer = setTimeout(function() {
-                connect();
-            }, 1000);
-        };
-    };
-    connect();
-</script>
-
 
         <meta name="keywords" content="code,arduino,love2d,">
         <meta name="description" content="光学脉搏测量 - PulseSensor试用">
@@ -290,7 +268,7 @@ ps.. 第3点是因为love2d使用了luajit，无法正常调用luars232，替换
             $.getScript('https://imsun.github.io/gitment/dist/gitment.browser.js', function() {
                 var gitment_config = 'Nigh:nigh.github.com:33cb8f2db7ecd963a797:ce8e54d19eae11b659003e983e7cd5d27ed97832'.split(':');
                 var gitment = new Gitment({
-                    id: '<%= page.date %>',
+                    id: String( 1462852800 ),
                     owner: gitment_config[0],
                     repo: gitment_config[1],
                     oauth: {

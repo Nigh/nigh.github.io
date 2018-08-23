@@ -55,28 +55,6 @@
     var root = '';
 </script>
 
-<script type="text/javascript">
-    var conn, reloadTimer, connectTimer;
-    var connect = function() {
-        conn = new WebSocket('ws://' + location.host + '/live');
-        conn.onmessage = function(event) {
-            if (event.data === 'change') {
-                if (reloadTimer) clearTimeout(reloadTimer);
-                reloadTimer = setTimeout(function() {
-                    window.location.reload();
-                }, 200);
-            }
-        };
-        conn.onclose = function() {
-            if (connectTimer) clearTimeout(connectTimer);
-            connectTimer = setTimeout(function() {
-                connect();
-            }, 1000);
-        };
-    };
-    connect();
-</script>
-
 
         <meta name="keywords" content="moe,photo,cosplay,ACG,">
         <meta name="description" content="深圳 四季漫·夏 2016 场照">
@@ -247,7 +225,7 @@ pose和表情也很到位。私以为是本场见到的coser里面素质最高�
             $.getScript('https://imsun.github.io/gitment/dist/gitment.browser.js', function() {
                 var gitment_config = 'Nigh:nigh.github.com:33cb8f2db7ecd963a797:ce8e54d19eae11b659003e983e7cd5d27ed97832'.split(':');
                 var gitment = new Gitment({
-                    id: '<%= page.date %>',
+                    id: String( 1462248000 ),
                     owner: gitment_config[0],
                     repo: gitment_config[1],
                     oauth: {
