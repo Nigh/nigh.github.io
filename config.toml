@@ -1,0 +1,25 @@
+baseURL = "/"
+languageCode = "zh-cn"
+title = "闲一集"
+
+theme = "github"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+
+[params]
+  math = true
+  contributions = "post"
+  author = "xianii"
+  github = "Nigh"
+  description = "Just a full stack electronic engineer."
+  twitter = "xiaxianyi"
+  email = "jiyucheng007@gmail.com"
+  utterances = "nigh/nigh.github.io"
+  url = "https://nigh.github.io"
+  location = "China"
+  lastmod = true
+  enableEmoji = true
+  enableInlineShortcodes = true
+
+[frontmatter]
+  lastmod = ["lastmod", ":fileModTime", ":default"]
