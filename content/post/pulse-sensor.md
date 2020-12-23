@@ -11,7 +11,7 @@ summary: 使用 arduino + PulseSensor 测量脉搏
 
 ## demo展示
 
-![](http://7xozbx.com1.z0.glb.clouddn.com/pulsesensor/IMG_1_2.jpg-w720p)
+![](http://cdn.corumi.cn/pulsesensor/IMG_1_2.jpg-h720p)
 
 ## 材料准备
 
@@ -30,7 +30,7 @@ summary: 使用 arduino + PulseSensor 测量脉搏
 + Arduino Leonardo
 + SP4(Windows10 10586.218)
 
-![](http://7xozbx.com1.z0.glb.clouddn.com/pulsesensor/IMG_3_2.jpg-h720p)
+![](http://cdn.corumi.cn/pulsesensor/IMG_3_2.jpg-h720p)
 
 ### 软件
 
@@ -46,7 +46,7 @@ summary: 使用 arduino + PulseSensor 测量脉搏
 ### 器件连接
 
 传感器引脚从左往右分别是`GND`,`VCC`和`SIG`，分别连接至`地`，`电源`和`ADC`口即可。传感器兼容3.3v-5v的驱动电压。
-![连接图](http://7xozbx.com1.z0.glb.clouddn.com/pulsesensor/IMG_4_2.jpg)
+![连接图](http://cdn.corumi.cn/pulsesensor/IMG_4_2.jpg-h720p)
 
 ### 代码
 
@@ -74,7 +74,7 @@ summary: 使用 arduino + PulseSensor 测量脉搏
 
 由于`love2d`引擎使用lua开发，笔者使用了一个[luars232](https://github.com/LuaDist2/luars232/releases)库来完成串口通信。
 
->> 经过笔者测试，这个luars232库有这样的bug，无法打开大于COM9的串口。所以如果你的设备连接上之后如果串口号超过了COM9，请手动改至COM0-9的范围。
+>经过笔者测试，这个luars232库有这样的bug，无法打开大于COM9的串口。所以如果你的设备连接上之后如果串口号超过了COM9，请手动改至COM0-9的范围。
 
 上位机经过如下步骤便可得到题图所示的效果：
 
@@ -88,18 +88,16 @@ summary: 使用 arduino + PulseSensor 测量脉搏
 8. 双击运行得到的`.love`文件即可
 
 你可以先用arduino IDE自带的串口工具查看一下开发板的串口输出是否正常再进行下一步
-![](http://7xozbx.com1.z0.glb.clouddn.com/pulsesensor/serial2.png)
+![](http://cdn.corumi.cn/pulsesensor/serial2.png-h720p)
 
 最终，应该得到如下图所示的结果。
-![](http://7xozbx.com1.z0.glb.clouddn.com/pulsesensor/window2.png)
+![](http://cdn.corumi.cn/pulsesensor/window2.png-h720p)
 
 
 
->> ps. 第7点所述为love2d的打包方法之一，更多运行方法请参见官网  
->> ps.. 第3点是因为love2d使用了luajit，无法正常调用luars232，替换成原生lua即可  
+>ps. 第7点所述为love2d的打包方法之一，更多运行方法请参见官网  
+>ps.. 第3点是因为love2d使用了luajit，无法正常调用luars232，替换成原生lua即可  
 
 
 
-
-
->> 本项目Git:[https://github.com/Nigh/pulsesensor-demo]
+>本项目Git:[https://github.com/Nigh/pulsesensor-demo]
