@@ -16,7 +16,7 @@ summary:
 
 先简要介绍一下inkpaper。[InkPaper](http://www.inkpaper.io/)（纸小墨）是一个使用GO语言编写的静态博客构建工具，可以快速搭建博客网站。优点是无依赖、跨平台，配置简单、构建快速，注重于简洁易用与排版优化。
 
-![inkpaper](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Finkpaper.jpg)
+![inkpaper](https://s3.ax1x.com/2020/12/23/rsIZee.md.jpg)
 
 本博客自从第二篇文章，就开始使用inkpaper了，拖了很长时间，现在介绍一下如何在树莓派上搭建inkpaper环境。
 
@@ -30,19 +30,19 @@ summary:
 
 下载后缀为`linux-arm6.tar.gz`的版本即可。
 
-![downloadpage](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fdownloadpage.jpg)
+![downloadpage](https://s3.ax1x.com/2020/12/23/rs5xZ4.md.jpg)
 
 下载完成后，使用`tar -xf`命令解压文件，然后如图所示放到`/usr/local/`目录下。
 
-![dir](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fdir.jpg)
+![dir](https://s3.ax1x.com/2020/12/23/rsISo9.md.jpg)
 
 然后进入`/usr/local/go/bin`目录，你会看到`go`的二进制文件就在这里。
 
-![ls](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fls.jpg)
+![ls](https://s3.ax1x.com/2020/12/23/rsIedH.md.jpg)
 
 试试`./go`运行一下。正常。
 
-![tar-go](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Ftar-go.jpg)
+![tar-go](https://s3.ax1x.com/2020/12/23/rsIuFA.md.jpg)
 
 为了在任何地方都能运行，并且能够正常使用`go`进行构建，还需要设置一下`PATH`。运行`sudo vim /etc/profile`进行编辑，添加如下内容:
 
@@ -51,31 +51,31 @@ summary:
     export GOBIN=$GOROOT/bin
     export PATH=$PATH:$GOROOT:$GOBIN
 
-![profile](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fprofile.jpg)
+![profile](https://s3.ax1x.com/2020/12/23/rsImod.md.jpg)
 
 保存后重启X桌面环境，以便环境变量更改生效。重启后，执行`env`可以查看当前的环境变量确认更改已经生效。直接运行`go`，可以正常执行。
 
-![go run](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fgo-run.jpg)
+![go run](https://s3.ax1x.com/2020/12/23/rsIkQK.md.jpg)
 
 然后就可以准备构建inkpaper了。在此之前，先确认你的GOPATH变量已经正确的设置了。GOPATH设置的是go的包存放的默认位置，go命令以及相关工具会去这个路径找，如果没有设置的话，会出现如下的错误。
 
-![GOPATH ERROR](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fgopath-err.jpg)
+![GOPATH ERROR](https://s3.ax1x.com/2020/12/23/rsIPRx.md.jpg)
 
 然后我们开始构建inkpaper，一条命令就够了`go get github.com/InkProject/ink`，大概需要一分钟到几分钟的时间，期间不会有任何提示，静静等待就可以了。
 
 
 构建完成。直接执行`ink`试试。正常打印出了提示信息。
 
-![inkrun](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fink-run.jpg)
+![inkrun](https://s3.ax1x.com/2020/12/23/rsIAsO.md.jpg)
 
 然后我们使用`ink preview $GOPATH/src/github.com/InkProject/ink/template/`，用自带的模板生成预览。
 
-![ink preview](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fink-preview.jpg)
+![ink preview](https://s3.ax1x.com/2020/12/23/rsIELD.md.jpg)
 
 
 打开浏览器，访问默认的预览地址`localhost:8000`，如下图所示。至此，inkpaper的使用环境就全部搭建完成了，当然还是希望作者能够提供raspberryPi的二进制包，免去自己构建的麻烦。虽然只是一条命令的事情，如果已经装好了go环境的话。
 
-![browser preview](http://7xozbx.com1.z0.glb.clouddn.com/inkpaper-on-raspi%2Fbrowser-preview.jpg)
+![browser preview](https://s3.ax1x.com/2020/12/23/rs5zdJ.md.jpg)
 
 ps. 树莓派上使用的截图工具为scrot.
 
