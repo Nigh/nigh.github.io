@@ -247,15 +247,12 @@ style="display: none;">Sat</text>
   document.querySelector('#graph-svg').innerHTML = html;
 }
 
-let svgElem = document.createElement('div');
-svgElem.style.cssText = 'pointer-events: none; display: none;';
-svgElem.classList.add(...["svg-tip", "svg-tip-one-line"]);
-document.body.appendChild(svgElem);
+let svgElem;
 
 function svgTip(elem, count, dateStr) {
-  if (window.screen.width < 768) {
-    return;
-  }
+  svgElem = document.createElement('div');
+  svgElem.style.cssText = 'pointer-events: none; display: none;';
+  svgElem.classList.add(...["svg-tip", "svg-tip-one-line"]);
   const rect = getCoords(elem);
   const date = new Date(dateStr);
   const dateFmt = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
@@ -264,14 +261,14 @@ function svgTip(elem, count, dateStr) {
   } else {
     svgElem.innerHTML = `<strong>No posts</strong> on ${dateFmt}`;
   }
-  svgElem.style.display = 'block';
-  const tipRect = svgElem.getBoundingClientRect();
   svgElem.style.top = `${rect.top - 50}px`;
-  svgElem.style.left = `${rect.left - tipRect.width / 2 + rect.width / 2}px`;
+  svgElem.style.left = `${rect.left - 78}px`;
+  svgElem.style.display = 'block';
+  document.body.appendChild(svgElem);
 }
 
 function hideTip() {
-  svgElem.style.display = 'none';
+  svgElem.remove();
 }
 
 function getCoords(elem) {
@@ -289,7 +286,7 @@ function getCoords(elem) {
   var top = box.top + scrollTop - clientTop;
   var left = box.left + scrollLeft - clientLeft;
 
-  return { top, left, width: box.width, height: box.height };
+  return { top: Math.round(top), left: Math.round(left) };
 }
 
 function relativeTime(dateStr) {
