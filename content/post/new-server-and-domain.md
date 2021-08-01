@@ -52,17 +52,45 @@ summary: 买了新的域名和服务器
 
 然后新建了一个测试目录，进入目录，新建一个文件`Caddyfile`，内容如下：
 
-```
+```caddy
 :80
 respond "Hello, world!"
 ```
 
 然后在目录下运行`caddy adapt`，成功运行起来。
 
-再通过`tecnico.cc`访问，显示出了`caddy`的初始页面。测试成功了。
+再通过`tecnico.cc`访问，显示出了`Hello, world!`的字样。测试成功。
 
-### 2|
+> 由于监听80, 443等端口需要更高的权限，所以需要使用`sudo`权限启动`caddy`
+>
+> 先`caddy stop`，再`sudo caddy start`即可。
+
+### 2|未备案
 
 虽然过了几分钟腾讯就用未备案的警告页面给我重定向了。
 
 所以又去弄域名备案了。
+
+### 3|pages
+
+未备案不能用域名访问，但是直接用ip地址访问来测试还是没问题的。
+
+新建一个目录`~/www/test`，然后把测试的网页复制进去。
+
+修改`Caddyfile`的内容为：
+
+```caddy
+:80
+
+root * /home/ubuntu/www/test
+file_server
+```
+
+然后`caddy reload`更新配置。刷新网页即可看到页面正常显示出来了。
+
+> Caddyfile的root命令不支持~目录，需要写入完整的路径
+>
+> 或者可以使用环境变量写作`root * {$HOME}/www/test`
+>
+> 更多caddyfile用法参见官方文档
+
