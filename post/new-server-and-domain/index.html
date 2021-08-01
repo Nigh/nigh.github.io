@@ -85,8 +85,8 @@
 Created <relative-time datetime="Thu, 29 Jul 2021 00:00:00 +0000" class=no-wrap>
 Thu, 29 Jul 2021 00:00:00 +0000</relative-time>
 <span class=file-info-divider></span>
-Modified <relative-time datetime="Thu, 29 Jul 2021 14:25:38 +0000" class=no-wrap>
-Thu, 29 Jul 2021 14:25:38 +0000</relative-time>
+Modified <relative-time datetime="Sun, 01 Aug 2021 18:32:00 +0000" class=no-wrap>
+Sun, 01 Aug 2021 18:32:00 +0000</relative-time>
 </div>
 </div>
 </div>
@@ -102,7 +102,7 @@ Thu, 29 Jul 2021 14:25:38 +0000</relative-time>
 <div class="file-header d-flex flex-md-items-center flex-items-start">
 <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
 <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
-538 Words
+799 Words
 </div>
 <div class="file-actions flex-order-2 pt-0">
 </div>
@@ -129,13 +129,31 @@ Thu, 29 Jul 2021 14:25:38 +0000</relative-time>
 <p>还是用<code>caddy</code>跑个页面测试吧。</p>
 <p>跟随 <a href=https://caddyserver.com/docs/install#debian-ubuntu-raspbian>https://caddyserver.com/docs/install#debian-ubuntu-raspbian</a> 文档操作安装<code>caddy</code></p>
 <p>然后新建了一个测试目录，进入目录，新建一个文件<code>Caddyfile</code>，内容如下：</p>
-<pre><code>:80
-respond &quot;Hello, world!&quot;
-</code></pre><p>然后在目录下运行<code>caddy adapt</code>，成功运行起来。</p>
-<p>再通过<code>tecnico.cc</code>访问，显示出了<code>caddy</code>的初始页面。测试成功了。</p>
-<h3 id=2>2|</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-caddy data-lang=caddy><span class=gh>:80</span><span class=p>
+</span><span class=p></span><span class=k>respond</span> <span class=s>&#34;Hello,</span> <span class=s>world!&#34;</span>
+</code></pre></div><p>然后在目录下运行<code>caddy adapt</code>，成功运行起来。</p>
+<p>再通过<code>tecnico.cc</code>访问，显示出了<code>Hello, world!</code>的字样。测试成功。</p>
+<blockquote>
+<p>由于监听80, 443等端口需要更高的权限，所以需要使用<code>sudo</code>权限启动<code>caddy</code></p>
+<p>先<code>caddy stop</code>，再<code>sudo caddy start</code>即可。</p>
+</blockquote>
+<h3 id=2未备案>2|未备案</h3>
 <p>虽然过了几分钟腾讯就用未备案的警告页面给我重定向了。</p>
 <p>所以又去弄域名备案了。</p>
+<h3 id=3pages>3|pages</h3>
+<p>未备案不能用域名访问，但是直接用ip地址访问来测试还是没问题的。</p>
+<p>新建一个目录<code>~/www/test</code>，然后把测试的网页复制进去。</p>
+<p>修改<code>Caddyfile</code>的内容为：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-caddy data-lang=caddy><span class=gh>:80</span><span class=p>
+</span><span class=p></span>
+<span class=k>root</span> <span class=nd>*</span> <span class=s>/home/ubuntu/www/test</span>
+<span class=k>file_server</span>
+</code></pre></div><p>然后<code>caddy reload</code>更新配置。刷新网页即可看到页面正常显示出来了。</p>
+<blockquote>
+<p>Caddyfile的root命令不支持~目录，需要写入完整的路径</p>
+<p>或者可以使用环境变量写作<code>root * {$HOME}/www/test</code></p>
+<p>更多caddyfile用法参见官方文档</p>
+</blockquote>
 </article>
 </div>
 </div>
