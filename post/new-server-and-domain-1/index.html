@@ -9,24 +9,24 @@
 <link rel=stylesheet href=https://nigh.github.io/css/light.css>
 <link rel=stylesheet href=https://nigh.github.io/css/dark.css>
 <link rel=stylesheet href=https://nigh.github.io/css/syntax.css>
-<title>新的域名和服务器配置-1 - 闲一集</title>
+<title>tecnico.cc-1-PWA应用初探 - 闲一集</title>
 <link rel=icon type=image/x-icon href=https://nigh.github.io/images/favicon.ico>
 <meta name=theme-color content="#1e2327">
-<meta name=description content="买了新的域名和服务器">
+<meta name=description content="第一个PWA应用">
 <meta name=keywords content>
 <meta name=robots content="noodp">
-<link rel=canonical href=https://nigh.github.io/post/new-server-and-domain/>
+<link rel=canonical href=https://nigh.github.io/post/new-server-and-domain-1/>
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="新的域名和服务器配置-1 - 闲一集">
-<meta name=twitter:description content="买了新的域名和服务器">
+<meta name=twitter:title content="tecnico.cc-1-PWA应用初探 - 闲一集">
+<meta name=twitter:description content="第一个PWA应用">
 <meta name=twitter:site content="https://nigh.github.io/">
 <meta name=twitter:creator content>
 <meta name=twitter:image content="https://nigh.github.io/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="新的域名和服务器配置-1 - 闲一集">
-<meta property="og:description" content="买了新的域名和服务器">
-<meta property="og:url" content="https://nigh.github.io/post/new-server-and-domain/">
-<meta property="og:site_name" content="新的域名和服务器配置-1">
+<meta property="og:title" content="tecnico.cc-1-PWA应用初探 - 闲一集">
+<meta property="og:description" content="第一个PWA应用">
+<meta property="og:url" content="https://nigh.github.io/post/new-server-and-domain-1/">
+<meta property="og:site_name" content="tecnico.cc-1-PWA应用初探">
 <meta property="og:image" content="https://nigh.github.io/">
 <meta property="og:image:width" content="2048">
 <meta property="og:image:height" content="1024">
@@ -79,14 +79,14 @@
 <div class="d-flex flex-column">
 <h1 class="break-word f3 text-normal mb-md-0 mb-1">
 <span class=author>
-<a href=https://nigh.github.io/>xianii</a></span><span class=path-divider>/</span><strong class="css-truncate-target mr-1" style=max-width:410px><a href=https://nigh.github.io/post/new-server-and-domain/>新的域名和服务器配置-1</a></strong>
+<a href=https://nigh.github.io/>xianii</a></span><span class=path-divider>/</span><strong class="css-truncate-target mr-1" style=max-width:410px><a href=https://nigh.github.io/post/new-server-and-domain-1/>tecnico.cc-1-PWA应用初探</a></strong>
 </h1>
 <div class="note m-0">
 Created <relative-time datetime="Thu, 29 Jul 2021 00:00:00 +0000" class=no-wrap>
 Thu, 29 Jul 2021 00:00:00 +0000</relative-time>
 <span class=file-info-divider></span>
-Modified <relative-time datetime="Sun, 01 Aug 2021 18:32:00 +0000" class=no-wrap>
-Sun, 01 Aug 2021 18:32:00 +0000</relative-time>
+Modified <relative-time datetime="Wed, 11 Aug 2021 18:10:39 +0000" class=no-wrap>
+Wed, 11 Aug 2021 18:10:39 +0000</relative-time>
 </div>
 </div>
 </div>
@@ -102,58 +102,30 @@ Sun, 01 Aug 2021 18:32:00 +0000</relative-time>
 <div class="file-header d-flex flex-md-items-center flex-items-start">
 <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
 <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
-799 Words
+784 Words
 </div>
 <div class="file-actions flex-order-2 pt-0">
 </div>
 </div>
 </div>
 <div class="Box-body px-5 pb-5">
-<article class="markdown-body entry-content container-lg"><h2 id=购置>购置</h2>
-<p>之前<code>腾讯云</code>搞活动有个比较便宜的主机就买下来了。</p>
-<p>配置为<code>单核2GB|50Gb储存|500Gb流量|5Mbps带宽</code>，每个月15块钱。</p>
-<p>然后在阿里的万网注册了一个<code>tecnico.cc</code>的域名，10年380块，算下来每个月大约3块2。</p>
-<p>所以这套配置如果不涨价的话，每个月18块钱，还算挺便宜吧。</p>
-<h2 id=配置>配置</h2>
-<p>在阿里的控制台对域名进行了实名注册和备案。</p>
-<p>然后配置一下域名解析到服务器的ip</p>
-<p>再重置服务器密码，这样才能用ssh登录</p>
-<h2 id=测试>测试</h2>
-<p>拉取<code>Ello</code>的页面作为测试：<code>git clone https://gitee.com/xianii/ello-world</code></p>
-<p>拉取子模块<code>git submodule update --init --recursive</code></p>
-<p>由于主题的子模块托管在<code>github</code>，从腾讯云上拉取失败了。</p>
-<p>没办法，只能进入<code>theme</code>目录，手动从<code>github</code>的第三方加速镜像拉取<code>git clone https://hub.fastgit.org/Nigh/tinyworks</code></p>
-<h3 id=0hugo-server>0|hugo server</h3>
-<p>想直接使用<code>hugo server</code>来测试，然而配置了一番，端口啥的都弄了，服务器上跑的<code>hugo server</code>没法从域名访问到。</p>
-<h3 id=1caddyserver>1|caddyserver</h3>
-<p>还是用<code>caddy</code>跑个页面测试吧。</p>
-<p>跟随 <a href=https://caddyserver.com/docs/install#debian-ubuntu-raspbian>https://caddyserver.com/docs/install#debian-ubuntu-raspbian</a> 文档操作安装<code>caddy</code></p>
-<p>然后新建了一个测试目录，进入目录，新建一个文件<code>Caddyfile</code>，内容如下：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-caddy data-lang=caddy><span class=gh>:80</span><span class=p>
-</span><span class=p></span><span class=k>respond</span> <span class=s>&#34;Hello,</span> <span class=s>world!&#34;</span>
-</code></pre></div><p>然后在目录下运行<code>caddy adapt</code>，成功运行起来。</p>
-<p>再通过<code>tecnico.cc</code>访问，显示出了<code>Hello, world!</code>的字样。测试成功。</p>
-<blockquote>
-<p>由于监听80, 443等端口需要更高的权限，所以需要使用<code>sudo</code>权限启动<code>caddy</code></p>
-<p>先<code>caddy stop</code>，再<code>sudo caddy start</code>即可。</p>
+<article class="markdown-body entry-content container-lg"><blockquote>
+<p>本文参考 <a href=https://medium.com/@toricpope/transform-a-react-app-into-a-progressive-web-app-pwa-dea336bd96e6>https://medium.com/@toricpope/transform-a-react-app-into-a-progressive-web-app-pwa-dea336bd96e6</a> 进行操作</p>
 </blockquote>
-<h3 id=2未备案>2|未备案</h3>
-<p>虽然过了几分钟腾讯就用未备案的警告页面给我重定向了。</p>
-<p>所以又去弄域名备案了。</p>
-<h3 id=3pages>3|pages</h3>
-<p>未备案不能用域名访问，但是直接用ip地址访问来测试还是没问题的。</p>
-<p>新建一个目录<code>~/www/test</code>，然后把测试的网页复制进去。</p>
-<p>修改<code>Caddyfile</code>的内容为：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-caddy data-lang=caddy><span class=gh>:80</span><span class=p>
-</span><span class=p></span>
-<span class=k>root</span> <span class=nd>*</span> <span class=s>/home/ubuntu/www/test</span>
-<span class=k>file_server</span>
-</code></pre></div><p>然后<code>caddy reload</code>更新配置。刷新网页即可看到页面正常显示出来了。</p>
-<blockquote>
-<p>Caddyfile的root命令不支持~目录，需要写入完整的路径</p>
-<p>或者可以使用环境变量写作<code>root * {$HOME}/www/test</code></p>
-<p>更多caddyfile用法参见官方文档</p>
-</blockquote>
+<h2 id=计划>计划</h2>
+<p>最近的计划是关于<code>Domiso v1.0</code>发布的，后面还是计划将谱面编辑和试听的功能都放在网页端，桌面端的App和安卓端的<code>AutoXJS</code>就只负责与游戏交互进行演奏的功能，这样谱面的编辑和试听就能够同时兼顾桌面和移动端。试听功能拟采用<code>https://github.com/jazz-soft/JZZ</code>这个框架，研究了一下demo，功能基本都覆盖甚至超过了我的需求，是个挺好的轮子。</p>
+<h2 id=变化>变化</h2>
+<p>因为突然的灵感写了一个战力计算器。因为逻辑比较简单，所以就想先作为练手项目，熟悉一下PWA应用的搭建吧。这样也不至于后面写<code>Domiso</code>的时候碰到问题太多。</p>
+<h2 id=go>Go！</h2>
+<p><code>npx create-react-app my-app --template cra-template-pwa</code>直接用模板创建了一个项目。跑起来之后，在<code>Chrome</code>的调试界面进入<code>Lighthouse</code>选项卡，勾选<code>Progressive Web App</code>进行审查，当然也可以全部勾选看看其他部分有些什么问题。</p>
+<p>然后在结果页面就能看到有哪些部分不满足PWA应用需求的。</p>
+<h3 id=service-worker>Service worker</h3>
+<p><code>Service worker</code>是一个客户端(<em>client-side</em>)的资源代理，将资源缓存在本地，使得页面可以立即展示，而不需要依赖网络。</p>
+<p>在<code>index.js</code>中将<code>serviceWorkerRegistration.unregister()</code>的<code>unregister</code>改为<code>register</code></p>
+<p>然而，在<code>serviceWorkerRegistration.js</code>中<code>register</code>方法只能在<code>production</code>环境生效，</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=k>if</span> <span class=p>(</span><span class=nx>process</span><span class=p>.</span><span class=nx>env</span><span class=p>.</span><span class=nx>NODE_ENV</span> <span class=o>===</span> <span class=s1>&#39;production&#39;</span> <span class=o>&amp;&amp;</span> <span class=s1>&#39;serviceWorker&#39;</span> <span class=k>in</span> <span class=nx>navigator</span><span class=p>)</span>
+</code></pre></div><p>修改这里也不能正常运行。所以还是<code>npm run build</code>编译出发行包，然后<code>serve -s build</code>直接在build目录启动服务器测试。</p>
+<p>然后再跑一遍<code>lighthouse</code>测试，已经能够作为PWA应用安装了！就只有（<code>Downloaded icon was empty or corrupted</code>）图标问题需要解决了。在<code>manifest.json</code>里面添加对应的图标资源就OK啦。</p>
 </article>
 </div>
 </div>
