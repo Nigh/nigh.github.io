@@ -9,28 +9,28 @@
 <link rel=stylesheet href=https://nigh.github.io/css/light.css>
 <link rel=stylesheet href=https://nigh.github.io/css/dark.css>
 <link rel=stylesheet href=https://nigh.github.io/css/syntax.css>
-<title>tecnico.cc-0-新的域名和服务器配置 - 闲一集</title>
+<title>tecnico.cc-3-non-root部署 - 闲一集</title>
 <link rel=icon type=image/x-icon href=https://nigh.github.io/images/favicon.ico>
 <meta name=theme-color content="#1e2327">
-<meta name=description content="买了新的域名和服务器">
+<meta name=description content="非根目录部署">
 <meta name=keywords content>
 <meta name=robots content="noodp">
-<link rel=canonical href=https://nigh.github.io/post/new-server-and-domain-0/>
+<link rel=canonical href=https://nigh.github.io/post/new-server-and-domain-3/>
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="tecnico.cc-0-新的域名和服务器配置 - 闲一集">
-<meta name=twitter:description content="买了新的域名和服务器">
+<meta name=twitter:title content="tecnico.cc-3-non-root部署 - 闲一集">
+<meta name=twitter:description content="非根目录部署">
 <meta name=twitter:site content="https://nigh.github.io/">
 <meta name=twitter:creator content>
 <meta name=twitter:image content="https://nigh.github.io/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tecnico.cc-0-新的域名和服务器配置 - 闲一集">
-<meta property="og:description" content="买了新的域名和服务器">
-<meta property="og:url" content="https://nigh.github.io/post/new-server-and-domain-0/">
-<meta property="og:site_name" content="tecnico.cc-0-新的域名和服务器配置">
+<meta property="og:title" content="tecnico.cc-3-non-root部署 - 闲一集">
+<meta property="og:description" content="非根目录部署">
+<meta property="og:url" content="https://nigh.github.io/post/new-server-and-domain-3/">
+<meta property="og:site_name" content="tecnico.cc-3-non-root部署">
 <meta property="og:image" content="https://nigh.github.io/">
 <meta property="og:image:width" content="2048">
 <meta property="og:image:height" content="1024">
-<meta property="article:published_time" content="2021-07-29 00:00:00 +0000 UTC">
+<meta property="article:published_time" content="2021-08-19 00:00:00 +0000 UTC">
 </head>
 <body>
 <div style=position:relative>
@@ -79,11 +79,11 @@
 <div class="d-flex flex-column">
 <h1 class="break-word f3 text-normal mb-md-0 mb-1">
 <span class=author>
-<a href=https://nigh.github.io/>xianii</a></span><span class=path-divider>/</span><strong class="css-truncate-target mr-1" style=max-width:410px><a href=https://nigh.github.io/post/new-server-and-domain-0/>tecnico.cc-0-新的域名和服务器配置</a></strong>
+<a href=https://nigh.github.io/>xianii</a></span><span class=path-divider>/</span><strong class="css-truncate-target mr-1" style=max-width:410px><a href=https://nigh.github.io/post/new-server-and-domain-3/>tecnico.cc-3-non-root部署</a></strong>
 </h1>
 <div class="note m-0">
-Created <relative-time datetime="Thu, 29 Jul 2021 00:00:00 +0000" class=no-wrap>
-Thu, 29 Jul 2021 00:00:00 +0000</relative-time>
+Created <relative-time datetime="Thu, 19 Aug 2021 00:00:00 +0000" class=no-wrap>
+Thu, 19 Aug 2021 00:00:00 +0000</relative-time>
 <span class=file-info-divider></span>
 Modified <relative-time datetime="Thu, 19 Aug 2021 14:03:35 +0000" class=no-wrap>
 Thu, 19 Aug 2021 14:03:35 +0000</relative-time>
@@ -102,58 +102,27 @@ Thu, 19 Aug 2021 14:03:35 +0000</relative-time>
 <div class="file-header d-flex flex-md-items-center flex-items-start">
 <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
 <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
-799 Words
+551 Words
 </div>
 <div class="file-actions flex-order-2 pt-0">
 </div>
 </div>
 </div>
 <div class="Box-body px-5 pb-5">
-<article class="markdown-body entry-content container-lg"><h2 id=购置>购置</h2>
-<p>之前<code>腾讯云</code>搞活动有个比较便宜的主机就买下来了。</p>
-<p>配置为<code>单核2GB|50Gb储存|500Gb流量|5Mbps带宽</code>，每个月15块钱。</p>
-<p>然后在阿里的万网注册了一个<code>tecnico.cc</code>的域名，10年380块，算下来每个月大约3块2。</p>
-<p>所以这套配置如果不涨价的话，每个月18块钱，还算挺便宜吧。</p>
-<h2 id=配置>配置</h2>
-<p>在阿里的控制台对域名进行了实名注册和备案。</p>
-<p>然后配置一下域名解析到服务器的ip</p>
-<p>再重置服务器密码，这样才能用ssh登录</p>
-<h2 id=测试>测试</h2>
-<p>拉取<code>Ello</code>的页面作为测试：<code>git clone https://gitee.com/xianii/ello-world</code></p>
-<p>拉取子模块<code>git submodule update --init --recursive</code></p>
-<p>由于主题的子模块托管在<code>github</code>，从腾讯云上拉取失败了。</p>
-<p>没办法，只能进入<code>theme</code>目录，手动从<code>github</code>的第三方加速镜像拉取<code>git clone https://hub.fastgit.org/Nigh/tinyworks</code></p>
-<h3 id=0hugo-server>0|hugo server</h3>
-<p>想直接使用<code>hugo server</code>来测试，然而配置了一番，端口啥的都弄了，服务器上跑的<code>hugo server</code>没法从域名访问到。</p>
-<h3 id=1caddyserver>1|caddyserver</h3>
-<p>还是用<code>caddy</code>跑个页面测试吧。</p>
-<p>跟随 <a href=https://caddyserver.com/docs/install#debian-ubuntu-raspbian>https://caddyserver.com/docs/install#debian-ubuntu-raspbian</a> 文档操作安装<code>caddy</code></p>
-<p>然后新建了一个测试目录，进入目录，新建一个文件<code>Caddyfile</code>，内容如下：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-caddy data-lang=caddy><span class=gh>:80</span><span class=p>
-</span><span class=p></span><span class=k>respond</span> <span class=s>&#34;Hello,</span> <span class=s>world!&#34;</span>
-</code></pre></div><p>然后在目录下运行<code>caddy adapt</code>，成功运行起来。</p>
-<p>再通过<code>tecnico.cc</code>访问，显示出了<code>Hello, world!</code>的字样。测试成功。</p>
-<blockquote>
-<p>由于监听80, 443等端口需要更高的权限，所以需要使用<code>sudo</code>权限启动<code>caddy</code></p>
-<p>先<code>caddy stop</code>，再<code>sudo caddy start</code>即可。</p>
-</blockquote>
-<h3 id=2未备案>2|未备案</h3>
-<p>虽然过了几分钟腾讯就用未备案的警告页面给我重定向了。</p>
-<p>所以又去弄域名备案了。</p>
-<h3 id=3pages>3|pages</h3>
-<p>未备案不能用域名访问，但是直接用ip地址访问来测试还是没问题的。</p>
-<p>新建一个目录<code>~/www/test</code>，然后把测试的网页复制进去。</p>
-<p>修改<code>Caddyfile</code>的内容为：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-caddy data-lang=caddy><span class=gh>:80</span><span class=p>
-</span><span class=p></span>
-<span class=k>root</span> <span class=nd>*</span> <span class=s>/home/ubuntu/www/test</span>
-<span class=k>file_server</span>
-</code></pre></div><p>然后<code>caddy reload</code>更新配置。刷新网页即可看到页面正常显示出来了。</p>
-<blockquote>
-<p>Caddyfile的root命令不支持~目录，需要写入完整的路径</p>
-<p>或者可以使用环境变量写作<code>root * {$HOME}/www/test</code></p>
-<p>更多caddyfile用法参见官方文档</p>
-</blockquote>
+<article class="markdown-body entry-content container-lg"><p>按照计划是将应用部署在<code>app.tecnico.cc/xxxxx</code>这样的子域名下。</p>
+<p>Caddy的配置如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-caddy data-lang=caddy><span class=gh>app.tecnico.cc</span> <span class=p>{</span>
+        <span class=k>root</span> <span class=nd>*</span> <span class=se>{$HOME}</span><span class=s>/www/app.tecnico.cc</span>
+        <span class=k>file_server</span>
+        <span class=k>encode</span> <span class=s>gzip</span>
+<span class=p>}</span>
+</code></pre></div><p>然后把页面按照目录放到<code>HOME/www/app.tecnico.cc/</code>里面就能直接访问到了。</p>
+<h2 id=问题>问题</h2>
+<p>碰到的第一个问题是忘记加<code>app.tecnico.cc</code>子域名的解析了。加上就ok了。实际上可以直接加上泛域名解析，把所以子域名都解析到同一个ip下面，这样做是可以满足现在的需求的。</p>
+<p>第二个问题是所有资源的获取路径都错误的是从根目录下获取的，而不是页面所在的目录，所以获取不到。</p>
+<p>举例来说，本来资源路径是<code>https://app.tecnico.cc/abcd/static/xxx.js</code>，但是实际上变成了<code>https://app.tecnico.cc/static/xxx.js</code>.</p>
+<p>查阅了一下文档，发现在这个模板项目的<code>index.js</code>的代码注释中就有线索，只要在<code>package.json</code>中加上<code>"homepage": ".",</code>这条配置，就能够把里面的环境变量<code>PUBLIC_URL</code>更改为当前目录了。默认不加的话，是在根目录。当然，如果需要的话，也可以改成其他路径。</p>
+<p>然后第一个应用，虽然功能还没开始写，但是页面已经确确实实的跑起来了。也可以作为PWA应用安装到本地了。</p>
 </article>
 </div>
 </div>
