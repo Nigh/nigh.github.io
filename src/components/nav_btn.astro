@@ -1,0 +1,13 @@
+---
+const { href, svg } = Astro.props;
+---
+
+<a
+  href={href}
+  class="flex items-center gap-4 px-4 py-3 rounded-full hover:bg-primary/80 transition-colors font-bold bg-transparent"
+>
+  <svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6" fill="currentColor"
+    ><g><path d={svg}></path></g></svg
+  >
+  <span class="text-lg"><slot /></span>
+</a>

@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import Pages from '../../layouts/Pages.astro';
+const posts = await getCollection('posts');
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Pages>
+  <div id="content" class="flex flex-col align-center justify-center p-16">
+    <h1>Posts</h1>
+    <ul class="list w-full">
+      {
+        sortedPosts.map((post) => (
+          <a href={`${post.slug}/`}>
+            <li class="list-row mt-2 bg-base-300 rounded-box shadow-md hover:bg-primary/80">
+              <div class="list-col-grow">
+                <div class="font-bold text-lg">{post.data.title}</div>
+                <div class="text-xs uppercase font-semibold opacity-60">
+                  {post.data.date.toISOString().split('T')[0]}
+                </div>
+              </div>
+            </li>
+          </a>
+        ))
+      }
+    </ul>
+  </div>
+</Pages>
+
+<style>
+  #content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin-top: 0.25em;
+  }
+</style>
