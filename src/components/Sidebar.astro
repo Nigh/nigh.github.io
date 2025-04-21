@@ -15,8 +15,8 @@ const items = Array.from({ length: 5 }, (_, i) => i + 1);
     <p class="text-center">No recommend</p>
   </div>
 
-  <div class="flex flex-col p-4 gap-4 border-primary/20 border-1 rounded-xl">
-    <p class="text-lg font-bold mb-4">People you may know</p>
+  <div class="flex flex-col max-w-xs p-4 gap-4 border-primary/20 border-1 rounded-xl text-wrap">
+    <p class="text-lg font-bold mb-4 text-wrap">People you don't wanna know</p>
     {
       items.map((item) => (
         <div class="flex items-center gap-4 w-full">

@@ -6,8 +6,8 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
 ---
 
 <Pages>
-  <div id="content" class="flex flex-col align-center justify-center p-16">
-    <h1>Posts</h1>
+  <div id="content" class="align-center justify-center">
+    <h1 class="text-2xl font-bold mb-4">Posts</h1>
     <ul class="list w-full">
       {
         sortedPosts.map((post) => (
@@ -33,11 +33,6 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    padding: 16px;
-  }
-
-  h1 {
-    font-size: 22px;
-    margin-top: 0.25em;
+    padding: 0px 16px;
   }
 </style>
