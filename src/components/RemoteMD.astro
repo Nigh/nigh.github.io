@@ -1,0 +1,12 @@
+---
+import { marked } from 'marked';
+const { url } = Astro.props;
+
+const response = await fetch(url);
+const markdown = await response.text();
+const html = marked(markdown);
+---
+
+<div class="markdown-body">
+  <article set:html={html} />
+</div>

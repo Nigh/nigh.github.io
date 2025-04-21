@@ -1,0 +1,16 @@
+---
+import myLogo from '../assets/icon.png';
+import NavBtn from './nav_btn.astro';
+import nav from './nav_item.ts';
+---
+
+<div class="flex flex-col p-4">
+  <div class="flex justify-center items-center"><img src={myLogo.src} width="80" alt="" /></div>
+  {
+    nav.items.map((item) => (
+      <NavBtn href={item.href} svg={item.svg}>
+        {item.name}
+      </NavBtn>
+    ))
+  }
+</div>
