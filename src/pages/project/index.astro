@@ -1,26 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
+import Project from './project.astro';
 import Pages from '../../layouts/Pages.astro';
 const projects = await getCollection('projects');
 const sortedProjects = projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Pages>
-  <div id="content" class="flex flex-col align-center justify-center p-16">
-    <h1>Projects</h1>
-    <ul class="list w-full">
+  <div id="content" class="align-center justify-center">
+    <h1 class="text-2xl font-bold mb-4">Projects</h1>
+    <ul class="list w-full gap-2 md:grid md:grid-cols-2 md:gap-4">
       {
         sortedProjects.map((post) => (
-          <a href={`${post.slug}/`}>
-            <li class="list-row mt-2 bg-base-300 rounded-box shadow-md hover:bg-primary/80">
-              <div class="list-col-grow">
-                <div class="font-bold text-lg">{post.data.title}</div>
-                <div class="text-xs uppercase font-semibold opacity-60">
-                  {post.data.date.toISOString().split('T')[0]}
-                </div>
-              </div>
-            </li>
-          </a>
+          <Project
+            slug={post.slug}
+            content={post.body}
+            title={post.data.title}
+            url={post.data.url}
+            image={post.data.image}
+            description={post.data.description}
+          />
         ))
       }
     </ul>
@@ -33,11 +32,6 @@ const sortedProjects = projects.sort((a, b) => b.data.date.getTime() - a.data.da
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    padding: 16px;
-  }
-
-  h1 {
-    font-size: 22px;
-    margin-top: 0.25em;
+    padding: 0px 16px;
   }
 </style>
