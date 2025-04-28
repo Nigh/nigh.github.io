@@ -1,22 +1,17 @@
 ---
-const { title, slug, url, image, description, content } = Astro.props;
+const { title, slug, url, cover, description, content } = Astro.props;
+
+const target = content && content.length > 32 ? "_self" : "_blank";
+const href = content && content.length > 32 ? slug : url;
 ---
 
 <div
   class="flex flex-col justify-center border-primary/80 border-2 rounded-xl overflow-hidden hover:bg-primary"
 >
-  <img src={image} alt={title} class="w-full grow h-auto object-cover self-start" />
-  <div class="flex flex-grow">
-    {
-      content && content.length > 32 && (
-        <a href={slug} class="flex-grow btn btn-info btn-xs rounded-none">
-          Docs
-        </a>
-      )
-    }
-    <a target="_blank" href={url} class="flex-grow btn btn-primary btn-xs rounded-none">Project</a>
-  </div>
-  <div class="p-2 flex flex-row w-full justify-between items-center">
+<a target={target} href={href}>
+  {cover && <img src={cover} alt={title} class="w-full aspect-video grow object-cover" /> || <div class="w-full aspect-video flex items-center justify-center bg-black" ><span class="text-2xl">No Cover</span></div>}
+</a>
+  <div class="p-2 flex flex-row w-full justify-between items-center border-t-1 border-primary/80">
     <div class="flex flex-col flex-grow overflow-hidden">
       <h1 class="text-2xl font-bold truncate">{title}</h1>
       <p class="w-full text-md line-clamp-2">{description}</p>
