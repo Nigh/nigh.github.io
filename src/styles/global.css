@@ -34,3 +34,7 @@
   --depth: 0;
   --noise: 0;
 }
+
+.m-title {
+  @apply border-l-6 pl-2 border-primary w-full mt-4 mb-6;
+}
