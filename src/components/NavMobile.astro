@@ -1,20 +1,32 @@
 ---
 import NavBtnMobile from './nav_btn_mobile.astro';
 import nav from './nav_item.ts';
-const base = import.meta.env.PUBLIC_BASE_URL;
+import BEIAN from './beian.astro';
+const beian = import.meta.env.BEIAN;
+const pb = beian == '' ? 'pb-4' : 'pb-2';
 ---
 
-<div class="flex flex-1 justify-around pt-1 pb-4">
+<div class="flex flex-col w-full">
+  <div class={'flex flex-1 justify-around pt-1 ' + pb}>
+    {
+      nav.items.map((item) => (
+        <NavBtnMobile
+          href={item.href}
+          svg={item.svg}
+          class="flex flex-col items-center p-3 rounded-full hover:bg-primary/10 transition-colors"
+          mobile
+        >
+          <span>{item.name}</span>
+        </NavBtnMobile>
+      ))
+    }
+  </div>
+
   {
-    nav.items.map((item) => (
-      <NavBtnMobile
-        href={item.href}
-        svg={item.svg}
-        class="flex flex-col items-center p-3 rounded-full hover:bg-primary/10 transition-colors"
-        mobile
-      >
-        <span>{item.name}</span>
-      </NavBtnMobile>
-    ))
+    beian && (
+      <div class="text-current/60 text-center">
+        <BEIAN />
+      </div>
+    )
   }
 </div>

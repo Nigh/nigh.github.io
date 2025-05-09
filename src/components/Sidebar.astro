@@ -18,7 +18,7 @@ const items = Array.from({ length: 5 }, (_, i) => i + 1);
   <div class="flex flex-col max-w-xs p-4 gap-4 border-primary/20 border-1 rounded-xl text-wrap">
     <p class="text-lg font-bold mb-4 text-wrap">People you don't wanna know</p>
     {
-      items.map((item) => (
+      items.map(() => (
         <div class="flex items-center gap-4 w-full">
           <div class="skeleton h-16 w-16 shrink-0 rounded-full" />
           <div class="flex flex-col gap-4 w-full">
