@@ -34,7 +34,19 @@
   --depth: 0;
   --noise: 0;
 }
+@theme {
+  --text-xs: 0.7rem;
+  --text-sm: 0.8rem;
+  --text-md: 0.95rem;
+  --text-lg: 1.15rem;
+  --text-xl: 1.4rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+  --text-5xl: 3.75rem;
+  --text-6xl: 4.5rem;
+}
 
 .m-title {
-  @apply border-l-6 pl-2 border-primary w-full mt-4 mb-6;
+  @apply border-l-12 border-b-1 pb-1 border-b-primary/20 pl-2 border-primary w-full mt-4 mb-6;
 }

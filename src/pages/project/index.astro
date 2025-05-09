@@ -9,30 +9,12 @@ const sortedProjects = projects.sort((a, b) => b.data.date.getTime() - a.data.da
 <Pages>
   <div id="content" class="align-center justify-center">
     <h1 class="text-2xl font-bold mb-4 m-title">Projects</h1>
-    <ul class="list w-full gap-2 md:grid md:grid-cols-2 md:gap-4 md:gap-y-10">
+    <ul class="list w-full divide-y-1 divide-primary/20">
       {
         sortedProjects.map((post) => (
-          <Project
-            slug={post.slug}
-            content={post.body}
-            title={post.data.title}
-            url={post.data.url}
-            cover={post.data.cover}
-            ctype={post.data.ctype}
-            description={post.data.description}
-          />
+          <Project slug={post.slug} content={post.body} {...post.data} />
         ))
       }
     </ul>
   </div>
 </Pages>
-
-<style>
-  #content {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0px 16px;
-  }
-</style>
