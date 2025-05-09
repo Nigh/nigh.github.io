@@ -1,29 +1,75 @@
 ---
-const { title, slug, url, cover, ctype, description, content } = Astro.props;
+const { title, date, slug, url, links, icon, image, description, content } = Astro.props;
 
 const target = content && content.length > 32 ? '_self' : '_blank';
-const href = content && content.length > 32 ? slug : url;
-const coverStyle = (ctype == 'icon' && 'object-contain h-2/3') || 'object-cover';
+const href = content && content.length > 32 ? slug : '#';
 
-console.log('cover', cover, ctype, coverStyle);
+import { Icon } from 'astro-icon/components';
+
+const linkIconValidStyle =
+  'flex justify-center items-center w-full text-current hover:text-primary';
+const linkIconInvalidStyle = 'flex justify-center items-center w-full text-current/20';
+
+const linkMap = {
+  doc: {
+    icon: 'tabler:file-type-doc',
+    href: content && content.length > 32 ? slug : '',
+  },
+  github: {
+    icon: 'tabler:brand-github-filled',
+    href: (links && links.github) || '',
+  },
+  bilibili: {
+    icon: 'tabler:brand-bilibili',
+    href: (links && links.bilibili) || '',
+  },
+  youtube: {
+    icon: 'tabler:brand-youtube-filled',
+    href: (links && links.youtube) || '',
+  },
+};
+
+console.log(title, 'links', links);
 ---
 
-<div
-  class="flex flex-col justify-center border-primary/80 border-2 rounded-xl overflow-hidden hover:bg-primary/60"
->
-  <a target={target} href={href} class="w-full flex grow items-center justify-center bg-black/80">
+<div class="flex flex-row w-full overflow-hidden p-4">
+  <div class="basis-[48px] mr-2 self-start">
     {
-      (cover && <img src={cover} alt={title} class={'aspect-video grow ' + coverStyle} />) || (
-        <div class="w-full aspect-video flex items-center justify-center">
-          <span class="text-3xl text-center font-bold text-white">{title}</span>
-        </div>
+      (icon && <img src={icon} alt={title} class="aspect-square object-contain" />) || (
+        <Icon name="tabler:icons-off" size="40" class="text-current/40" />
       )
     }
-  </a>
-  <div class="p-2 flex flex-row w-full justify-between items-center border-t-1 border-primary/80">
-    <div class="flex flex-col flex-grow overflow-hidden">
-      <h1 class="text-2xl font-bold truncate">{title}</h1>
-      <p class="w-full text-md line-clamp-2">{description}</p>
+  </div>
+  <div class="flex flex-col w-full overflow-hidden">
+    <a target={target} href={href}>
+      <div>
+        <span class="flex-0 shrink text-xl font-bold truncate">{title}</span>
+        <span class="text-sm pl-2">·</span>
+        <span class="text-sm text-white/40">
+          {date.toISOString().slice(0, 10)}
+        </span>
+      </div>
+    </a>
+
+    <p class="w-full text-md line-clamp-4">{description}</p>
+
+    <div class="flex flex-row gap-2 flex-wrap mt-3">
+      {image && image.map((img: string) => <img src={img} alt={title} class="rounded-2xl" />)}
+    </div>
+    <div class="grid grid-cols-4 mt-6 gap-2 place-items-center">
+      {
+        Object.entries(linkMap).map(([_, value]) =>
+          value.href ? (
+            <a href={value.href} target="_blank" class={linkIconValidStyle}>
+              <Icon name={value.icon} size="24px" class="grow" />
+            </a>
+          ) : (
+            <a disabled class={linkIconInvalidStyle}>
+              <Icon name={value.icon} size="24px" />
+            </a>
+          )
+        )
+      }
     </div>
   </div>
 </div>
