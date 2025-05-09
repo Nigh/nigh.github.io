@@ -1,8 +1,5 @@
 ---
-const { title, date, slug, url, links, icon, image, description, content } = Astro.props;
-
-const target = content && content.length > 32 ? '_self' : '_blank';
-const href = content && content.length > 32 ? slug : '#';
+const { title, date, slug, links, icon, image, description, content } = Astro.props;
 
 import { Icon } from 'astro-icon/components';
 
@@ -31,7 +28,6 @@ const linkMap = {
 
 console.log(title, 'links', links);
 ---
-
 <div class="flex flex-row w-full overflow-hidden p-4">
   <div class="basis-[48px] mr-2 self-start">
     {
@@ -41,15 +37,13 @@ console.log(title, 'links', links);
     }
   </div>
   <div class="flex flex-col w-full overflow-hidden">
-    <a target={target} href={href}>
-      <div>
-        <span class="flex-0 shrink text-xl font-bold truncate">{title}</span>
-        <span class="text-sm pl-2">·</span>
-        <span class="text-sm text-white/40">
-          {date.toISOString().slice(0, 10)}
-        </span>
-      </div>
-    </a>
+    <div>
+      <span class="flex-0 shrink text-xl font-bold truncate">{title}</span>
+      <span class="text-sm pl-2">·</span>
+      <span class="text-sm text-white/40">
+        {date.toISOString().slice(0, 10)}
+      </span>
+    </div>
 
     <p class="w-full text-md line-clamp-4">{description}</p>
 
