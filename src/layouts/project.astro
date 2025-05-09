@@ -9,19 +9,19 @@ const linkIconInvalidStyle = 'flex justify-center items-center w-full text-curre
 
 const linkMap = {
   doc: {
-    icon: 'tabler:file-type-doc',
+    icon: 'mingcute:document-fill',
     href: content && content.length > 32 ? slug : '',
   },
   github: {
-    icon: 'tabler:brand-github-filled',
+    icon: 'mingcute:github-2-fill',
     href: (links && links.github) || '',
   },
   bilibili: {
-    icon: 'tabler:brand-bilibili',
+    icon: 'mingcute:bilibili-fill',
     href: (links && links.bilibili) || '',
   },
   youtube: {
-    icon: 'tabler:brand-youtube-filled',
+    icon: 'mingcute:youtube-fill',
     href: (links && links.youtube) || '',
   },
 };
@@ -32,7 +32,7 @@ console.log(title, 'links', links);
   <div class="basis-[48px] mr-2 self-start">
     {
       (icon && <img src={icon} alt={title} class="aspect-square object-contain" />) || (
-        <Icon name="tabler:icons-off" size="40" class="text-current/40" />
+        <Icon name="mingcute:pic-fill" size="40" class="text-current/40" />
       )
     }
   </div>
