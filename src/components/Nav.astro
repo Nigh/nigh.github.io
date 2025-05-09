@@ -2,10 +2,15 @@
 import myLogo from '../assets/icon.png';
 import NavBtn from './nav_btn.astro';
 import nav from './nav_item.ts';
+import BEIAN from './beian.astro';
+import Copyright from './copyright.astro';
+const beian = import.meta.env.BEIAN;
 ---
 
 <div class="flex flex-col p-4">
-  <div class="flex justify-center items-center"><img src={myLogo.src} width="80" alt="" /></div>
+  <div class="flex justify-center items-center py-4">
+    <img src={myLogo.src} width="80" alt="profile" />
+  </div>
   {
     nav.items.map((item) => (
       <NavBtn href={item.href} svg={item.svg}>
@@ -14,3 +19,16 @@ import nav from './nav_item.ts';
     ))
   }
 </div>
+
+{
+  beian && (
+    <div class="flex flex-col mt-auto max-w-xs text-current/60 text-center">
+      <div>
+        <BEIAN />
+      </div>
+      <div>
+        <Copyright />
+      </div>
+    </div>
+  )
+}
