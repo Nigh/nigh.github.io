@@ -5,8 +5,7 @@ import { Icon } from 'astro-icon/components';
 import Logo from '../components/project_icon.astro';
 
 const linkIconStyle = ' flex justify-center items-center w-full pt-2 pb-2 rounded-t-xl';
-const linkIconValidStyle =
-  'text-current hover:text-primary hover:bg-primary/20' + linkIconStyle;
+const linkIconValidStyle = 'text-current hover:text-primary hover:bg-primary/20' + linkIconStyle;
 const linkIconInvalidStyle = 'text-current/20' + linkIconStyle;
 
 const linkMap = {
@@ -30,9 +29,10 @@ const linkMap = {
 
 console.log(title, 'links', links);
 ---
+
 <div class="flex flex-row w-full overflow-hidden p-4 pb-0">
   <div class="basis-[48px] mr-2 self-start">
-	<Logo title={title} icon={icon} />
+    <Logo title={title} icon={icon} />
   </div>
   <div class="flex flex-col w-full overflow-hidden">
     <div>
