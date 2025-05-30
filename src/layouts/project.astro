@@ -2,39 +2,37 @@
 const { title, date, slug, links, icon, image, description, content } = Astro.props;
 
 import { Icon } from 'astro-icon/components';
+import Logo from '../components/project_icon.astro';
 
-const linkIconValidStyle =
-  'flex justify-center items-center w-full text-current hover:text-primary';
-const linkIconInvalidStyle = 'flex justify-center items-center w-full text-current/20';
+const linkIconStyle = ' flex justify-center items-center w-full pt-2 pb-2 rounded-t-xl';
+const linkIconValidStyle = 'text-current hover:text-primary hover:bg-primary/20' + linkIconStyle;
+const linkIconInvalidStyle = 'text-current/20' + linkIconStyle;
 
 const linkMap = {
-  doc: {
-    icon: 'tabler:file-type-doc',
-    href: content && content.length > 32 ? slug : '',
-  },
   github: {
-    icon: 'tabler:brand-github-filled',
+    icon: 'mingcute:github-2-fill',
     href: (links && links.github) || '',
   },
   bilibili: {
-    icon: 'tabler:brand-bilibili',
+    icon: 'mingcute:bilibili-fill',
     href: (links && links.bilibili) || '',
   },
   youtube: {
-    icon: 'tabler:brand-youtube-filled',
+    icon: 'mingcute:youtube-fill',
     href: (links && links.youtube) || '',
+  },
+  doc: {
+    icon: 'mingcute:document-fill',
+    href: content && content.length > 32 ? slug : '',
   },
 };
 
 console.log(title, 'links', links);
 ---
-<div class="flex flex-row w-full overflow-hidden p-4">
+
+<div class="flex flex-row w-full overflow-hidden p-4 pb-0">
   <div class="basis-[48px] mr-2 self-start">
-    {
-      (icon && <img src={icon} alt={title} class="aspect-square object-contain" />) || (
-        <Icon name="tabler:icons-off" size="40" class="text-current/40" />
-      )
-    }
+    <Logo title={title} icon={icon} />
   </div>
   <div class="flex flex-col w-full overflow-hidden">
     <div>
@@ -55,7 +53,7 @@ console.log(title, 'links', links);
         Object.entries(linkMap).map(([_, value]) =>
           value.href ? (
             <a href={value.href} target="_blank" class={linkIconValidStyle}>
-              <Icon name={value.icon} size="24px" class="grow" />
+              <Icon name={value.icon} size="24px" />
             </a>
           ) : (
             <a disabled class={linkIconInvalidStyle}>

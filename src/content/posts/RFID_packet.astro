@@ -1,0 +1,577 @@
+<style>
+  :root {
+    --color-rfid-highlight: rgba(255, 102, 102, 0.7);
+    --color-rfid-parity: rgba(250, 176, 103, 0.701);
+    --color-rfid-data: rgba(77, 253, 253, 0.701);
+    --color-rfid-id: rgba(115, 255, 171, 0.712);
+    --color-rfid-national: rgba(249, 244, 93, 0.707);
+    --color-rfid-country: rgba(103, 255, 146, 0.701);
+    --color-rfid-no-define: rgba(190, 152, 152, 0.756);
+    --color-rfid-checksum: rgba(202, 90, 121, 0.712);
+  }
+  .rfid table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .rfid-tight td {
+    padding-left: 0.5px;
+    padding-right: 0.5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+
+  .biphase table {
+    border-collapse: collapse;
+    font-family: monospace;
+  }
+  .biphase td,
+  th {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    border: none;
+  }
+  .biphase th {
+    border: none;
+  }
+  .biphase .l {
+    border-left: 2px solid rgb(255, 255, 255);
+  }
+  .biphase .r {
+    border-right: 2px solid rgb(255, 255, 255);
+  }
+  .biphase .t {
+    border-top: 2px solid rgb(255, 255, 255);
+  }
+  .biphase .b {
+    border-bottom: 2px solid rgb(255, 255, 255);
+  }
+  .biphase .bin td {
+    text-align: center;
+    border-left: 2px solid rgb(255, 255, 255);
+    border-right: 2px solid rgb(255, 255, 255);
+    padding: 0;
+  }
+  .biphase caption {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+</style>
+<div class="rfid">
+  <h1>RFID packet format</h1>
+
+  <h2>EM4100 data structure</h2>
+  <table
+    style="background-color: transparent; text-align: left;"
+    border="0"
+    cellpadding="3"
+    cellspacing="0"
+  >
+    <tbody>
+      <tr>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td
+          style="white-space: nowrap; text-align: center; background-color: var(--color-rfid-highlight);"
+          >1</td
+        >
+        <td align="center">&nbsp; &nbsp;9 bit &nbsp;header bits, all 1's</td>
+      </tr>
+      <tr>
+        <td colspan="4" align="center">8 bit version &nbsp;number&nbsp;</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">D00</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">D01</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">D02</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">D03</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P0&nbsp; </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4" align="center">or customer ID.</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">D04</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">D05</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">D06</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">D07</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P1&nbsp;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="white-space: nowrap; text-align: center;"></td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D08</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D09</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D10</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D11</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P2&nbsp;</td>
+        <td align="center">Each group of 4 bits </td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D12</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D13</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D14</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D15</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P3&nbsp;</td>
+        <td align="center">is followed by an Even</td>
+      </tr>
+      <tr>
+        <td colspan="4" align="center">32 Data Bits</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D16</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D17</td>
+        <td
+          style="white-space: nowrap; text-align: center; background-color: var(--color-rfid-data);"
+          >D18</td
+        >
+        <td style="background-color: var(--color-rfid-data);" align="center">D19</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P4&nbsp;</td>
+        <td align="center">parity bit</td>
+      </tr>
+      <tr>
+        <td colspan="4" style="white-space: nowrap; text-align: center;"></td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D20</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D21</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D22</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D23</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P5&nbsp;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="white-space: nowrap; text-align: center;"></td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D24</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D25</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D26</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D27</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P6&nbsp;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="white-space: nowrap; text-align: center;"></td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D28</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D29</td>
+        <td
+          style="white-space: nowrap; text-align: center; background-color: var(--color-rfid-data);"
+          >D30</td
+        >
+        <td style="background-color: var(--color-rfid-data);" align="center">D31</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P7&nbsp;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D32</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D33</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D34</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D35</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P8&nbsp;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="white-space: nowrap; text-align: center;"></td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D36</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D37</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D38</td>
+        <td style="background-color: var(--color-rfid-data);" align="center">D39</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">&nbsp;P9&nbsp;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4" align="center">4 column Parity bits</td>
+        <td style="background-color: var(--color-rfid-checksum);" align="center">PC0</td>
+        <td style="background-color: var(--color-rfid-checksum);" align="center">PC1</td>
+        <td style="background-color: var(--color-rfid-checksum);" align="center">PC2</td>
+        <td style="background-color: var(--color-rfid-checksum);" align="center">PC3</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">S0</td>
+        <td style="white-space: nowrap; text-align: left;">&nbsp; &nbsp;1 stop bit (0)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    When the Tag enters the electromagnetic field transmitted by the RFID reader it draws power from
+    the field and will commence transmitting its data as shown above. The first 9 bits are a logic
+    1. These bits are used as a marker sequence to indicate the beginning of the string. As Even
+    parity is used throughout the data this 9 bit sequence of 1's will not occur at any other
+    location in the string. This is followed by 10 groups of 4 data and 1 even parity bits. Finally
+    there are 4 bits of column parity (Even) and a stop bit (0). The Tag then continues to repeat
+    this string as long as it has power.
+  </p>
+
+  <p>
+    Shown here is an example string for a proximity card that has the data <code>06</code> (version number),
+    and <code>001259E3</code>
+    as a data string.
+  </p>
+
+  <table style="text-align: left;" border="0" cellpadding="0" cellspacing="0">
+    <tbody class="rfid-tight">
+      <tr>
+        <td
+          style="white-space: nowrap; text-align: center; background-color: var(--color-rfid-highlight);"
+          >1</td
+        >
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="white-space: nowrap; text-align: center; background-color: var(--color-rfid-id);"
+          >0</td
+        >
+        <td style="background-color: var(--color-rfid-parity);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="white-space: nowrap; text-align: center; background-color: var(--color-rfid-id);"
+          >0</td
+        >
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="white-space: nowrap; text-align: center; background-color: var(--color-rfid-id);"
+          >0</td
+        >
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-id);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-parity);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-checksum);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-checksum);" align="center">1</td>
+        <td style="background-color: var(--color-rfid-checksum);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-checksum);" align="center">0</td>
+        <td style="background-color: var(--color-rfid-highlight);" align="center">0</td>
+      </tr>
+      <tr>
+        <td colspan="9"></td>
+        <td colspan="4" align="center">0</td>
+        <td></td>
+        <td colspan="4" align="center">6</td>
+        <td></td>
+        <td colspan="4" align="center">0</td>
+        <td></td>
+        <td colspan="4" align="center">0</td>
+        <td></td>
+        <td colspan="4" align="center">1</td>
+        <td></td>
+        <td colspan="4" align="center">2</td>
+        <td></td>
+        <td colspan="4" align="center">5</td>
+        <td></td>
+        <td colspan="4" align="center">9</td>
+        <td></td>
+        <td colspan="4" align="center">E</td>
+        <td></td>
+        <td colspan="4" align="center">3</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>FDX-B frequency and modulation</h2>
+  <p>
+    FDX-B protocol based transponders are defined to operate in the 134.2kHz band, and employ a
+    biphase encoding scheme to transmit their information. The data bit rate used is always fc/32.
+  </p>
+
+  <p>
+    Biphase encoding schemes modulate the RF field so that there is a transition at the beginning of
+    each bit boundary. A logic 0 state has a transition in the middle of the bit period, while a
+    logic 1 state has no transition during the entire bit period. For FDX-B 1 bit length corresponds
+    to 32 cycles of the activated field of the reader.
+  </p>
+  <table class="biphase">
+    <caption>BIPHASE ENCODING</caption>
+    <tr>
+      <th colspan="32">Binary Data</th>
+    </tr>
+    <tr class="bin">
+      <td colspan="2">1</td><td colspan="2">1</td><td colspan="2">1</td><td colspan="2">1</td><td
+        colspan="2">1</td
+      ><td colspan="2">1</td><td colspan="2">1</td><td colspan="2">1</td>
+      <td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td colspan="2">0</td><td
+        colspan="2">0</td
+      >
+      <td colspan="2">1</td><td colspan="2">0</td><td colspan="2">0</td>
+    </tr>
+    <tr>
+      <th colspan="32">Modulator Control (low means high current)</th>
+    </tr>
+    <tr>
+      <!-- Waveform cells -->
+      <td class="l t"></td><td class="t"></td>
+      <td class="l b"></td><td class="b"></td>
+      <td class="l t"></td><td class="t"></td>
+      <td class="l b"></td><td class="b"></td>
+      <td class="l t"></td><td class="t"></td>
+      <td class="l b"></td><td class="b"></td>
+      <td class="l t"></td><td class="t"></td>
+      <td class="l b"></td><td class="b"></td>
+      <td class="l t"></td><td class="l b"></td>
+      <td class="l t"></td><td class="l b"></td>
+      <td class="l t"></td><td class="l b"></td>
+      <td class="l t"></td><td class="l b"></td>
+      <td class="l t"></td><td class="l b"></td>
+      <td class="l t"></td><td class="t"></td>
+      <td class="l b"></td><td class="l t"></td>
+      <td class="l b"></td><td class="l t r"></td>
+    </tr>
+  </table>
+
+  <h2>FDX-B data structure</h2>
+  <table style="text-align: left;" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td colspan="2">msb</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2">lsb</td>
+      </tr>
+      <tr>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-highlight);">0</td>
+        <td style="text-align: left;" colspan="1" rowspan="1"
+          >&nbsp; <small>Header pattern. 11 bits.</small></td
+        >
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">1</td>
+        <td>&nbsp; <small>38 bit (12 digit) National code.</small></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td>&nbsp;<font size="-1"> eg. 000000001008 (decimal).</font></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-national);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">0</td>
+        <td><small>&nbsp; 10 bit (3 digit) Country code.</small></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-country);">1</td>
+        <td>&nbsp;&nbsp;<small>eg. 999 (decimal).</small></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: rgba(153, 255, 255, 0.622);">1</td>
+        <td>&nbsp; <small>1 bit data block status flag.</small></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: rgba(153, 153, 255, 0.649);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td style="text-align: center; background-color: var(--color-rfid-no-define);">-</td>
+        <td><small>&nbsp; 1 bit animal application indicator.</small></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">0</td>
+        <td>&nbsp;<small> 16 bit checksum.</small></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-checksum);">1</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="text-align: center; background-color: var(--color-rfid-parity);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-data);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-data);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-data);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-data);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-data);">0</td>
+        <td style="text-align: center; background-color: var(--color-rfid-data);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-data);">1</td>
+        <td style="text-align: center; background-color: var(--color-rfid-data);">0</td>
+        <td>&nbsp;<small> 24 bits of extra data if present.</small></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="background-color: var(--color-rfid-parity);">1</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td style="background-color: var(--color-rfid-data);">1</td>
+        <td style="background-color: var(--color-rfid-data);">1</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td style="background-color: var(--color-rfid-data);">1</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td>&nbsp; <small>eg. $123456.</small></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;"></td>
+        <td style="background-color: var(--color-rfid-parity);">1</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td style="background-color: var(--color-rfid-data);">1</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td style="background-color: var(--color-rfid-data);">1</td>
+        <td style="background-color: var(--color-rfid-data);">0</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>source</h2>
+  <a href="https://www.priority1design.com.au/em4100_protocol.html">EM4100 Protocol description</a>
+
+  <a href="https://www.priority1design.com.au/fdx-b_animal_identification_protocol.html"
+    >FDX-B Animal Identification Protocol description</a
+  >
+</div>

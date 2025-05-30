@@ -1,0 +1,89 @@
+<h1>Packet format for Uncoded LE data packets</h1>
+
+<style type="text/css">
+  .tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #000000;
+  }
+  .tg td {
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+  }
+  .tg th {
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+  }
+  .tg .tg-9wq8 {
+    background-color: #000000;
+  }
+  .tg .tg-ki5e {
+    background-color: #74262699;
+  }
+  .tg .tg-b8sd {
+    background-color: #cdc46599;
+  }
+  .tg .tg-a9e8 {
+    background-color: #70d20099;
+  }
+  .tg .tg-m6nu {
+    background-color: #033a9999;
+  }
+  .tg .tg-mmsf {
+    background-color: #4b009699;
+  }
+</style>
+<table class="tg">
+  <tbody>
+    <tr>
+      <td class="tg-ki5e">Preamble</td>
+      <td class="tg-ki5e">Access Address</td>
+      <td class="tg-ki5e" colspan="6">PDU (2–257 bytes)</td>
+      <td class="tg-ki5e">CRC</td>
+    </tr>
+    <tr>
+      <td class="tg-9wq8" rowspan="5">1 byte (1M PHY)<br />2 bytes (2M PHY)<br /></td>
+      <td class="tg-9wq8" rowspan="5">4 bytes</td>
+      <td class="tg-b8sd">LL Header</td>
+      <td class="tg-b8sd" colspan="4">Payload (0–251 bytes)</td>
+      <td class="tg-b8sd" rowspan="2">MIC (Optional)</td>
+      <td class="tg-9wq8" rowspan="5">3 bytes</td>
+    </tr>
+    <tr>
+      <td class="tg-9wq8" rowspan="4">2 bytes</td>
+      <td class="tg-a9e8">L2CAP Header</td>
+      <td class="tg-a9e8" colspan="3">ATT Data (0–247 bytes)</td>
+    </tr>
+    <tr>
+      <td class="tg-9wq8" rowspan="3">4 bytes</td>
+      <td class="tg-m6nu" colspan="2">ATT Header</td>
+      <td class="tg-m6nu">ATT Payload</td>
+      <td class="tg-9wq8" rowspan="3">4 bytes</td>
+    </tr>
+    <tr>
+      <td class="tg-mmsf">Op Code</td>
+      <td class="tg-mmsf">Attribute Handle</td>
+      <td class="tg-9wq8" rowspan="2">Up to 244 bytes</td>
+    </tr>
+    <tr>
+      <td class="tg-9wq8">1 byte</td>
+      <td class="tg-9wq8">2 bytes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>source</h2>
+<a href="https://novelbits.io/bluetooth-5-speed-maximum-throughput/"
+  >Bluetooth 5 speed: How to achieve maximum throughput for your BLE application</a
+>

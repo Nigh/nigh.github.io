@@ -1,0 +1,21 @@
+---
+import { Icon } from 'astro-icon/components';
+const { title, icon } = Astro.props;
+
+let iconType = 'placeholder';
+if (icon) {
+  if (icon.startsWith('http')) {
+    iconType = 'url';
+  } else {
+    iconType = 'iconify';
+  }
+}
+---
+
+{
+  (iconType === 'placeholder' && (
+    <Icon name="mingcute:pic-fill" size="40" class="text-current/40" />
+  )) ||
+    (iconType === 'iconify' && <Icon name={icon} size="40" class="text-primary/60" />) ||
+    (iconType === 'url' && <img src={icon} alt={title} class="aspect-square object-contain" />)
+}

@@ -5,5 +5,5 @@ tags: ['autohotkey', 'ahk', 'template']
 links:
   github: 'https://github.com/Nigh/ahk-autoupdate-template'
 icon: 'https://raw.githubusercontent.com/Nigh/ahk-autoupdate-template/refs/heads/main/logo.png'
-description: '使用AHK构建可以自动升级的软件'
+description: '使用这个模板构建具备自动升级能力的AHK软件'
 ---
