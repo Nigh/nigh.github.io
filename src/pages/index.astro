@@ -1,8 +1,14 @@
 ---
-import RemoteMD from '../components/RemoteMD.astro';
 import Pages from '../layouts/Pages.astro';
+import Particles from '../components/Particles.svelte';
+import ImgParticles from '../components/ImageParticles.svelte';
+
+let src = '/icon.svg';
 ---
 
 <Pages>
-  <RemoteMD url="https://raw.githubusercontent.com/Nigh/nigh/refs/heads/master/README.md" />
+  <!-- <Particles color="#f00" client:load /> -->
+  <ImgParticles {src} client:load />
+  <Particles color="#00f" client:load />
+  <h1 class="text-2xl font-bold mb-4 m-title">粒子效果</h1>
 </Pages>
