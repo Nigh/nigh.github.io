@@ -1,8 +1,10 @@
 ---
-import RemoteMD from '../components/RemoteMD.astro';
 import Pages from '../layouts/Pages.astro';
+import IndexContent from '../components/IndexContent.svelte';
+
+const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <Pages>
-  <RemoteMD url="https://raw.githubusercontent.com/Nigh/nigh/refs/heads/master/README.md" />
+  <IndexContent {base} client:load />
 </Pages>
