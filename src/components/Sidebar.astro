@@ -1,31 +1,48 @@
 ---
-const items = Array.from({ length: 5 }, (_, i) => i + 1);
+const links = [
+  {
+    pic: 'https://vladelaina.com/assets/vladelaina.jpg',
+    name: 'vladelaina',
+    bio: 'Open source believer, Arch Linux enthusiast, anime lover',
+    link: 'https://vladelaina.com/',
+  },
+];
 ---
 
 <div class="flex flex-col gap-4">
   <div
     class="skeleton h-48 w-full flex items-center justify-center border-primary/20 border-1 rounded-xl"
   >
-    <p class="text-center">No ads</p>
+    <p class="text-center">无广告</p>
   </div>
 
   <div
     class="skeleton h-24 w-full flex items-center justify-center border-primary/20 border-1 rounded-xl"
   >
-    <p class="text-center">No recommend</p>
+    <p class="text-center">无推荐</p>
   </div>
 
-  <div class="flex flex-col max-w-xs p-4 gap-4 border-primary/20 border-1 rounded-xl text-wrap">
-    <p class="text-lg font-bold mb-4 text-wrap">People you don't wanna know</p>
+  <div class="flex flex-col max-w-xs min-w-3xs border-primary/20 border-1 rounded-xl text-wrap">
+    <p class="text-lg font-bold mb-4 px-4 pt-4">赛博友人</p>
     {
-      items.map(() => (
-        <div class="flex items-center gap-4 w-full">
-          <div class="skeleton h-16 w-16 shrink-0 rounded-full" />
-          <div class="flex flex-col gap-4 w-full">
-            <div class="skeleton h-4 w-1/2" />
-            <div class="skeleton h-4 w-full" />
+      links.map((f) => (
+        <a href={f.link} target="_blank" class="hover:bg-primary p-4 rounded-xl">
+          <div class="flex gap-x-4 w-full">
+            <div class="h-16 w-16 shrink-0 rounded-full overflow-hidden outline-4 outline-white/60">
+              <img src={f.pic} alt={f.name} />
+            </div>
+            <div class="flex flex-col">
+              <div>
+                <span class="break-all whitespace-normal text-xl font-bold text-white/90 line-clamp-1">
+                  {f.name}
+                </span>
+              </div>
+              <div>
+                <p class="text-sm/4 text-white/60 line-clamp-2">{f.bio}</p>
+              </div>
+            </div>
           </div>
-        </div>
+        </a>
       ))
     }
   </div>
