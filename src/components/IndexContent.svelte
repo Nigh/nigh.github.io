@@ -30,9 +30,9 @@
     '也爱<span class="text-primary">滑雪</span>',
     '经常<span class="text-primary">滑板</span>出行',
     '期待每一次<span class="text-primary">相遇</span>',
-	'每一次<span class="text-primary">创作</span>',
-	'与每一次<span class="text-primary">整活</span>',
-	'<span class="text-primary">以上</span>',
+    '每一次<span class="text-primary">创作</span>',
+    '与每一次<span class="text-primary">整活</span>',
+    '<span class="text-primary">以上</span>',
   ];
   let index = 0;
   let subindex = 0;
@@ -99,19 +99,20 @@
   }
 </script>
 
-<div class="flex w-full justify-center">
-  <DotsImage {src} color="#fff8" height={400} dotSize={4} gap={1} float={false} {isValidPixel} />
-</div>
-<div class="text-center">
-  <h1 class="text-5xl font-bold text-white/80">
-    {@html displayedText}
-  </h1>
-</div>
+<div>
+  <div class="flex w-full justify-center">
+    <DotsImage {src} color="#fff8" height={400} dotSize={4} gap={1} float={false} {isValidPixel} />
+  </div>
+  <div class="text-center">
+    <h1 class="text-5xl font-bold text-white/80">
+      {@html displayedText}
+    </h1>
+  </div>
 
-<div class="flex w-full justify-center mt-12 gap-6">
-  <button on:click={next} class="btn btn-primary text-xl">下一条</button>
-  <a href="/about">
-  <button class="btn btn-info text-xl">关于我</button>
-  </a>
+  <div class="flex w-full justify-center mt-12 gap-6">
+    <button on:click={next} class="btn btn-primary text-xl">下一条</button>
+    <a href="/about">
+      <button class="btn btn-info text-xl">关于我</button>
+    </a>
+  </div>
 </div>
-
