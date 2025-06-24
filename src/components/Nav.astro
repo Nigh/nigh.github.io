@@ -9,7 +9,12 @@ const beian = import.meta.env.BEIAN;
 
 <div class="flex flex-col p-4">
   <div class="flex justify-center items-center py-4">
-    <img src={myLogo.src} width="80" alt="profile" />
+    <img
+      src={myLogo.src}
+      width="120"
+      alt="profile"
+      class="outline-4 outline-primary rounded-full"
+    />
   </div>
   {
     nav.items.map((item) => (
