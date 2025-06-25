@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import NavMobile from '../components/NavMobile.astro';
-import Sidebar from '../components/Sidebar.astro';
+import Sidebar from '../components/Sidebar.svelte';
 ---
 
 <Layout>
@@ -21,7 +21,7 @@ import Sidebar from '../components/Sidebar.astro';
       </div>
 
       <aside class="hidden xl:block lg:min-w-48 p-4 sticky top-0 h-screen overflow-y-auto">
-        <Sidebar />
+        <Sidebar client:load />
       </aside>
 
       <nav
