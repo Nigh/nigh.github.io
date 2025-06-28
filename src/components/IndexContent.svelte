@@ -9,12 +9,11 @@
   let images = [
     ['head.png', 'welcome.png'],
     ['fullstack1.png', 'fullstack2.png'],
-    ['tecnico.png'],
-    ['xianii.png'],
-    ['nigh.png'],
     ['archery.png'],
     ['snowboard.png'],
     ['skateboard.png'],
+    ['tecnico.png'],
+    ['xianii.png'],
     ['meet.png'],
     ['artificial.png'],
     ['lol.png'],
@@ -22,17 +21,16 @@
   ];
   const h1Texts = [
     '欢迎来到<span class="text-primary">我</span>的赛博空间',
-    '我是一名<span class="text-primary">全栈电子工程师</span>',
-    '<span class="text-primary">TecNico</span>是我',
-    '<span class="text-primary">xianii</span>是我',
-    '<span class="text-primary">Nigh</span>也是我',
-    '我爱<span class="text-primary">射箭</span>',
-    '也爱<span class="text-primary">滑雪</span>',
-    '经常<span class="text-primary">滑板</span>出行',
-    '期待每一次<span class="text-primary">相遇</span>',
-    '每一次<span class="text-primary">创作</span>',
-    '与每一次<span class="text-primary">整活</span>',
-    '<span class="text-primary">以上</span>',
+    '我是软硬通吃的<br><span class="text-primary">全栈电子工程师</span>',
+    '我爱<span class="text-primary">射箭</span><br>专注心与靶的对话',
+    '也爱<span class="text-primary">滑雪</span><br>享受御风而行的自由',
+    '我用<span class="text-primary">滑板</span><br>穿梭在城市每个角落',
+    '我是<span class="text-primary">TecNico</span><br>理性的造物者',
+    '我是<span class="text-primary">xianii</span><br>永不离线的探索者',
+    '击掌！寻找<span class="text-primary">创意伙伴</span>',
+    '创作！沉溺<span class="text-primary">灵感洪流</span>',
+    '认真编码<br><span class="text-primary">放肆整活</span>',
+    '<span class="text-primary">无限迭代中...</span>',
   ];
   let index = 0;
   let subindex = 0;
