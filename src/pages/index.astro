@@ -1,12 +1,13 @@
 ---
 import Pages from '../layouts/Pages.astro';
 import IndexContent from '../components/IndexContent.svelte';
-
+import Footer from '../components/footer.astro';
 const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <Pages>
-  <div class="min-h-screen flex items-center justify-center">
+  <div class="min-h-[200vh] flex items-center justify-center">
     <IndexContent {base} client:load />
   </div>
+  <Footer />
 </Pages>

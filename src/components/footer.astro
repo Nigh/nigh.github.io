@@ -1,0 +1,19 @@
+---
+import BEIAN from './beian.astro';
+import Copyright from './copyright.astro';
+const beian = import.meta.env.BEIAN;
+---
+
+{
+  beian && (
+	<div class="divider"></div>
+    <div class="flex flex-col mt-auto w-full text-current/60 text-center mb-4">
+      <div>
+        <BEIAN />
+      </div>
+      <div>
+        <Copyright />
+      </div>
+    </div>
+  )
+}
