@@ -1,0 +1,30 @@
+---
+import Profile from '../components/profilepic.astro';
+import Brief from '../components/brief.astro';
+import Skills from '../components/skill.astro';
+import Contact from '../components/contact.astro';
+import CrossfadeBackground from '../components/CrossfadeBackground.astro';
+import bg1 from '../assets/bg1.jpg';
+import bg2 from '../assets/bg2.jpg';
+import bg3 from '../assets/bg3.jpg';
+import bg4 from '../assets/bg4.jpg';
+const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
+---
+
+<div class="flex flex-row gap-4 justify-center items-center w-screen h-screen">
+  <CrossfadeBackground images={backgrounds} />
+  <div class="carousel carousel-vertical h-screen">
+    <div class="carousel-item min-h-screen">
+      <Brief />
+    </div>
+    <div class="carousel-item min-h-screen">
+      <Skills />
+    </div>
+    <div class="carousel-item min-h-screen">
+      <Contact />
+    </div>
+  </div>
+  <div>
+    <Profile />
+  </div>
+</div>

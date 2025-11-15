@@ -1,0 +1,44 @@
+---
+// src/components/CrossfadeBackground.astro
+
+interface Props {
+  // Array of image URLs to crossfade between
+  images: string[];
+}
+
+const { images } = Astro.props;
+const bg_style =
+  '-z-50 absolute inset-0 bg-cover bg-center filter blur-md brightness-50 scale-120 transition-opacity duration-2000 opacity-0';
+---
+
+<div class="-z-50 absolute inset-0 bg-transparent overflow-hidden">
+  {
+    images.map((image) => (
+      <div class:list={['backgrouds', bg_style]} style={`background-image: url(${image})`} />
+    ))
+  }
+</div>
+
+<script>
+  const controller = new AbortController();
+  const signal = controller.signal;
+
+  let idx = 0;
+
+  //   const bgA = document.getElementById('bgA');
+  const bgs = document.getElementsByClassName('backgrouds');
+
+  function switchImage() {
+    bgs.item(idx).style.opacity = '0';
+    idx = (idx + 1) % bgs.length;
+    bgs.item(idx).style.opacity = '1';
+  }
+  switchImage();
+  const interval = setInterval(() => {
+    if (!signal.aborted) switchImage();
+  }, 10000);
+
+  // Cleanup
+  signal.addEventListener('abort', () => clearInterval(interval));
+  window.addEventListener('beforeunload', () => controller.abort(), { once: true });
+</script>
