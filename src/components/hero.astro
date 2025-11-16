@@ -11,9 +11,9 @@ import bg4 from '../assets/bg4.jpg';
 const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
 ---
 
-<div class="flex flex-row gap-4 justify-center items-center w-screen h-screen">
+<div id="hero-section" class="flex flex-row gap-4 justify-center items-center w-screen h-screen">
   <CrossfadeBackground images={backgrounds} />
-  <div class="carousel carousel-vertical h-screen">
+  <div id="hero-carousel" class="carousel carousel-vertical h-screen">
     <div class="carousel-item min-h-screen">
       <Brief />
     </div>
@@ -28,3 +28,81 @@ const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
     <Profile />
   </div>
 </div>
+
+<script>
+  const heroSection = document.getElementById('hero-section');
+  const carousel = document.getElementById('hero-carousel');
+
+  // This variable will act as our "scroll lock"
+  let isHeroScrollActive = false;
+
+  // 1. Observer to detect when the hero section is at the top
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      // We check if it's 100% visible and at the top of the viewport
+      const isAtTop = entry.isIntersecting && entry.boundingClientRect.top < 1;
+
+      if (isAtTop) {
+        isHeroScrollActive = true;
+      } else {
+        isHeroScrollActive = false;
+      }
+    },
+    { threshold: 0.95 } // 1.0 means 100% of the element must be visible
+  );
+
+  observer.observe(heroSection); // Start observing the main hero section
+
+  // 2. Main wheel event listener for the whole window
+  window.addEventListener(
+    'wheel',
+    (event) => {
+      // If the hero section isn't "locked" at the top,
+      // just let the browser scroll normally.
+      if (!isHeroScrollActive) {
+        // We still keep your original reset logic
+        //   if (window.scrollY === 0) {
+        //     carousel.scrollTop = 0;
+        //   }
+        return;
+      }
+
+      // --- FROM THIS POINT ON, THE HERO IS AT THE TOP ---
+
+      const { deltaY } = event; // How much the user scrolled
+      const { scrollTop, scrollHeight, clientHeight } = carousel;
+
+      // Check if the carousel is at the top or bottom
+      // We use Math.ceil for sub-pixel precision
+      const isAtCarouselTop = scrollTop === 0;
+      const isAtCarouselBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+      if (deltaY > 0) {
+        // User is scrolling DOWN
+        if (!isAtCarouselBottom) {
+          // We are NOT at the carousel bottom, so HIJACK the scroll
+          event.preventDefault();
+          // Manually scroll the carousel
+          carousel.scrollBy({ top: deltaY, behavior: 'auto' });
+        } else {
+          // We ARE at the carousel bottom. RELEASE the hijack.
+          // Let the main page scroll.
+          isHeroScrollActive = false;
+        }
+      } else {
+        // User is scrolling UP
+        if (!isAtCarouselTop) {
+          // We are NOT at the carousel top, so HIJACK the scroll
+          event.preventDefault();
+          // Manually scroll the carousel
+          carousel.scrollBy({ top: deltaY, behavior: 'auto' });
+        } else {
+          // We ARE at the carousel top. RELEASE the hijack.
+          // Let the main page scroll.
+          isHeroScrollActive = false;
+        }
+      }
+    },
+    { passive: false }
+  );
+</script>
