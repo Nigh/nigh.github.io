@@ -46,7 +46,3 @@
   --text-5xl: 3.75rem;
   --text-6xl: 4.5rem;
 }
-
-.m-h2 {
-  @apply border-l-12 border-b-1 pb-1 border-b-primary/20 pl-2 border-primary w-full mt-4 mb-6;
-}
