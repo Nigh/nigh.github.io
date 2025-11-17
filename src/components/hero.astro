@@ -9,6 +9,7 @@ import bg2 from '../assets/bg2.jpg';
 import bg3 from '../assets/bg3.jpg';
 import bg4 from '../assets/bg4.jpg';
 const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
+const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <div id="hero-section" class="flex flex-row gap-4 justify-center items-center w-screen h-screen">
@@ -24,8 +25,10 @@ const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
       <Contact />
     </div>
   </div>
-  <div>
-    <Profile />
+  <div style="view-transition-name:profile;">
+    <a href={base + 'about/'}>
+      <Profile />
+    </a>
   </div>
 </div>
 
@@ -50,8 +53,28 @@ const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
     },
     { threshold: 0.95 } // 1.0 means 100% of the element must be visible
   );
+  observer.observe(heroSection);
 
-  observer.observe(heroSection); // Start observing the main hero section
+  carousel.addEventListener(
+    'wheel',
+    (event) => {
+      const { deltaY } = event;
+      const { scrollTop, scrollHeight, clientHeight } = carousel;
+
+      const isAtCarouselBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+      if (deltaY > 0 && isAtCarouselBottom) {
+        event.preventDefault();
+        window.scrollBy({ top: deltaY, behavior: 'auto' });
+        return;
+      }
+      if (deltaY < 0 && window.scrollY !== 0) {
+        event.preventDefault();
+        window.scrollBy({ top: deltaY, behavior: 'auto' });
+        return;
+      }
+    },
+    { passive: false }
+  );
 
   // 2. Main wheel event listener for the whole window
   window.addEventListener(
@@ -60,10 +83,6 @@ const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
       // If the hero section isn't "locked" at the top,
       // just let the browser scroll normally.
       if (!isHeroScrollActive) {
-        // We still keep your original reset logic
-        //   if (window.scrollY === 0) {
-        //     carousel.scrollTop = 0;
-        //   }
         return;
       }
 
