@@ -9,6 +9,7 @@ import bg2 from '../assets/bg2.jpg';
 import bg3 from '../assets/bg3.jpg';
 import bg4 from '../assets/bg4.jpg';
 const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
+const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <div id="hero-section" class="flex flex-row gap-4 justify-center items-center w-screen h-screen">
@@ -24,8 +25,10 @@ const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
       <Contact />
     </div>
   </div>
-  <div>
-    <Profile />
+  <div style="view-transition-name:profile;">
+    <a href={base + 'about/'}>
+      <Profile />
+    </a>
   </div>
 </div>
 

@@ -5,12 +5,17 @@ const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href={`${base}icon.png`} />
     <meta name="generator" content={Astro.generator} />
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+    </style>
     <title>I'm xianii</title>
   </head>
   <body>
