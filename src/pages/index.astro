@@ -1,14 +1,14 @@
 ---
-import Pages from '../layouts/Pages.astro';
+import Indexs from '../layouts/IndexPage.astro';
 import Hero from '../components/hero.astro';
 import Footer from '../components/footer.astro';
 const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
-<Pages>
+<Indexs>
   <Hero />
   <div class="bg-blue-900 min-h-screen">No scroll snap content</div>
   <div class="bg-fuchsia-900 min-h-screen">No scroll snap content2</div>
   <div class="bg-sky-900 min-h-screen">No scroll snap content3</div>
   <Footer />
-</Pages>
+</Indexs>
