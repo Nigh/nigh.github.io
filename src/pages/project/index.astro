@@ -2,14 +2,15 @@
 import { getCollection } from 'astro:content';
 import Project from '../../layouts/project.astro';
 import Pages from '../../layouts/Pages.astro';
+import SectionH2 from '../../components/sectionheader.astro';
 const projects = await getCollection('projects');
 const sortedProjects = projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Pages>
   <div id="content" class="align-center justify-center">
-    <h2 class="text-2xl font-bold mb-4 m-h2">Projects</h2>
-    <ul class="list w-full divide-y-1 divide-primary/20">
+    <SectionH2>Projects</SectionH2>
+    <ul class="list w-full divide-y divide-primary/20">
       {
         sortedProjects.map((post) => (
           <Project slug={post.slug} content={post.body} {...post.data} />

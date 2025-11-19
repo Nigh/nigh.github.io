@@ -16,7 +16,7 @@ export default {
   me: {
     pic: 'https://avatars.githubusercontent.com/u/1407471?v=4',
     name: 'TecNico',
-    bio: '一个普通的全栈电子工程师',
+    bio: 'A random Full-stack Electronics engineer',
     link: 'https://tecnico.cc/',
   },
 };
