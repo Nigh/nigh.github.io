@@ -1,12 +1,56 @@
 ---
-import Pages from '../layouts/Pages.astro';
-import IndexContent from '../components/IndexContent.svelte';
+import Indexs from '../layouts/IndexPage.astro';
+import Hero from '../components/hero.astro';
+import Interests from '../components/interests.svelte';
+import Names from '../components/3in1.astro';
+import Friends from '../components/friends.svelte';
+import Footer from '../components/footer.astro';
+
+import CrossfadeBackground from '../components/CrossfadeBackground.astro';
+import bg1 from '../assets/bg1.jpg';
+import bg2 from '../assets/bg2.jpg';
+import bg3 from '../assets/bg3.jpg';
+import bg4 from '../assets/bg4.jpg';
+const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
+
+import bg from '../assets/blue.jpg';
 
 const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
-<Pages>
-  <div class="min-h-screen flex items-center justify-center">
-    <IndexContent {base} client:load />
+<Indexs>
+  <CrossfadeBackground images={backgrounds} />
+  <Hero />
+  <div class="bg-wrapper" style={`--bg-url: url(${bg.src});`}>
+    <Interests client:load />
   </div>
-</Pages>
+  <Names />
+
+  <div class="divider"></div>
+  <Friends client:load />
+  <Footer />
+</Indexs>
+
+<style>
+  .bg-wrapper {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .bg-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg-url);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    /* background-only effects */
+    filter: brightness(0.2) blur(16px);
+
+    z-index: -1;
+  }
+</style>

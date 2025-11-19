@@ -1,0 +1,88 @@
+---
+const skills: Record<string, { color: string }> = {
+  KiCad: { color: 'bg-[#2b31b7]' },
+  'Altium Designer': { color: 'bg-[#dac183]' },
+  C: { color: 'bg-[#2e85d5]' },
+  Blender: { color: 'bg-[#fa8a24]' },
+  AutoHotkey: { color: 'bg-[#448e3a]' },
+  Golang: { color: 'bg-[#36a7d0]' },
+  Wails: { color: 'bg-[#c92625]' },
+  Svelte: { color: 'bg-[#f62400]' },
+  Astro: { color: 'bg-[#df35a4]' },
+  Vite: { color: 'bg-[#ccb527]' },
+  Docker: { color: 'bg-[#3561eb]' },
+};
+const toolkit: { group: string; content: string[] }[] = [
+  { group: 'PCB Layout', content: ['KiCad', 'Altium Designer'] },
+  { group: 'Embedded', content: ['C'] },
+  { group: '3D Modeling', content: ['Blender'] },
+  { group: 'Windows App', content: ['AutoHotkey', 'Vite'] },
+  { group: 'Cross-platform App', content: ['Golang', 'Wails', 'Svelte'] },
+  { group: 'PWA', content: ['Svelte'] },
+  { group: 'Frontend', content: ['Astro', 'Svelte', 'Vite'] },
+  { group: 'Backend', content: ['Golang'] },
+  { group: 'DevOps', content: ['Docker'] },
+];
+---
+
+<style>
+  .table-z {
+    tbody {
+      tr {
+        &:where(:nth-child(even)) {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+        :where(th, td) {
+          padding-inline: 0.8rem;
+          padding-block: 0.4rem;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+</style>
+<div class="flex justify-center items-center h-screen">
+  <div class="flex flex-col gap-6 text-4xl font-bold font-sans">
+    <div>
+      <div class="mb-6">My Skills</div>
+      <div class="overflow-x-auto">
+        <table class="table table-z">
+          <tbody>
+            {
+              toolkit.map((tool) => (
+                <tr class="">
+                  <td class="font-bold text-xl px-3">{tool.group}</td>
+                  <td class="flex items-center gap-2 h-full">
+                    {tool.content.map((c) => (
+                      <div class:list={['badge badge-xl border-0', `${skills[c].color}`]}>{c}</div>
+                    ))}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="grid grid-cols-3 gap-2 justify-center items-center flex-wrap">
+        {
+          toolkit.map((tool) => (
+              <span class="font-bold text-xl text-primary-content border-4 border-primary rounded-full px-3">{tool.group}</span>
+              <div class="col-span-2 flex items-center gap-1">
+                {tool.content.map((c) => (
+                  <div class:list={['badge badge-xl border-0', `${skills[c].color}`]}>{c}</div>
+                ))}
+              </div>
+          ))
+        }
+      </div> -->
+    </div>
+
+    <div>
+      <span class="text-sm opacity-80"
+        >I also design and make <div class="badge badge-sm badge-primary">
+          Irish Whistles
+        </div>.</span
+      >
+    </div>
+  </div>
+</div>

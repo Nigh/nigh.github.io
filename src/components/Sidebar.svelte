@@ -13,19 +13,7 @@
 <Toast />
 
 <div class="flex flex-col gap-4">
-  <div
-    class="skeleton h-48 w-full flex items-center justify-center border-primary/20 border-1 rounded-xl"
-  >
-    <p class="text-center">无广告</p>
-  </div>
-
-  <div
-    class="skeleton h-24 w-full flex items-center justify-center border-primary/20 border-1 rounded-xl"
-  >
-    <p class="text-center">无推荐</p>
-  </div>
-
-  <div class="flex flex-col max-w-xs min-w-3xs border-primary/20 border-1 rounded-xl text-wrap">
+  <div class="flex flex-col max-w-xs min-w-3xs border-primary/20 border rounded-xl text-wrap">
     <p class="text-lg font-bold mb-4 px-4 pt-4">赛博友人</p>
     {#each links.friends as f}
       <a href={f.link} target="_blank" class="hover:bg-primary p-4 rounded-xl">
@@ -50,7 +38,7 @@
     {/each}
   </div>
 
-  <div class="flex flex-col max-w-xs min-w-3xs border-primary/20 border-1 rounded-xl text-wrap">
+  <div class="flex flex-col max-w-xs min-w-3xs border-primary/20 border rounded-xl text-wrap">
     <p class="text-lg font-bold px-4 pt-2">
       友链自取
       <span class="text-right text-xs text-white/40 mx-2">点击复制</span>

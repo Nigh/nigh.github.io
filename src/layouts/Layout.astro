@@ -11,7 +11,12 @@ const base = import.meta.env.PUBLIC_BASE_URL;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href={`${base}icon.png`} />
     <meta name="generator" content={Astro.generator} />
-    <title>xianii</title>
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+    </style>
+    <title>I'm xianii</title>
   </head>
   <body>
     <slot />

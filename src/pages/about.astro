@@ -1,143 +1,179 @@
 ---
 import Pages from '../layouts/Pages.astro';
-import myLogo from '../assets/icon.png';
 import { Icon } from 'astro-icon/components';
-
+import Contact from '../components/contact.astro';
 const workYears = new Date().getFullYear() - 2013;
-const socialLinks = {
-  GitHub: {
-    icon: 'mingcute:github-2-fill',
-    href: 'https://github.com/Nigh',
-    txt: 'Nigh',
-  },
-  Bilibili: {
-    icon: 'mingcute:bilibili-fill',
-    href: 'https://space.bilibili.com/895523',
-    txt: '895523',
-  },
-  Youtube: {
-    icon: 'mingcute:youtube-fill',
-    href: 'https://www.youtube.com/@tecnico5283',
-    txt: '@tecnico5283',
-  },
-  X: {
-    icon: 'mingcute:social-x-line',
-    href: 'https://x.com/xiaxianyi',
-    txt: '@xiaxianyi',
-  },
-  Mastodon: {
-    icon: 'mingcute:mastodon-fill',
-    href: 'https://mastodon.cloud/@nigh',
-    txt: '@nigh',
-  },
-  Email: {
-    icon: 'mingcute:mail-fill',
-    href: null,
-    txt: 'xianyi.xia#outlook.com',
-  },
-};
 const techItemStyle = 'px-1 text-primary font-semibold';
 const techTypeStyle = 'font-bold mr-4 hover:text-primary';
 const techLineStyle = 'flex flex-row mb-1';
 const h2Style = 'text-xl font-bold mt-4 mb-1 pb-1 border-b-4 border-primary';
+import Profile from '../components/profilepic.astro';
+const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <Pages>
-  <h2 class="text-2xl font-bold mb-4 m-h2">关于</h2>
-  <div class="px-6">
-    <div class="profile">
-      <img src={myLogo.src} width="115" alt="" />
-      <div class="text-xl font-bold">TecNico</div>
-      <div class="text-sm font-semibold text-current/40">一个普通的全栈电子工程师</div>
-    </div>
-    <div class="experience"></div>
-    <h2 class={h2Style}>经验</h2>
-    <p>
-      <span class={techItemStyle}>{workYears}</span
-      >年电子工程师经验，擅长围绕单片机的系统设计与开发。有丰富的手环手表（含机械指针）、电子烟等各类消费类电子产品的量产经验，并有一些物联网、工控、医疗、军工等行业项目的落地开发经验。
-    </p>
-    <div class="technology-stack"></div>
-    <h2 class={h2Style}>技术栈</h2>
-    <div class="technologys">
-      <div class={techLineStyle}>
-        <span class={techTypeStyle}>Layout</span>
-        <span class="text-current/80"
-          >使用<span class={techItemStyle}>KiCad</span>和<span class={techItemStyle}
-            >Altium Designer</span
-          >进行原理设计与 PCB 布局</span
-        >
-      </div>
-      <div class={techLineStyle}>
-        <span class={techTypeStyle}>Firmware</span>
-        <span class="text-current/80"
-          >使用<span class={techItemStyle}>C</span>进行嵌入式固件编程</span
-        >
-      </div>
-      <div class={techLineStyle}>
-        <span class={techTypeStyle}>3D建模</span>
-        <span class="text-current/80"
-          >使用<span class={techItemStyle}>Blender</span>进行可 FDM 制造的3D模型设计</span
-        >
-      </div>
-      <div class={techLineStyle}>
-        <span class={techTypeStyle}>Win应用</span>
-        <span class="text-current/80"
-          >使用<span class={techItemStyle}>AHK</span>开发一些 Windows 应用和工具</span
-        >
-      </div>
-      <div class={techLineStyle}>
-        <span class={techTypeStyle}>跨平台应用</span>
-        <span class="text-current/80"
-          >使用<span class={techItemStyle}>Golang</span>+<span class={techItemStyle}>Svelte</span
-          >+<span class={techItemStyle}>Wails</span>开发跨平台的桌面应用</span
-        >
-      </div>
-      <div class={techLineStyle}>
-        <span class={techTypeStyle}>PWA应用</span>
-        <span class="text-current/80"
-          >使用<span class={techItemStyle}>Svelte</span>为移动端设备开发 PWA 应用</span
-        >
-      </div>
-      <div class={techLineStyle}>
-        <span class={techTypeStyle}>前端</span>
-        <span class="text-current/80"
-          >主要使用<span class={techItemStyle}>Svelte</span>、<span class={techItemStyle}
-            >Astro</span
-          >和<span class={techItemStyle}>React</span>编写前端界面</span
-        >
-      </div>
-      <div class={techLineStyle}>
-        <div class={techTypeStyle}>后端</div>
-        <span class="text-current/80">
-          大量使用<span class={techItemStyle}>Golang</span>编写后端服务
-        </span>
-      </div>
-      <div class={techLineStyle}>
-        <div class="whitespace-nowrap font-bold mr-4">器乐</div>
-        <span class="text-current/80">
-          具备基础乐理知识和演奏部分乐器的能力；<br />知晓混音工作流，有实际混音经验；<br
-          />有独立设计制造爱尔兰哨笛的经验；<br />在音乐相关项目中更具优势
-        </span>
+  <div class="flex flex-col items-center">
+    <div>
+      <div class="w-32 h-32" style="view-transition-name:profile;">
+        <a href={base}>
+          <Profile />
+        </a>
       </div>
     </div>
-    <div class="social">
-      <h2 class={h2Style}>社交媒体</h2>
-      <div class="flex flex-row flex-wrap gap-8 mt-4">
-        {
-          Object.entries(socialLinks).map(([name, value]) => (
-            <a href={value.href} target="_blank" class="hover:text-primary">
-              <div class="flex-1 flex flex-col justify-center items-center hover:text-current text-current/40">
-                <div class="flex flex-col items-center text-center w-max">
-                  <Icon name={value.icon} size="40px" />
-                  <span class="text-xs -mt-2">{name}</span>
-                </div>
-                <span class="font-bold">{value.txt}</span>
-              </div>
-            </a>
-          ))
-        }
-      </div>
+    <div class="text-2xl font-bold text-primary">TecNico</div>
+    <div class="text-sm font-semibold text-current/40">
+      A Random Full-Stack Electronics Engineer
     </div>
   </div>
-  <div class="h-40 md:hidden block"></div>
+  <h2 class={h2Style}>Experience</h2>
+  <div class="flex flex-row items-center justify-evenly">
+    <div class="flex-2">
+      <p>
+        <span class={techItemStyle}>{workYears}</span> years of experience as an Electronics Engineer,
+        specializing in system design and development centered around microcontrollers. Extensive mass
+        production experience with various consumer electronics including smart bands/watches (including
+        mechanical parts types), e-cigarettes, etc. Also involved in the development and deployment of
+        projects across industries such as IoT, industrial control, medical, and military.
+      </p>
+    </div>
+    <div class="flex-3 mx-auto">
+      <ul class="timeline timeline-vertical">
+        <li>
+          <div class="timeline-start timeline-box">
+            <div class="w-title">MCU Software Engineer</div><div class="w-company">
+              @MOS-SOFT Technology
+            </div>
+          </div>
+          <div class="timeline-middle">
+            <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
+          </div>
+          <div class="timeline-end"><div class="w-time">2013-2015</div></div>
+          <hr />
+        </li>
+        <li>
+          <hr />
+          <div class="timeline-start timeline-box">
+            <div class="w-title">Technical Director</div><div class="w-company">
+              @Shenzhen SmartMovt Technology
+            </div>
+          </div>
+          <div class="timeline-middle">
+            <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
+          </div>
+          <div class="timeline-end"><div class="w-time">2015-2016</div></div>
+          <hr />
+        </li>
+        <li>
+          <hr />
+          <div class="timeline-start timeline-box">
+            <div class="w-title">Technical Lead</div><div class="w-company">
+              @Corumi (Shenzhen) Technology
+            </div>
+          </div>
+          <div class="timeline-middle">
+            <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
+          </div>
+          <div class="timeline-end"><div class="w-time">2018-2022</div></div>
+          <hr />
+        </li>
+        <li>
+          <hr />
+          <div class="timeline-start timeline-box">
+            <div class="w-title">Technical Lead</div><div class="w-company">
+              @Shenzhen Volwave Technology
+            </div>
+          </div>
+          <div class="timeline-middle">
+            <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
+          </div>
+          <div class="timeline-end"><div class="w-time">2022-2024</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <h2 class={h2Style}>Skills</h2>
+  <div class="skill">
+    <div class={techLineStyle}>
+      <span class={techTypeStyle}>Layout</span>
+      <span class="text-current/80">
+        Use <span class={techItemStyle}>KiCad</span> and <span class={techItemStyle}
+          >Altium Designer</span
+        > for schematic design and PCB layout.
+      </span>
+    </div>
+    <div class={techLineStyle}>
+      <span class={techTypeStyle}>Firmware</span>
+      <span class="text-current/80"
+        >Use <span class={techItemStyle}>C</span> for embedded firmware programming.</span
+      >
+    </div>
+    <div class={techLineStyle}>
+      <span class={techTypeStyle}>3D Modeling</span>
+      <span class="text-current/80"
+        >Use <span class={techItemStyle}>Blender</span> for 3D model design suitable for FDM manufacturing.</span
+      >
+    </div>
+    <div class={techLineStyle}>
+      <span class={techTypeStyle}>Win Apps</span>
+      <span class="text-current/80"
+        >Use <span class={techItemStyle}>AHK</span> + <span class={techItemStyle}>Vite</span> to develop
+        various Windows applications and tools.</span
+      >
+    </div>
+    <div class={techLineStyle}>
+      <span class={techTypeStyle}>Cross-Platform Apps</span>
+      <span class="text-current/80">
+        Use <span class={techItemStyle}>Golang</span> + <span class={techItemStyle}>Svelte</span> + <span
+          class={techItemStyle}>Wails</span
+        > to develop cross-platform desktop applications.
+      </span>
+    </div>
+    <div class={techLineStyle}>
+      <span class={techTypeStyle}>PWA Apps</span>
+      <span class="text-current/80"
+        >Use <span class={techItemStyle}>Svelte</span> to develop PWA applications for mobile devices.</span
+      >
+    </div>
+    <div class={techLineStyle}>
+      <span class={techTypeStyle}>Frontend</span>
+      <span class="text-current/80">
+        Primarily use <span class={techItemStyle}>Svelte</span> and <span class={techItemStyle}
+          >Astro</span
+        > for frontend development.
+      </span>
+    </div>
+    <div class={techLineStyle}>
+      <div class={techTypeStyle}>Backend</div>
+      <span class="text-current/80">
+        Extensively use <span class={techItemStyle}>Golang</span> for backend services.
+      </span>
+    </div>
+    <div class={techLineStyle}>
+      <div class="whitespace-nowrap font-bold mr-4">Music</div>
+      <span class="text-current/80">
+        Possess basic music theory knowledge and the ability to play some instruments;<br />Familiar
+        with mixing workflows, with practical mixing experience;<br />Experience in independently
+        designing and manufacturing <span class={techItemStyle}>Irish whistles</span><br
+        />Particularly advantageous in music-related projects.
+      </span>
+    </div>
+  </div>
+  <div class="social">
+    <h2 class={h2Style}>Social Links</h2>
+    <Contact icon_size="48px" name_size="text-sm" value_size="text-lg" />
+  </div>
 </Pages>
+<div class="h-32"></div>
+
+<style>
+  @import '../styles/global.css';
+  .w-title {
+    @apply font-bold text-md text-right text-primary;
+  }
+  .w-company {
+    @apply text-right text-base-content/40;
+  }
+  .w-time {
+    @apply text-sm text-base-content/40;
+  }
+</style>

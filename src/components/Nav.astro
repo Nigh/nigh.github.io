@@ -1,40 +1,33 @@
 ---
-import myLogo from '../assets/icon.png';
-import NavBtn from './nav_btn.astro';
-import nav from './nav_item.ts';
-import BEIAN from './beian.astro';
-import Copyright from './copyright.astro';
-const beian = import.meta.env.BEIAN;
+import Navbar from './navbar.astro';
 ---
 
-<div class="flex flex-col p-4">
-  <div class="flex justify-center items-center py-4">
-    <img
-      src={myLogo.src}
-      width="120"
-      alt="profile"
-      class="outline-4 outline-primary rounded-full"
-    />
-  </div>
-  {
-    nav.items.map((item) => (
-      <NavBtn href={item.href} svg={item.svg}>
-        {item.name}
-      </NavBtn>
-    ))
-  }
-  <a rel="me" href="https://mastodon.cloud/@nigh"></a>
-</div>
+<script>
+  const navs = document.getElementsByClassName('xianii-nav');
+  const scrollThreshold = 50; // The number of pixels to scroll before it becomes sticky
 
-{
-  beian && (
-    <div class="flex flex-col mt-auto max-w-xs text-current/60 text-center">
-      <div>
-        <BEIAN />
-      </div>
-      <div>
-        <Copyright />
-      </div>
-    </div>
-  )
-}
+  function handleScroll() {
+    // window.scrollY is the current vertical scroll position
+    if (window.scrollY >= scrollThreshold) {
+      for (let index = 0; index < navs.length; index++) {
+        const nav = navs[index];
+        nav.classList.add('scrolled');
+      }
+    } else {
+      for (let index = 0; index < navs.length; index++) {
+        const nav = navs[index];
+        nav.classList.remove('scrolled');
+      }
+    }
+  }
+
+  // Attach the function to the scroll event
+  window.addEventListener('scroll', handleScroll);
+
+  // Clean up the event listener when the component is removed (good practice)
+  document.addEventListener('astro:before-swap', () => {
+    window.removeEventListener('scroll', handleScroll);
+  });
+</script>
+<Navbar navType="nav-fixed" />
+<Navbar navType="nav-sticky" />
