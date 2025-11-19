@@ -46,3 +46,7 @@
   --text-5xl: 3.75rem;
   --text-6xl: 4.5rem;
 }
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+}

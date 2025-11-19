@@ -92,10 +92,6 @@ const base = import.meta.env.PUBLIC_BASE_URL;
     const isAtTop = scrollTop <= 10;
     // Math.ceil ensures we handle sub-pixel rendering differences
     const isAtBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight - 1;
-    console.log(
-      scrollTop + '+' + clientHeight + '=' + Math.ceil(scrollTop + clientHeight),
-      scrollHeight
-    );
 
     if (topIndicator) topIndicator.classList.toggle('opacity-0', isAtTop);
     if (bottomIndicator) bottomIndicator.classList.toggle('opacity-0', isAtBottom);
