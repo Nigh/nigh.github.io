@@ -4,15 +4,56 @@ import { Icon } from 'astro-icon/components';
 import Contact from '../components/contact.astro';
 const workYears = new Date().getFullYear() - 2013;
 const techItemStyle = 'px-1 text-primary font-semibold';
-const techTypeStyle = 'font-bold mr-4 hover:text-primary';
-const techLineStyle = 'flex flex-row mb-1';
 const h2Style = 'text-xl font-bold mt-4 mb-1 pb-1 border-b-4 border-primary';
 import Profile from '../components/profilepic.astro';
 const base = import.meta.env.PUBLIC_BASE_URL;
+
+const skills: { name: string; content: string }[] = [
+  {
+    name: 'PCB Layout',
+    content: `Use <span class="${techItemStyle}">KiCad</span> and <span class="${techItemStyle}" >Altium Designer</span > for schematic design and PCB layout.`,
+  },
+  {
+    name: 'Firmware',
+    content: `Use <span class="${techItemStyle}">C</span> for embedded firmware programming.`,
+  },
+  {
+    name: '3D Modeling',
+    content: `Use <span class="${techItemStyle}">Blender</span> for 3D model design suitable for FDM manufacturing.`,
+  },
+  {
+    name: 'Win Apps',
+    content: `Use <span class="${techItemStyle}">AHK</span> + <span class="${techItemStyle}">Vite</span> to develop various Windows applications and tools.`,
+  },
+  {
+    name: 'Cross-Platform',
+    content: `Use <span class="${techItemStyle}">Golang</span> + <span class="${techItemStyle}">Svelte</span> + <span class="${techItemStyle}">Wails</span > to develop cross-platform desktop applications.`,
+  },
+  {
+    name: 'PWA Apps',
+    content: `Use <span class="${techItemStyle}">Svelte</span> to develop PWA applications for mobile devices.`,
+  },
+  {
+    name: 'Frontend',
+    content: `Primarily use <span class="${techItemStyle}">Svelte</span> and <span class="${techItemStyle}" >Astro</span > for frontend development.`,
+  },
+  {
+    name: 'Backend',
+    content: `Extensively use <span class="${techItemStyle}">Golang</span> for backend services.`,
+  },
+  {
+    name: 'Backend',
+    content: `Extensively use <span class="${techItemStyle}">Golang</span> for backend services.`,
+  },
+  {
+    name: 'Music',
+    content: `Possess basic music theory knowledge and the ability to play some instruments;<br />Familiar with mixing workflows, with practical mixing experience;<br />Experience in independently designing and manufacturing <span class="${techItemStyle}">Irish whistles</span><br />Particularly advantageous in music-related projects.`,
+  },
+];
 ---
 
 <Pages>
-  <div class="flex flex-col items-center">
+  <div class="flex flex-col max-w-screen items-center">
     <div>
       <div class="w-32 h-32" style="view-transition-name:profile;">
         <a href={base}>
@@ -26,7 +67,7 @@ const base = import.meta.env.PUBLIC_BASE_URL;
     </div>
   </div>
   <h2 class={h2Style}>Experience</h2>
-  <div class="flex flex-row items-center justify-evenly">
+  <div class="flex flex-col md:flex-row items-center justify-evenly">
     <div class="flex-2">
       <p>
         <span class={techItemStyle}>{workYears}</span> years of experience as an Electronics Engineer,
@@ -36,7 +77,7 @@ const base = import.meta.env.PUBLIC_BASE_URL;
         projects across industries such as IoT, industrial control, medical, and military.
       </p>
     </div>
-    <div class="flex-3 mx-auto">
+    <div class="flex-3 mx-auto -mr-24">
       <ul class="timeline timeline-vertical">
         <li>
           <div class="timeline-start timeline-box">
@@ -93,74 +134,24 @@ const base = import.meta.env.PUBLIC_BASE_URL;
   </div>
   <h2 class={h2Style}>Skills</h2>
   <div class="skill">
-    <div class={techLineStyle}>
-      <span class={techTypeStyle}>Layout</span>
-      <span class="text-current/80">
-        Use <span class={techItemStyle}>KiCad</span> and <span class={techItemStyle}
-          >Altium Designer</span
-        > for schematic design and PCB layout.
-      </span>
-    </div>
-    <div class={techLineStyle}>
-      <span class={techTypeStyle}>Firmware</span>
-      <span class="text-current/80"
-        >Use <span class={techItemStyle}>C</span> for embedded firmware programming.</span
-      >
-    </div>
-    <div class={techLineStyle}>
-      <span class={techTypeStyle}>3D Modeling</span>
-      <span class="text-current/80"
-        >Use <span class={techItemStyle}>Blender</span> for 3D model design suitable for FDM manufacturing.</span
-      >
-    </div>
-    <div class={techLineStyle}>
-      <span class={techTypeStyle}>Win Apps</span>
-      <span class="text-current/80"
-        >Use <span class={techItemStyle}>AHK</span> + <span class={techItemStyle}>Vite</span> to develop
-        various Windows applications and tools.</span
-      >
-    </div>
-    <div class={techLineStyle}>
-      <span class={techTypeStyle}>Cross-Platform Apps</span>
-      <span class="text-current/80">
-        Use <span class={techItemStyle}>Golang</span> + <span class={techItemStyle}>Svelte</span> + <span
-          class={techItemStyle}>Wails</span
-        > to develop cross-platform desktop applications.
-      </span>
-    </div>
-    <div class={techLineStyle}>
-      <span class={techTypeStyle}>PWA Apps</span>
-      <span class="text-current/80"
-        >Use <span class={techItemStyle}>Svelte</span> to develop PWA applications for mobile devices.</span
-      >
-    </div>
-    <div class={techLineStyle}>
-      <span class={techTypeStyle}>Frontend</span>
-      <span class="text-current/80">
-        Primarily use <span class={techItemStyle}>Svelte</span> and <span class={techItemStyle}
-          >Astro</span
-        > for frontend development.
-      </span>
-    </div>
-    <div class={techLineStyle}>
-      <div class={techTypeStyle}>Backend</div>
-      <span class="text-current/80">
-        Extensively use <span class={techItemStyle}>Golang</span> for backend services.
-      </span>
-    </div>
-    <div class={techLineStyle}>
-      <div class="whitespace-nowrap font-bold mr-4">Music</div>
-      <span class="text-current/80">
-        Possess basic music theory knowledge and the ability to play some instruments;<br />Familiar
-        with mixing workflows, with practical mixing experience;<br />Experience in independently
-        designing and manufacturing <span class={techItemStyle}>Irish whistles</span><br
-        />Particularly advantageous in music-related projects.
-      </span>
-    </div>
+    <table class="table table-z">
+      <tbody>
+        {
+          skills.map((skill) => (
+            <tr class="hover:text-primary">
+              <td class="font-bold text-md">{skill.name}</td>
+              <td class="flex flex-wrap items-center gap-2 h-full">
+                <span class="text-current/80" set:html={skill.content} />
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
   </div>
   <div class="social">
     <h2 class={h2Style}>Social Links</h2>
-    <Contact icon_size="48px" name_size="text-sm" value_size="text-lg" />
+    <Contact icon_size="48px" />
   </div>
 </Pages>
 <div class="h-32"></div>
@@ -175,5 +166,19 @@ const base = import.meta.env.PUBLIC_BASE_URL;
   }
   .w-time {
     @apply text-sm text-base-content/40;
+  }
+  .table-z {
+    tbody {
+      tr {
+        &:where(:nth-child(even)) {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+        :where(th, td) {
+          padding-inline: 0.8rem;
+          padding-block: 0.4rem;
+          vertical-align: middle;
+        }
+      }
+    }
   }
 </style>

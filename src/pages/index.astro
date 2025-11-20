@@ -20,15 +20,15 @@ const base = import.meta.env.PUBLIC_BASE_URL;
 
 <Indexs>
   <CrossfadeBackground images={backgrounds} />
-  <Hero />
   <div class="bg-wrapper" style={`--bg-url: url(${bg.src});`}>
-    <Interests client:load />
-  </div>
-  <Names />
+    <Hero />
+    <Interests client:load client:only />
+    <Names />
 
-  <div class="divider"></div>
-  <Friends client:load />
-  <Footer />
+    <div class="divider"></div>
+    <Friends client:load />
+    <Footer />
+  </div>
 </Indexs>
 
 <style>
@@ -49,8 +49,8 @@ const base = import.meta.env.PUBLIC_BASE_URL;
     background-attachment: fixed;
 
     /* background-only effects */
-    filter: brightness(0.2) blur(16px);
+    filter: brightness(0.33) blur(16px);
 
-    z-index: -1;
+    z-index: -50;
   }
 </style>

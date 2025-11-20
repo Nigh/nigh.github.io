@@ -29,7 +29,7 @@ const base = import.meta.env.PUBLIC_BASE_URL;
     </div>
   </div>
 
-  <div id="hero-carousel" class="carousel carousel-vertical h-screen overflow-hidden scroll-smooth">
+  <div id="hero-carousel" class="px-4 carousel carousel-vertical h-screen overflow-hidden">
     <div class="carousel-item min-h-screen">
       <Brief />
     </div>
@@ -61,7 +61,7 @@ const base = import.meta.env.PUBLIC_BASE_URL;
     </div>
   </div>
 
-  <div style="view-transition-name:profile;">
+  <div class="hidden md:block" style="view-transition-name:profile;">
     <div class="tooltip tooltip-primary">
       <div class="tooltip-content">
         <div class="animate-bounce text-primary-content -rotate-3 text-2xl font-black">
@@ -82,13 +82,13 @@ const base = import.meta.env.PUBLIC_BASE_URL;
   const bottomIndicator = document.getElementById('scroll-indicator-bottom');
 
   let isHeroScrollActive = false;
+  let touchStartY = 0; // New variable to track touch position
 
   // 1. UI Logic: Toggle indicators based on carousel scroll position
   const updateIndicators = () => {
     if (!carousel) return;
-
     const { scrollTop, scrollHeight, clientHeight } = carousel;
-    // Use a small buffer (10px) for "top" detection
+
     const isAtTop = scrollTop <= 10;
     // Math.ceil ensures we handle sub-pixel rendering differences
     const isAtBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight - 1;
@@ -98,15 +98,15 @@ const base = import.meta.env.PUBLIC_BASE_URL;
   };
 
   // Even though overflow is hidden, the 'scroll' event still fires when we move it via JS
-  carousel.addEventListener('scroll', updateIndicators);
-  // Initial check
-  updateIndicators();
+  if (carousel) {
+    carousel.addEventListener('scroll', updateIndicators);
+    updateIndicators(); // Initial check
+  }
 
   // 2. Observer: Detect when the Hero section is FULLY visible
   const observer = new IntersectionObserver(
     ([entry]) => {
       // Ensure it is intersecting AND the top is at the viewport top
-      // We use a small buffer (< 5) instead of < 1 to be more robust across browsers
       const isAtTop = entry.isIntersecting && Math.abs(entry.boundingClientRect.top) < 5;
       isHeroScrollActive = isAtTop;
     },
@@ -115,44 +115,74 @@ const base = import.meta.env.PUBLIC_BASE_URL;
 
   if (heroSection) observer.observe(heroSection);
 
-  // 3. Main Scroll Hijack Logic
+  // 3. Helper Function: Handles the logic for scrolling the carousel vs releasing the page
+  // We separate this so both Wheel and Touch can use it.
+  const handleCarouselScroll = (deltaY, event) => {
+    if (!isHeroScrollActive) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = carousel;
+    const isAtCarouselTop = scrollTop === 0;
+    const isAtCarouselBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+    if (deltaY > 0) {
+      // Scrolling DOWN (Moving towards bottom)
+      if (!isAtCarouselBottom) {
+        // Hijack: Scroll the carousel
+        if (event.cancelable) event.preventDefault();
+        carousel.scrollBy({ top: deltaY, behavior: 'auto' });
+      } else {
+        // Release: Allow page to scroll down.
+        isHeroScrollActive = false;
+      }
+    } else {
+      // Scrolling UP (Moving towards top)
+      if (!isAtCarouselTop) {
+        // Hijack: Scroll the carousel
+        if (event.cancelable) event.preventDefault();
+        carousel.scrollBy({ top: deltaY, behavior: 'auto' });
+      } else {
+        // Release: Allow page to scroll up.
+        isHeroScrollActive = false;
+      }
+    }
+  };
+
+  // 4. Mouse Wheel Handler
   window.addEventListener(
     'wheel',
     (event) => {
-      // RULE 1: If Hero is not locked, do NOT interfere.
-      // Because the carousel is overflow-hidden, the browser ignores it
-      // and scrolls the page naturally.
+      handleCarouselScroll(event.deltaY, event);
+    },
+    { passive: false }
+  );
+
+  // 5. Touch Handlers (New)
+  window.addEventListener(
+    'touchstart',
+    (event) => {
+      // Record where the finger started
+      touchStartY = event.touches[0].clientY;
+    },
+    { passive: false }
+  );
+
+  window.addEventListener(
+    'touchmove',
+    (event) => {
       if (!isHeroScrollActive) return;
 
-      const { deltaY } = event;
-      const { scrollTop, scrollHeight, clientHeight } = carousel;
+      const currentY = event.touches[0].clientY;
+      // Calculate difference.
+      // Start (100) - Current (80) = 20 (Positive means finger moved UP, so we scroll DOWN)
+      const deltaY = touchStartY - currentY;
 
-      const isAtCarouselTop = scrollTop === 0;
-      const isAtCarouselBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+      // Call the shared logic
+      handleCarouselScroll(deltaY, event);
 
-      if (deltaY > 0) {
-        // Scrolling DOWN
-        if (!isAtCarouselBottom) {
-          // Hijack: Scroll the carousel
-          event.preventDefault();
-          carousel.scrollBy({ top: deltaY, behavior: 'auto' });
-        } else {
-          // Release: Allow page to scroll down.
-          // We set this false so the NEXT wheel event scrolls the page.
-          isHeroScrollActive = false;
-        }
-      } else {
-        // Scrolling UP
-        if (!isAtCarouselTop) {
-          // Hijack: Scroll the carousel
-          event.preventDefault();
-          carousel.scrollBy({ top: deltaY, behavior: 'auto' });
-        } else {
-          // Release: Allow page to scroll up.
-          isHeroScrollActive = false;
-        }
-      }
+      // Important: Update touchStartY so the movement is relative to the last frame,
+      // creating a smooth drag effect rather than a jump.
+      touchStartY = currentY;
     },
-    { passive: false } // Required to use event.preventDefault()
+    { passive: false }
   );
 </script>

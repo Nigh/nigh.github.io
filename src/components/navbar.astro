@@ -7,8 +7,10 @@ const { navType } = Astro.props;
 ---
 
 <div class:list={['navbar xianii-nav', navType]}>
-  <nav class="unav navbar px-4 flex-row justify-between items-center rounded-full">
-    <div class="flex-1">
+  <nav
+    class="unav navbar px-4 flex-row justify-center md:justify-between items-center md:rounded-full"
+  >
+    <div class="flex-1 hidden md:block">
       <img
         src={myLogo.src}
         alt="profile"
@@ -60,7 +62,6 @@ const { navType } = Astro.props;
     top: 1em;
   }
   .nav-sticky.xianii-nav .unav {
-    border-radius: calc(infinity * 1px);
     backdrop-filter: blur(16px);
     box-shadow: 2px 1px 2px 2px rgba(255, 255, 255, 0.2);
     background-color: rgba(255, 255, 255, 0.1);

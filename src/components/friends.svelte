@@ -12,7 +12,7 @@
 
 <Toast />
 
-<div class="flex flex-col w-full justify-center items-center">
+<div class="flex flex-col px-4 w-full justify-center items-center">
   <div class="flex flex-col max-w-3xl">
     <h2 class="text-3xl mb-4">Friends</h2>
     <div class="grid grid-cols-3 gap-2">
@@ -22,7 +22,7 @@
             <div class="h-16 w-16 shrink-0 self-center rounded-full overflow-hidden outline-4 outline-white/60">
               <img src={f.pic} alt={f.name} />
             </div>
-            <div class="flex flex-col">
+            <div class="hidden md:flex flex-col">
               <div>
                 <span
                   class="break-all whitespace-normal text-xl font-bold text-white/90 line-clamp-1"
