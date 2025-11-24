@@ -1,0 +1,68 @@
+---
+import myLogo from '../assets/icon.png';
+import NavBtn from './nav_btn.astro';
+import nav from './nav_item.ts';
+
+const { navType } = Astro.props;
+---
+
+<div class:list={['navbar xianii-nav hidden lg:block', navType]}>
+  <nav class="unav navbar px-4 flex-row justify-between items-center rounded-full">
+    <div class="flex-1 block">
+      <img
+        src={myLogo.src}
+        alt="profile"
+        class="w-12 h-12 outline-2 outline-primary rounded-full"
+      />
+    </div>
+
+    <div class="flex flex-none">
+      {
+        nav.items.map((item) => (
+          <NavBtn href={item.href} svg={item.svg}>
+            {item.name}
+          </NavBtn>
+        ))
+      }
+    </div>
+    <a rel="me" href="https://mastodon.cloud/@nigh"></a>
+  </nav>
+</div>
+
+<style>
+  .nav-fixed {
+    top: 0;
+    position: absolute;
+    z-index: 100;
+  }
+  .nav-fixed.xianii-nav {
+    transition: all 0.5s ease-in-out;
+    opacity: 100%;
+  }
+  .nav-fixed.xianii-nav.scrolled {
+    opacity: 0%;
+  }
+
+  .nav-sticky {
+    padding-left: 3em;
+    padding-right: 3em;
+    position: fixed;
+    z-index: 10;
+  }
+  .nav-sticky.xianii-nav {
+    transition: all 0.3s ease-in-out;
+    transform: translateY(-100%);
+    opacity: 0;
+    top: -2em;
+  }
+  .nav-sticky.xianii-nav.scrolled {
+    transform: translateY(0);
+    opacity: 100%;
+    top: 1em;
+  }
+  .nav-sticky.xianii-nav .unav {
+    backdrop-filter: blur(16px);
+    box-shadow: 2px 1px 2px 2px rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+</style>

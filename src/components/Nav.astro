@@ -2,32 +2,4 @@
 import Navbar from './navbar.astro';
 ---
 
-<script>
-  const navs = document.getElementsByClassName('xianii-nav');
-  const scrollThreshold = 50; // The number of pixels to scroll before it becomes sticky
-
-  function handleScroll() {
-    // window.scrollY is the current vertical scroll position
-    if (window.scrollY >= scrollThreshold) {
-      for (let index = 0; index < navs.length; index++) {
-        const nav = navs[index];
-        nav.classList.add('scrolled');
-      }
-    } else {
-      for (let index = 0; index < navs.length; index++) {
-        const nav = navs[index];
-        nav.classList.remove('scrolled');
-      }
-    }
-  }
-
-  // Attach the function to the scroll event
-  window.addEventListener('scroll', handleScroll);
-
-  // Clean up the event listener when the component is removed (good practice)
-  document.addEventListener('astro:before-swap', () => {
-    window.removeEventListener('scroll', handleScroll);
-  });
-</script>
-<Navbar navType="nav-fixed" />
-<Navbar navType="nav-sticky" />
+<Navbar />

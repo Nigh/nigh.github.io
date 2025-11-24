@@ -3,8 +3,14 @@
 
   export let src = '';
   export let height = 400;
+
   export let dotSize = 5;
   export let gap = 2;
+
+  let dpr = 1;
+  let dotSizeReal = Math.ceil(dotSize * dpr);
+  let gapReal = Math.ceil(gap * dpr);
+
   export let color = '#fff';
   export let isValidPixel = (rgba) => rgba.a > 128;
   export let tween = (t) => {
@@ -34,8 +40,8 @@
 
   function makeFloatParams() {
     return {
-      amplitude: 0.5 + Math.random(),
-      speed: 0.5 + Math.random(),
+      amplitude: dpr * (0.5 + Math.random()),
+      speed: dpr * (0.5 + Math.random()),
       phaseX: Math.random() * Math.PI * 2,
       phaseY: Math.random() * Math.PI * 2,
     };
@@ -76,17 +82,17 @@
       const a = imageData[idx + 3];
       return { r, g, b, a };
     };
-    const padding = Math.floor(dotSize);
-    for (let y = padding; y < canvas.height - padding; y += dotSize + gap) {
-      for (let x = padding; x < canvas.width - padding; x += dotSize + gap) {
+    const padding = Math.floor(dotSizeReal);
+    for (let y = padding; y < canvas.height - padding; y += dotSizeReal + gapReal) {
+      for (let x = padding; x < canvas.width - padding; x += dotSizeReal + gapReal) {
         let validCount = 0;
-        for (let i = 0; i < dotSize / 2; i++) {
+        for (let i = 0; i < dotSizeReal / 2; i++) {
           if (isValidPixel(getRGBAfromXY(x - i, y - i))) validCount++;
           if (isValidPixel(getRGBAfromXY(x + i, y - i))) validCount++;
           if (isValidPixel(getRGBAfromXY(x + i, y + i))) validCount++;
           if (isValidPixel(getRGBAfromXY(x - i, y + i))) validCount++;
         }
-        if (validCount >= dotSize) {
+        if (validCount >= dotSizeReal) {
           positions.push({ x: x + Math.random() * 2.0 - 1, y: y + Math.random() * 2.0 - 1 });
         }
       }
@@ -167,13 +173,13 @@
 
       ctx.globalAlpha = p.current.alpha;
       ctx.fillStyle = color;
-      ctx.fillRect(x, y, dotSize, dotSize);
+      ctx.fillRect(x, y, dotSizeReal, dotSizeReal);
 
       // Remove if arrived at position and faded out
       if (
         p.destroyOnArrive &&
-        Math.abs(p.current.x - p.to.x) <= 1 &&
-        Math.abs(p.current.y - p.to.y) <= 1 &&
+        Math.abs(p.current.x - p.to.x) <= gapReal + 1 &&
+        Math.abs(p.current.y - p.to.y) <= gapReal + 1 &&
         Math.abs(p.current.alpha - p.to.alpha) <= 0.05
       ) {
         particles.splice(i, 1);
@@ -181,8 +187,8 @@
       }
 
       if (
-        Math.abs(p.current.x - p.to.x) > 0.5 ||
-        Math.abs(p.current.y - p.to.y) > 0.5 ||
+        Math.abs(p.current.x - p.to.x) > 0.4 * gapReal ||
+        Math.abs(p.current.y - p.to.y) > 0.4 * gapReal ||
         Math.abs(p.current.alpha - p.to.alpha) > 0.05
       ) {
         stillAnimating = true;
@@ -199,7 +205,7 @@
         for (const p of particles) {
           ctx.globalAlpha = p.current.alpha;
           ctx.fillStyle = color;
-          ctx.fillRect(p.current.x, p.current.y, dotSize, dotSize);
+          ctx.fillRect(p.current.x, p.current.y, dotSizeReal, dotSizeReal);
         }
       } else {
         requestAnimationFrame(floatingParticles);
@@ -221,7 +227,7 @@
       }
       ctx.globalAlpha = p.current.alpha;
       ctx.fillStyle = color;
-      ctx.fillRect(x, y, dotSize, dotSize);
+      ctx.fillRect(x, y, dotSizeReal, dotSizeReal);
     }
     requestAnimationFrame(floatingParticles);
   }
@@ -234,9 +240,8 @@
     await new Promise((res) => {
       img.onload = res;
     });
-	
+
     const rect = canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
 
@@ -246,6 +251,9 @@
   }
 
   onMount(() => {
+    dpr = window.devicePixelRatio;
+    dotSizeReal = Math.ceil(dotSize * dpr);
+    gapReal = Math.ceil(gap * dpr);
     ctx = canvas.getContext('2d', { willReadFrequently: true });
     updateDots();
   });
