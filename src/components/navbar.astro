@@ -1,69 +1,35 @@
 ---
-import myLogo from '../assets/icon.png';
-import NavBtn from './nav_btn.astro';
-import nav from './nav_item.ts';
-
-const { navType } = Astro.props;
+import NavbarMD from './navbarMD.astro';
+import NavbarMobile from './navbarMobile.astro';
 ---
 
-<div class:list={['navbar xianii-nav', navType]}>
-  <nav
-    class="unav navbar px-4 flex-row justify-center md:justify-between items-center md:rounded-full"
-  >
-    <div class="flex-1 hidden md:block">
-      <img
-        src={myLogo.src}
-        alt="profile"
-        class="w-12 h-12 outline-2 outline-primary rounded-full"
-      />
-    </div>
-    <div class="flex flex-none">
-      {
-        nav.items.map((item) => (
-          <NavBtn href={item.href} svg={item.svg}>
-            {item.name}
-          </NavBtn>
-        ))
+<script>
+  const navs = document.getElementsByClassName('xianii-nav');
+  const scrollThreshold = 50; // The number of pixels to scroll before it becomes sticky
+
+  function handleScroll() {
+    // window.scrollY is the current vertical scroll position
+    if (window.scrollY >= scrollThreshold) {
+      for (let index = 0; index < navs.length; index++) {
+        const nav = navs[index];
+        nav.classList.add('scrolled');
       }
-    </div>
-    <a rel="me" href="https://mastodon.cloud/@nigh"></a>
-  </nav>
-</div>
-
-<style>
-  .nav-fixed {
-    top: 0;
-    position: absolute;
-    z-index: 100;
-  }
-  .nav-fixed.xianii-nav {
-    transition: all 0.5s ease-in-out;
-    opacity: 100%;
-  }
-  .nav-fixed.xianii-nav.scrolled {
-    opacity: 0%;
+    } else {
+      for (let index = 0; index < navs.length; index++) {
+        const nav = navs[index];
+        nav.classList.remove('scrolled');
+      }
+    }
   }
 
-  .nav-sticky {
-    padding-left: 3em;
-    padding-right: 3em;
-    position: fixed;
-    z-index: 10;
-  }
-  .nav-sticky.xianii-nav {
-    transition: all 0.3s ease-in-out;
-    transform: translateY(-100%);
-    opacity: 0;
-    top: -2em;
-  }
-  .nav-sticky.xianii-nav.scrolled {
-    transform: translateY(0);
-    opacity: 100%;
-    top: 1em;
-  }
-  .nav-sticky.xianii-nav .unav {
-    backdrop-filter: blur(16px);
-    box-shadow: 2px 1px 2px 2px rgba(255, 255, 255, 0.2);
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-</style>
+  // Attach the function to the scroll event
+  window.addEventListener('scroll', handleScroll);
+
+  // Clean up the event listener when the component is removed (good practice)
+  document.addEventListener('astro:before-swap', () => {
+    window.removeEventListener('scroll', handleScroll);
+  });
+</script>
+<NavbarMD navType="nav-fixed" />
+<NavbarMD navType="nav-sticky" />
+<NavbarMobile />

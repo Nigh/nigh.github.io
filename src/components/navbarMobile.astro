@@ -1,0 +1,133 @@
+---
+import nav from './nav_item.ts';
+import NavBtnMobile from './NavBtnMobile.astro';
+---
+
+<div class="z-10 md:hidden">
+  <!-- Hamburger toggle -->
+  <div class="fixed navbar items-center px-3 py-2">
+    <button
+      id="mobile-nav-toggle"
+      aria-label="Open navigation"
+      aria-expanded="false"
+      class="p-2 bg-primary/20 rounded-md hover:bg-primary/80"
+    >
+      <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Backdrop -->
+  <div
+    id="mobile-nav-backdrop"
+    class="fixed inset-0 backdrop-blur-md bg-black/40 opacity-0 pointer-events-none transition-opacity duration-200 z-40"
+  >
+  </div>
+
+  <!-- Sliding drawer -->
+  <aside
+    id="mobile-nav-drawer"
+    class="fixed inset-y-0 left-0 w-64 max-w-[50%] bg-base-100/60 transform -translate-x-full transition-transform duration-300 shadow-xl z-50"
+  >
+    <div class="flex items-center justify-between p-4 border-b">
+      <div class="font-bold text-lg">Nav</div>
+      <button
+        id="mobile-nav-close"
+        aria-label="Close navigation"
+        class="p-2 rounded-md hover:bg-primary/80"
+      >
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="p-3 space-y-1 overflow-y-auto">
+      {
+        nav.items.map((item) => (
+          <NavBtnMobile
+            href={item.href}
+            svg={item.svg}
+            class="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/80 transition-colors"
+          >
+            <span>{item.name}</span>
+          </NavBtnMobile>
+        ))
+      }
+    </nav>
+  </aside>
+
+  <script>
+    // Client-side toggle for mobile nav drawer
+    document.addEventListener('DOMContentLoaded', () => {
+      const openBtn = document.getElementById('mobile-nav-toggle');
+      const closeBtn = document.getElementById('mobile-nav-close');
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const backdrop = document.getElementById('mobile-nav-backdrop');
+
+      function open() {
+        if (!drawer) return;
+        drawer.classList.remove('-translate-x-full');
+        if (backdrop) {
+          backdrop.classList.remove('opacity-0', 'pointer-events-none');
+          backdrop.classList.add('opacity-100');
+        }
+        openBtn && openBtn.setAttribute('aria-expanded', 'true');
+      }
+
+      function close() {
+        if (!drawer) return;
+        drawer.classList.add('-translate-x-full');
+        if (backdrop) {
+          backdrop.classList.add('opacity-0');
+          backdrop.classList.add('pointer-events-none');
+          backdrop.classList.remove('opacity-100');
+        }
+        openBtn && openBtn.setAttribute('aria-expanded', 'false');
+      }
+
+      openBtn && openBtn.addEventListener('click', open);
+      closeBtn && closeBtn.addEventListener('click', close);
+      backdrop && backdrop.addEventListener('click', close);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+      });
+
+      // Expose a simple API so other components (like the main navbar) can open/close the drawer.
+      (window as any).mobileNav = {
+        open: () => {
+          open();
+          // update any toggles in the page that want to reflect state
+          document.querySelectorAll('[data-mobile-toggle]').forEach((el) => {
+            try {
+              el.setAttribute('aria-expanded', 'true');
+            } catch (e) {}
+          });
+        },
+        close: () => {
+          close();
+          document.querySelectorAll('[data-mobile-toggle]').forEach((el) => {
+            try {
+              el.setAttribute('aria-expanded', 'false');
+            } catch (e) {}
+          });
+        },
+        toggle: () => {
+          const isOpen = drawer && !drawer.classList.contains('-translate-x-full');
+          if (isOpen) (window as any).mobileNav.close();
+          else (window as any).mobileNav.open();
+        },
+      };
+    });
+  </script>
+</div>
