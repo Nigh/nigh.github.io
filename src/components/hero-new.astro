@@ -1,0 +1,158 @@
+---
+import Profile from '../components/profilepic.astro';
+import Brief from '../components/brief.astro';
+import Skills from '../components/skill.astro';
+import Contact from '../components/contact.astro';
+
+const base = import.meta.env.PUBLIC_BASE_URL;
+---
+
+<!-- Hero slide 1: Brief -->
+<section class="hero-slide snap-start relative flex flex-row gap-4 justify-center items-center w-full h-screen">
+  <Brief />
+  
+  <!-- Scroll indicators -->
+  <div
+    id="scroll-indicator-bottom-1"
+    class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 transition-opacity duration-300 pointer-events-none text-primary"
+  >
+    <div class="animate-bounce p-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="4"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hidden md:block" style="view-transition-name:profile;">
+    <div class="tooltip tooltip-primary">
+      <div class="tooltip-content">
+        <div class="animate-bounce text-primary-content -rotate-3 text-2xl font-black">
+          Click for more!!!
+        </div>
+      </div>
+      <a href={base + 'about/'}>
+        <Profile />
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Hero slide 2: Skills -->
+<section class="hero-slide snap-start relative flex flex-row gap-4 justify-center items-center w-full h-screen">
+  <Skills />
+  
+  <!-- Scroll indicators -->
+  <div
+    id="scroll-indicator-top-2"
+    class="absolute top-4 left-1/2 -translate-x-1/2 z-20 transition-opacity duration-300 opacity-0 pointer-events-none text-primary"
+  >
+    <div class="animate-bounce p-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="4"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"></path>
+      </svg>
+    </div>
+  </div>
+
+  <div
+    id="scroll-indicator-bottom-2"
+    class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 transition-opacity duration-300 pointer-events-none text-primary"
+  >
+    <div class="animate-bounce p-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="4"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Hero slide 3: Contact -->
+<section class="hero-slide snap-start relative flex flex-row gap-4 justify-center items-center w-full h-screen">
+  <Contact />
+  
+  <!-- Scroll indicators -->
+  <div
+    id="scroll-indicator-top-3"
+    class="absolute top-4 left-1/2 -translate-x-1/2 z-20 transition-opacity duration-300 opacity-0 pointer-events-none text-primary"
+  >
+    <div class="animate-bounce p-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="4"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"></path>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Update scroll indicators based on which hero slide is visible
+  const updateIndicators = () => {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    
+    heroSlides.forEach((slide, index) => {
+      const rect = slide.getBoundingClientRect();
+      const slideTop = scrollTop + rect.top;
+      const slideBottom = slideTop + rect.height;
+      const isSlideVisible = slideTop <= scrollTop + windowHeight / 2 && slideBottom > scrollTop + windowHeight / 2;
+      
+      if (isSlideVisible) {
+        // Show/hide indicators based on current slide
+        const bottom1 = document.getElementById('scroll-indicator-bottom-1');
+        const top2 = document.getElementById('scroll-indicator-top-2');
+        const bottom2 = document.getElementById('scroll-indicator-bottom-2');
+        const top3 = document.getElementById('scroll-indicator-top-3');
+        
+        if (bottom1) bottom1.classList.toggle('opacity-0', index !== 0);
+        if (top2) top2.classList.toggle('opacity-0', index !== 1);
+        if (bottom2) bottom2.classList.toggle('opacity-0', index !== 1);
+        if (top3) top3.classList.toggle('opacity-0', index !== 2);
+      }
+    });
+  };
+
+  // Listen for scroll events to update indicators
+  window.addEventListener('scroll', updateIndicators);
+  
+  // Initial check after a short delay to ensure DOM is ready
+  setTimeout(updateIndicators, 100);
+
+  // Clean up event listener
+  document.addEventListener('astro:before-swap', () => {
+    window.removeEventListener('scroll', updateIndicators);
+  });
+</script>
+
+<style>
+  .hero-slide {
+    scroll-snap-align: start;
+    position: relative;
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
 import Indexs from '../layouts/IndexPage.astro';
-import Hero from '../components/hero.astro';
+import Hero from '../components/hero-new.astro';
 import Interests from '../components/interests.svelte';
 import Names from '../components/3in1.astro';
 import Friends from '../components/friends.svelte';
@@ -20,25 +20,48 @@ const base = import.meta.env.PUBLIC_BASE_URL;
 
 <Indexs>
   <CrossfadeBackground images={backgrounds} />
-  <div class="bg-wrapper" style={`--bg-url: url(${bg.src});`}>
+  <div class="scroll-snap-container" style={`--bg-url: url(${bg.src});`}>
+    <!-- Hero slides will be rendered here -->
     <Hero />
-    <Interests client:load client:only />
-    <Names />
-
-    <div class="divider"></div>
-    <Friends client:load />
-    <Footer />
+    
+    <!-- Content sections -->
+    <section class="content-section snap-start">
+      <Interests client:load client:only />
+    </section>
+    <section class="content-section snap-start">
+      <Names />
+    </section>
+    <section class="content-section snap-start">
+      <div class="divider"></div>
+      <Friends client:load />
+      <Footer />
+    </section>
   </div>
 </Indexs>
 
-<style>
-  .bg-wrapper {
+<style is:global>
+  /* Global scroll-snap styles */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+  }
+  
+  main {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+  }
+  
+  .scroll-snap-container {
     position: relative;
     min-height: 100vh;
     overflow: hidden;
   }
 
-  .bg-wrapper::before {
+  .scroll-snap-container::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -52,5 +75,24 @@ const base = import.meta.env.PUBLIC_BASE_URL;
     filter: brightness(0.33) blur(16px);
 
     z-index: -50;
+  }
+
+  .snap-start {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .content-section {
+    min-height: 100vh;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Ensure layout containers work with scroll-snap */
+  .flex.w-full.min-h-screen {
+    min-height: 100vh;
   }
 </style>
