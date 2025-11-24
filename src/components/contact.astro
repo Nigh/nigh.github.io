@@ -39,11 +39,15 @@ interface Props {
   value_size?: string;
 }
 
-const { icon_size = '64px', name_size = 'text-xs', value_size = 'text-lg' } = Astro.props;
+const {
+  icon_size = '64px',
+  name_size = 'text-xs md:text-sm',
+  value_size = 'text-md md:text-lg',
+} = Astro.props;
 ---
 
 <div class="flex flex-col justify-center">
-  <div class="grid grid-cols-3 flex-wrap gap-8">
+  <div class="grid grid-cols-2 md:grid-cols-3 flex-wrap gap-8">
     {
       Object.entries(socialLinks).map(([name, value]) => (
         <a href={value.href} target="_blank" class="hover:text-primary">

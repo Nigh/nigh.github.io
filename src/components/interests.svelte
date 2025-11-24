@@ -47,24 +47,24 @@
   });
 </script>
 
-<div class="flex w-full h-full min-h-screen items-center justify-center">
-  <div class="grid grid-cols-2">
+<div class="flex md:px-0 px-4 w-full h-full min-h-screen items-center justify-center">
+  <div class="md:grid md:grid-cols-2">
     <div class="w-full h-full grid grid-cols-1">
       <div class="self-end">
-        <h2 class="text-4xl">I like</h2>
+        <h2 class="md:text-4xl text-3xl">I like</h2>
       </div>
-      <div class="w-0 grid grid-cols-1 grid-rows-1">
+      <div class="md:w-0 md:grid md:grid-cols-1 md:grid-rows-1">
         {#key index}
           <span
             transition:fade={{ duration: 400 }}
-            class="w-full ml-12 text-7xl font-bold text-primary text-right col-start-1 row-start-1 whitespace-nowrap"
+            class="absolute w-full max-w-sm ml-12 text-4xl md:text-7xl font-bold text-primary md:col-start-1 md:row-start-1"
           >
             {currentItem.label}
           </span>
         {/key}
       </div>
     </div>
-    <div class="min-w-sm max-w-md max-h-md">
+    <div class="min-w-sm max-w-md max-h-md md:my-0 -my-16">
       <DotsImage
         {src}
         color="#fffa"
@@ -79,7 +79,7 @@
     <div class="col-span-2 flex flex-row justify-center gap-4">
       {#each items as item, i}
         <button
-          class="btn btn-primary w-10 h-6 transition-all duration-200"
+          class="btn btn-primary btn-xs w-6 h-6 md:btn-md md:w-10 md:h-6 transition-all duration-200"
           class:btn-outline={index !== i}
           on:mouseenter={() => {
             index = i;
