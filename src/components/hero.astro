@@ -4,185 +4,48 @@ import Brief from '../components/brief.astro';
 import Skills from '../components/skill.astro';
 import Contact from '../components/contactindex.astro';
 
+import CrossfadeBackground from '../components/CrossfadeBackground.astro';
+import bg1 from '../assets/bg1.jpg';
+import bg2 from '../assets/bg2.jpg';
+import bg3 from '../assets/bg3.jpg';
+import bg4 from '../assets/bg4.jpg';
+const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
+
 const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
-<div
-  id="hero-section"
-  class="relative flex flex-row gap-4 justify-center items-center w-full h-screen"
->
-  <div
-    id="scroll-indicator-top"
-    class="absolute top-4 left-1/2 -translate-x-1/2 z-20 transition-opacity duration-300 opacity-0 pointer-events-none text-primary"
-  >
-    <div class="animate-bounce p-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="4"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"></path>
-      </svg>
-    </div>
-  </div>
+<div class="flex flex-row gap-4 w-full">
+	<CrossfadeBackground images={backgrounds} />
 
-  <div id="hero-carousel" class="px-4 carousel carousel-vertical h-screen overflow-hidden">
-    <div class="carousel-item min-h-screen">
-      <Brief />
-    </div>
-    <div class="carousel-item min-h-screen">
-      <Skills />
-    </div>
-    <div class="carousel-item min-h-screen">
-      <div class="flex flex-col justify-center h-screen">
-        <Contact />
-      </div>
-    </div>
-  </div>
+	<div class="flex-1 h-full overflow-visible">
+		<div class="min-h-screen">
+			<Brief />
+		</div>
+		<div class="min-h-screen">
+			<Skills />
+		</div>
+		<div class="min-h-screen">
+			<Contact />
+		</div>
+	</div>
 
-  <div
-    id="scroll-indicator-bottom"
-    class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 transition-opacity duration-300 pointer-events-none text-primary"
-  >
-    <div class="animate-bounce p-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="4"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
-      </svg>
-    </div>
-  </div>
-
-  <div class="hidden md:block" style="view-transition-name:profile;">
-    <div class="tooltip tooltip-primary">
-      <div class="tooltip-content">
-        <div class="animate-bounce text-primary-content -rotate-3 text-2xl font-black">
-          Click for more!!!
-        </div>
-      </div>
-      <a href={base + 'about/'}>
-        <Profile />
-      </a>
-    </div>
-  </div>
+	<div class="hidden flex-1 lg:block overflow-visible">
+		<div class="lg:sticky lg:top-[25%]">
+			<div class="relative tooltip tooltip-primary">
+				<div class="tooltip-content">
+					<div class="animate-bounce text-primary-content -rotate-3 text-2xl font-black">
+						Click for more!!!
+					</div>
+				</div>
+				<div style="view-transition-name:profile;">
+					<a href={base + 'about/'}>
+						<Profile />
+					</a>
+				</div>
+			</div>
+			<div class="min-h-[30vh]"></div>
+		</div>
+	</div>
 </div>
 
-<script>
-  const heroSection = document.getElementById('hero-section');
-  const carousel = document.getElementById('hero-carousel');
-  const topIndicator = document.getElementById('scroll-indicator-top');
-  const bottomIndicator = document.getElementById('scroll-indicator-bottom');
-
-  let isHeroScrollActive = false;
-  let touchStartY = 0; // New variable to track touch position
-
-  // 1. UI Logic: Toggle indicators based on carousel scroll position
-  const updateIndicators = () => {
-    if (!carousel) return;
-    const { scrollTop, scrollHeight, clientHeight } = carousel;
-
-    const isAtTop = scrollTop <= 10;
-    // Math.ceil ensures we handle sub-pixel rendering differences
-    const isAtBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight - 1;
-
-    if (topIndicator) topIndicator.classList.toggle('opacity-0', isAtTop);
-    if (bottomIndicator) bottomIndicator.classList.toggle('opacity-0', isAtBottom);
-  };
-
-  // Even though overflow is hidden, the 'scroll' event still fires when we move it via JS
-  if (carousel) {
-    carousel.addEventListener('scroll', updateIndicators);
-    updateIndicators(); // Initial check
-  }
-
-  // 2. Observer: Detect when the Hero section is FULLY visible
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      // Ensure it is intersecting AND the top is at the viewport top
-      const isAtTop = entry.isIntersecting && Math.abs(entry.boundingClientRect.top) < 5;
-      isHeroScrollActive = isAtTop;
-    },
-    { threshold: 1 }
-  );
-
-  if (heroSection) observer.observe(heroSection);
-
-  // 3. Helper Function: Handles the logic for scrolling the carousel vs releasing the page
-  // We separate this so both Wheel and Touch can use it.
-  const handleCarouselScroll = (deltaY, event) => {
-    if (!isHeroScrollActive) return;
-
-    const { scrollTop, scrollHeight, clientHeight } = carousel;
-    const isAtCarouselTop = scrollTop === 0;
-    const isAtCarouselBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-    if (deltaY > 0) {
-      // Scrolling DOWN (Moving towards bottom)
-      if (!isAtCarouselBottom) {
-        // Hijack: Scroll the carousel
-        if (event.cancelable) event.preventDefault();
-        carousel.scrollBy({ top: deltaY, behavior: 'auto' });
-      } else {
-        // Release: Allow page to scroll down.
-        isHeroScrollActive = false;
-      }
-    } else {
-      // Scrolling UP (Moving towards top)
-      if (!isAtCarouselTop) {
-        // Hijack: Scroll the carousel
-        if (event.cancelable) event.preventDefault();
-        carousel.scrollBy({ top: deltaY, behavior: 'auto' });
-      } else {
-        // Release: Allow page to scroll up.
-        isHeroScrollActive = false;
-      }
-    }
-  };
-
-  // 4. Mouse Wheel Handler
-  window.addEventListener(
-    'wheel',
-    (event) => {
-      handleCarouselScroll(event.deltaY, event);
-    },
-    { passive: false }
-  );
-
-  // 5. Touch Handlers (New)
-  window.addEventListener(
-    'touchstart',
-    (event) => {
-      // Record where the finger started
-      touchStartY = event.touches[0].clientY;
-    },
-    { passive: false }
-  );
-
-  window.addEventListener(
-    'touchmove',
-    (event) => {
-      if (!isHeroScrollActive) return;
-
-      const currentY = event.touches[0].clientY;
-      // Calculate difference.
-      // Start (100) - Current (80) = 20 (Positive means finger moved UP, so we scroll DOWN)
-      const deltaY = touchStartY - currentY;
-
-      // Call the shared logic
-      handleCarouselScroll(deltaY, event);
-
-      // Important: Update touchStartY so the movement is relative to the last frame,
-      // creating a smooth drag effect rather than a jump.
-      touchStartY = currentY;
-    },
-    { passive: false }
-  );
-</script>
+<script></script>
