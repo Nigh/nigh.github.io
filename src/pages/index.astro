@@ -6,36 +6,24 @@ import Names from '../components/3in1.astro';
 import Friends from '../components/friends.svelte';
 import Footer from '../components/footer.astro';
 
-import CrossfadeBackground from '../components/CrossfadeBackground.astro';
-import bg1 from '../assets/bg1.jpg';
-import bg2 from '../assets/bg2.jpg';
-import bg3 from '../assets/bg3.jpg';
-import bg4 from '../assets/bg4.jpg';
-const backgrounds = [bg1.src, bg2.src, bg3.src, bg4.src];
-
 import bg from '../assets/blue.jpg';
 
 const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <Indexs>
-  <CrossfadeBackground images={backgrounds} />
-  <div class="bg-wrapper" style={`--bg-url: url(${bg.src});`}>
-    <Hero />
-    <Interests client:load client:only />
-    <Names />
+  <div class="bg-wrapper -z-50 fixed w-screen h-screen" style={`--bg-url: url(${bg.src});`}></div>
+  <Hero />
+  <Interests client:load client:only />
+  <Names />
 
-    <div class="divider"></div>
-    <Friends client:load />
-    <Footer />
-  </div>
+  <div class="divider"></div>
+  <Friends client:load />
+  <Footer />
 </Indexs>
 
 <style>
   .bg-wrapper {
-    position: relative;
-    min-height: 100vh;
-    overflow: hidden;
   }
 
   .bg-wrapper::before {

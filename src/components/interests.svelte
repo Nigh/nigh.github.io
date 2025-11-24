@@ -47,24 +47,24 @@
   });
 </script>
 
-<div class="flex md:px-0 px-4 w-full h-full min-h-screen items-center justify-center">
-  <div class="md:grid md:grid-cols-2">
-    <div class="w-full h-full grid grid-cols-1">
-      <div class="self-end">
-        <h2 class="md:text-4xl text-3xl">I like</h2>
+<div class="flex lg:px-0 px-4 w-full min-h-screen items-center justify-center">
+  <div class="lg:grid lg:grid-cols-2">
+    <div class="w-full flex flex-col lg:items-center lg:relative lg:top-[20%]">
+      <div class="">
+        <h2 class="lg:text-4xl text-3xl">I like</h2>
       </div>
-      <div class="md:w-0 md:grid md:grid-cols-1 md:grid-rows-1">
+      <div class="grid grid-cols-1 w-0 h-0">
         {#key index}
           <span
             transition:fade={{ duration: 400 }}
-            class="absolute w-full max-w-sm ml-12 text-4xl md:text-7xl font-bold text-primary md:col-start-1 md:row-start-1"
+            class="w-full max-w-sm text-4xl lg:text-7xl font-bold text-primary col-start-1 row-start-1"
           >
             {currentItem.label}
           </span>
         {/key}
       </div>
     </div>
-    <div class="min-w-sm max-w-md max-h-md md:my-0 -my-16">
+    <div class="min-w-sm max-w-md max-h-md lg:my-0 -my-16">
       <DotsImage
         {src}
         color="#fffa"
@@ -79,7 +79,7 @@
     <div class="col-span-2 flex flex-row justify-center gap-4">
       {#each items as item, i}
         <button
-          class="btn btn-primary btn-xs w-6 h-6 md:btn-md md:w-10 md:h-6 transition-all duration-200"
+          class="btn btn-primary btn-xs w-6 h-6 lg:btn-md lg:w-10 lg:h-6 transition-all duration-200"
           class:btn-outline={index !== i}
           on:mouseenter={() => {
             index = i;

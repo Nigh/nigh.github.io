@@ -1,7 +1,7 @@
 ---
 import Pages from '../layouts/Pages.astro';
 import { Icon } from 'astro-icon/components';
-import Contact from '../components/contact.astro';
+import Contact from '../components/contactalt.astro';
 const workYears = new Date().getFullYear() - 2013;
 const techItemStyle = 'px-1 text-primary font-semibold';
 const h2Style = 'text-xl font-bold mt-4 mb-1 pb-1 border-b-4 border-primary';
@@ -67,7 +67,7 @@ const skills: { name: string; content: string }[] = [
     </div>
   </div>
   <h2 class={h2Style}>Experience</h2>
-  <div class="flex flex-col md:flex-row items-center justify-evenly">
+  <div class="flex flex-col lg:flex-row items-center justify-evenly">
     <div class="flex-2">
       <p>
         <span class={techItemStyle}>{workYears}</span> years of experience as an Electronics Engineer,
