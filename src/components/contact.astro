@@ -1,65 +1,65 @@
 ---
 const socialLinks = {
-	GitHub: {
-		icon: 'mingcute:github-2-fill',
-		href: 'https://github.com/Nigh',
-		txt: 'Nigh',
-	},
-	Bilibili: {
-		icon: 'mingcute:bilibili-fill',
-		href: 'https://space.bilibili.com/895523',
-		txt: '895523',
-	},
-	Youtube: {
-		icon: 'mingcute:youtube-fill',
-		href: 'https://www.youtube.com/@tecnico5283',
-		txt: '@tecnico5283',
-	},
-	X: {
-		icon: 'mingcute:social-x-line',
-		href: 'https://x.com/xiaxianyi',
-		txt: '@xiaxianyi',
-	},
-	Mastodon: {
-		icon: 'mingcute:mastodon-fill',
-		href: 'https://mastodon.cloud/@nigh',
-		txt: '@nigh',
-	},
-	Email: {
-		icon: 'mingcute:mail-fill',
-		href: null,
-		txt: 'xianyi.xia@outlook.com',
-	},
+  GitHub: {
+    icon: 'mingcute:github-2-fill',
+    href: 'https://github.com/Nigh',
+    txt: 'Nigh',
+  },
+  Bilibili: {
+    icon: 'mingcute:bilibili-fill',
+    href: 'https://space.bilibili.com/895523',
+    txt: '895523',
+  },
+  Youtube: {
+    icon: 'mingcute:youtube-fill',
+    href: 'https://www.youtube.com/@tecnico5283',
+    txt: '@tecnico5283',
+  },
+  X: {
+    icon: 'mingcute:social-x-line',
+    href: 'https://x.com/xiaxianyi',
+    txt: '@xiaxianyi',
+  },
+  Mastodon: {
+    icon: 'mingcute:mastodon-fill',
+    href: 'https://mastodon.cloud/@nigh',
+    txt: '@nigh',
+  },
+  Email: {
+    icon: 'mingcute:mail-fill',
+    href: null,
+    txt: 'xianyi.xia@outlook.com',
+  },
 };
 import { Icon } from 'astro-icon/components';
 
 interface Props {
-	icon_size?: string;
-	name_size?: string;
-	value_size?: string;
+  icon_size?: string;
+  name_size?: string;
+  value_size?: string;
 }
 
 const {
-	icon_size = '64px',
-	name_size = 'text-xs lg:text-sm',
-	value_size = 'text-md lg:text-lg',
+  icon_size = '64px',
+  name_size = 'text-xs lg:text-sm',
+  value_size = 'text-md lg:text-lg',
 } = Astro.props;
 ---
 
 <div class="flex flex-col justify-center">
-	<div class="grid grid-cols-2 md:grid-cols-3 flex-wrap gap-8">
-		{
-			Object.entries(socialLinks).map(([name, value]) => (
-				<a href={value.href} target="_blank" class="hover:text-primary">
-					<div class="flex-1 flex flex-col justify-center items-center hover:text-current text-current/80">
-						<div class="flex flex-col items-center text-center w-max">
-							<Icon name={value.icon} size={icon_size} />
-							<span class={name_size + ' -mt-2'}>{name}</span>
-						</div>
-						<span class={'font-bold ' + value_size}>{value.txt}</span>
-					</div>
-				</a>
-			))
-		}
-	</div>
+  <div class="grid grid-cols-2 md:grid-cols-3 flex-wrap gap-8">
+    {
+      Object.entries(socialLinks).map(([name, value]) => (
+        <a href={value.href} target="_blank" class="hover:text-primary">
+          <div class="flex-1 flex flex-col justify-center items-center hover:text-current text-current/80">
+            <div class="flex flex-col items-center text-center w-max">
+              <Icon name={value.icon} size={icon_size} />
+              <span class={name_size + ' -mt-2'}>{name}</span>
+            </div>
+            <span class={'font-bold ' + value_size}>{value.txt}</span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
 </div>

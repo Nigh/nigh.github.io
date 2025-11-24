@@ -15,37 +15,37 @@ const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <div class="flex flex-row gap-4 w-full">
-	<CrossfadeBackground images={backgrounds} />
+  <CrossfadeBackground images={backgrounds} />
 
-	<div class="flex-1 h-full overflow-visible">
-		<div class="min-h-screen">
-			<Brief />
-		</div>
-		<div class="min-h-screen">
-			<Skills />
-		</div>
-		<div class="min-h-screen">
-			<Contact />
-		</div>
-	</div>
+  <div class="flex-1 h-full overflow-visible">
+    <div class="min-h-screen">
+      <Brief />
+    </div>
+    <div class="min-h-screen">
+      <Skills />
+    </div>
+    <div class="min-h-screen">
+      <Contact />
+    </div>
+  </div>
 
-	<div class="hidden flex-1 lg:block overflow-visible">
-		<div class="lg:sticky lg:top-[25%]">
-			<div class="relative tooltip tooltip-primary">
-				<div class="tooltip-content">
-					<div class="animate-bounce text-primary-content -rotate-3 text-2xl font-black">
-						Click for more!!!
-					</div>
-				</div>
-				<div style="view-transition-name:profile;">
-					<a href={base + 'about/'}>
-						<Profile />
-					</a>
-				</div>
-			</div>
-			<div class="min-h-[30vh]"></div>
-		</div>
-	</div>
+  <div class="hidden flex-1 lg:block overflow-visible">
+    <div class="lg:sticky lg:top-[25%]">
+      <div class="relative tooltip tooltip-primary">
+        <div class="tooltip-content">
+          <div class="animate-bounce text-primary-content -rotate-3 text-2xl font-black">
+            Click for more!!!
+          </div>
+        </div>
+        <div style="view-transition-name:profile;">
+          <a href={base + 'about/'}>
+            <Profile />
+          </a>
+        </div>
+      </div>
+      <div class="min-h-[30vh]"></div>
+    </div>
+  </div>
 </div>
 
 <script></script>

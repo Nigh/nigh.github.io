@@ -12,14 +12,14 @@ const base = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <Indexs>
-  <div class="bg-wrapper -z-50 fixed w-screen h-screen" style={`--bg-url: url(${bg.src});`}> </div>
-    <Hero />
-    <Interests client:load client:only />
-    <Names />
+  <div class="bg-wrapper -z-50 fixed w-screen h-screen" style={`--bg-url: url(${bg.src});`}></div>
+  <Hero />
+  <Interests client:load client:only />
+  <Names />
 
-    <div class="divider"></div>
-    <Friends client:load />
-    <Footer />
+  <div class="divider"></div>
+  <Friends client:load />
+  <Footer />
 </Indexs>
 
 <style>
