@@ -1,7 +1,7 @@
 export default {
   friends: [
     {
-      pic: 'https://vladelaina.com/assets/vladelaina.jpg',
+      pic: 'https://github.com/vladelaina/vladelaina/blob/gh-pages/assets/vladelaina.jpg?raw=true',
       name: 'vladelaina',
       bio: 'Open source believer, Arch Linux enthusiast, anime lover',
       link: 'https://vladelaina.com/',
@@ -16,7 +16,7 @@ export default {
   me: {
     pic: 'https://avatars.githubusercontent.com/u/1407471?v=4',
     name: 'TecNico',
-    bio: 'A random Full-stack Electronics engineer',
+    bio: 'A random Full-stack Electronics Engineer',
     link: 'https://tecnico.cc/',
   },
 };
