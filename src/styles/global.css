@@ -50,3 +50,48 @@
   background-color: var(--color-primary);
   color: var(--color-primary-content);
 }
+
+/* Hero scroll snap container */
+.hero-scroll {
+  height: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  scroll-snap-stop: always;
+}
+
+[data-hero-panel] {
+  min-height: 100vh;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Mobile: proximity snapping for better UX */
+@media (max-width: 767px) {
+  .hero-scroll {
+    scroll-snap-type: y proximity;
+  }
+}
+
+/* Graceful degradation: fallback for browsers without scroll-snap support */
+@supports not (scroll-snap-type: y mandatory) {
+  #hero-section {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .hero-scroll {
+    height: auto;
+    overflow-y: visible;
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+    scroll-snap-stop: normal;
+  }
+
+  [data-hero-panel] {
+    min-height: auto;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+}
