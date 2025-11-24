@@ -29,14 +29,14 @@ const base = import.meta.env.PUBLIC_BASE_URL;
     </div>
   </div>
 
-  <div id="hero-carousel" class="px-4 carousel carousel-vertical h-screen overflow-hidden">
-    <div class="carousel-item min-h-screen">
+  <div id="hero-carousel" class="px-4 carousel carousel-vertical h-screen overflow-y-auto">
+    <div class="carousel-item min-h-screen" data-hero-panel="intro">
       <Brief />
     </div>
-    <div class="carousel-item min-h-screen">
+    <div class="carousel-item min-h-screen" data-hero-panel="skills">
       <Skills />
     </div>
-    <div class="carousel-item min-h-screen">
+    <div class="carousel-item min-h-screen" data-hero-panel="contact">
       <div class="flex flex-col justify-center h-screen">
         <Contact />
       </div>
@@ -76,113 +76,138 @@ const base = import.meta.env.PUBLIC_BASE_URL;
 </div>
 
 <script>
-  const heroSection = document.getElementById('hero-section');
-  const carousel = document.getElementById('hero-carousel');
-  const topIndicator = document.getElementById('scroll-indicator-top');
-  const bottomIndicator = document.getElementById('scroll-indicator-bottom');
+  (() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
 
-  let isHeroScrollActive = false;
-  let touchStartY = 0; // New variable to track touch position
+    const heroSection = document.getElementById('hero-section');
+    const carousel = document.getElementById('hero-carousel');
+    const topIndicator = document.getElementById('scroll-indicator-top');
+    const bottomIndicator = document.getElementById('scroll-indicator-bottom');
+    const heroPanels = carousel ? Array.from(carousel.querySelectorAll('[data-hero-panel]')) : [];
 
-  // 1. UI Logic: Toggle indicators based on carousel scroll position
-  const updateIndicators = () => {
-    if (!carousel) return;
-    const { scrollTop, scrollHeight, clientHeight } = carousel;
+    if (!heroSection || !carousel || heroPanels.length === 0) {
+      return;
+    }
 
-    const isAtTop = scrollTop <= 10;
-    // Math.ceil ensures we handle sub-pixel rendering differences
-    const isAtBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight - 1;
-
-    if (topIndicator) topIndicator.classList.toggle('opacity-0', isAtTop);
-    if (bottomIndicator) bottomIndicator.classList.toggle('opacity-0', isAtBottom);
-  };
-
-  // Even though overflow is hidden, the 'scroll' event still fires when we move it via JS
-  if (carousel) {
-    carousel.addEventListener('scroll', updateIndicators);
-    updateIndicators(); // Initial check
-  }
-
-  // 2. Observer: Detect when the Hero section is FULLY visible
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      // Ensure it is intersecting AND the top is at the viewport top
-      const isAtTop = entry.isIntersecting && Math.abs(entry.boundingClientRect.top) < 5;
-      isHeroScrollActive = isAtTop;
-    },
-    { threshold: 1 }
-  );
-
-  if (heroSection) observer.observe(heroSection);
-
-  // 3. Helper Function: Handles the logic for scrolling the carousel vs releasing the page
-  // We separate this so both Wheel and Touch can use it.
-  const handleCarouselScroll = (deltaY, event) => {
-    if (!isHeroScrollActive) return;
-
-    const { scrollTop, scrollHeight, clientHeight } = carousel;
-    const isAtCarouselTop = scrollTop === 0;
-    const isAtCarouselBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-    if (deltaY > 0) {
-      // Scrolling DOWN (Moving towards bottom)
-      if (!isAtCarouselBottom) {
-        // Hijack: Scroll the carousel
-        if (event.cancelable) event.preventDefault();
-        carousel.scrollBy({ top: deltaY, behavior: 'auto' });
-      } else {
-        // Release: Allow page to scroll down.
-        isHeroScrollActive = false;
+    const cleanupTasks = [];
+    const flushCleanups = () => {
+      while (cleanupTasks.length) {
+        const dispose = cleanupTasks.pop();
+        if (typeof dispose === 'function') {
+          dispose();
+        }
       }
-    } else {
-      // Scrolling UP (Moving towards top)
-      if (!isAtCarouselTop) {
-        // Hijack: Scroll the carousel
-        if (event.cancelable) event.preventDefault();
-        carousel.scrollBy({ top: deltaY, behavior: 'auto' });
-      } else {
-        // Release: Allow page to scroll up.
-        isHeroScrollActive = false;
+    };
+
+    document.addEventListener('astro:before-swap', flushCleanups, { once: true });
+
+    const panelIndexMap = new Map();
+    heroPanels.forEach((panel, index) => {
+      panelIndexMap.set(panel, index);
+      if (!panel.dataset.heroIndex) {
+        panel.dataset.heroIndex = String(index);
+      }
+    });
+
+    const setIndicatorVisibility = (index) => {
+      if (topIndicator) {
+        topIndicator.classList.toggle('opacity-0', index <= 0);
+      }
+      if (bottomIndicator) {
+        bottomIndicator.classList.toggle('opacity-0', index >= heroPanels.length - 1);
+      }
+    };
+
+    const setActivePanelAttributes = (index) => {
+      const panel = heroPanels[index];
+      if (!panel) return;
+
+      const panelId = panel.dataset.heroPanel || String(index);
+
+      heroSection.dataset.heroActivePanel = panelId;
+      heroSection.dataset.heroActiveIndex = String(index);
+      carousel.dataset.activePanel = panelId;
+      carousel.dataset.activeIndex = String(index);
+
+      heroPanels.forEach((candidate, candidateIndex) => {
+        if (candidateIndex === index) {
+          candidate.setAttribute('data-hero-current', 'true');
+        } else {
+          candidate.removeAttribute('data-hero-current');
+        }
+      });
+
+      setIndicatorVisibility(index);
+    };
+
+    const prefersMotionQuery =
+      typeof window.matchMedia === 'function'
+        ? window.matchMedia('(prefers-reduced-motion: reduce)')
+        : null;
+
+    let observerThreshold = 0.6;
+    const syncMotionPreference = () => {
+      const prefersReducedMotion = prefersMotionQuery ? prefersMotionQuery.matches : false;
+      heroSection.dataset.prefersReducedMotion = prefersReducedMotion ? 'true' : 'false';
+      observerThreshold = prefersReducedMotion ? 0.5 : 0.6;
+    };
+
+    syncMotionPreference();
+
+    if (prefersMotionQuery) {
+      const handleMotionChange = () => syncMotionPreference();
+
+      if (typeof prefersMotionQuery.addEventListener === 'function') {
+        prefersMotionQuery.addEventListener('change', handleMotionChange);
+        cleanupTasks.push(() => prefersMotionQuery.removeEventListener('change', handleMotionChange));
+      } else if (typeof prefersMotionQuery.addListener === 'function') {
+        prefersMotionQuery.addListener(handleMotionChange);
+        cleanupTasks.push(() => prefersMotionQuery.removeListener(handleMotionChange));
       }
     }
-  };
 
-  // 4. Mouse Wheel Handler
-  window.addEventListener(
-    'wheel',
-    (event) => {
-      handleCarouselScroll(event.deltaY, event);
-    },
-    { passive: false }
-  );
+    if (!('IntersectionObserver' in window)) {
+      setActivePanelAttributes(0);
+      return;
+    }
 
-  // 5. Touch Handlers (New)
-  window.addEventListener(
-    'touchstart',
-    (event) => {
-      // Record where the finger started
-      touchStartY = event.touches[0].clientY;
-    },
-    { passive: false }
-  );
+    const buildThresholdSteps = (steps = 12) =>
+      Array.from({ length: steps + 1 }, (_, index) => index / steps);
 
-  window.addEventListener(
-    'touchmove',
-    (event) => {
-      if (!isHeroScrollActive) return;
+    let activeIndex = 0;
+    setActivePanelAttributes(activeIndex);
 
-      const currentY = event.touches[0].clientY;
-      // Calculate difference.
-      // Start (100) - Current (80) = 20 (Positive means finger moved UP, so we scroll DOWN)
-      const deltaY = touchStartY - currentY;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let nextIndex = activeIndex;
+        let highestRatio = 0;
 
-      // Call the shared logic
-      handleCarouselScroll(deltaY, event);
+        entries.forEach((entry) => {
+          const panelIndex = panelIndexMap.get(entry.target);
+          if (typeof panelIndex !== 'number') return;
 
-      // Important: Update touchStartY so the movement is relative to the last frame,
-      // creating a smooth drag effect rather than a jump.
-      touchStartY = currentY;
-    },
-    { passive: false }
-  );
+          if (entry.isIntersecting && entry.intersectionRatio >= observerThreshold) {
+            if (entry.intersectionRatio > highestRatio) {
+              highestRatio = entry.intersectionRatio;
+              nextIndex = panelIndex;
+            }
+          }
+        });
+
+        if (nextIndex !== activeIndex) {
+          activeIndex = nextIndex;
+          setActivePanelAttributes(activeIndex);
+        }
+      },
+      {
+        root: carousel,
+        threshold: buildThresholdSteps(),
+      }
+    );
+
+    heroPanels.forEach((panel) => observer.observe(panel));
+    cleanupTasks.push(() => observer.disconnect());
+  })();
 </script>
