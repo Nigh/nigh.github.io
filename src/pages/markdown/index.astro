@@ -12,7 +12,7 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
     <ul class="list w-full px-6">
       {
         sortedPosts.map((post) => (
-          <a href={`${post.slug}/`}>
+          <a href={`${post.id.replace(/\.(md|mdx)$/, '')}/`}>
             <li class="list-row mt-2 bg-base-300 rounded-box shadow-md hover:bg-primary/80">
               <div class="list-col-grow">
                 <div class="font-bold text-lg">{post.data.title}</div>

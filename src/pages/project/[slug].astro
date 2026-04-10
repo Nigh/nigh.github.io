@@ -5,7 +5,7 @@ import { getCollection, CollectionEntry, render } from 'astro:content';
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
   return projects.map((project) => ({
-    params: { slug: project.slug },
+    params: { slug: project.id.replace(/\.(md|mdx)$/, '') },
     props: { project },
   }));
 }
