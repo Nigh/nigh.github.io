@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z } from "astro:content";
+// import { type CollectionEntry } from "astro:content"; // 引入 CollectionEntry
 
 const posts = defineCollection({
   schema: z.object({

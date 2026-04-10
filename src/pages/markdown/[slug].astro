@@ -1,6 +1,6 @@
 ---
 import Pages from '../../layouts/Pages.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection, CollectionEntry, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -8,6 +8,9 @@ export async function getStaticPaths() {
     params: { slug: post.slug },
     props: { post },
   }));
+}
+interface Props {
+  post: CollectionEntry<"posts">;
 }
 const { post } = Astro.props;
 const { Content } = await render(post);
