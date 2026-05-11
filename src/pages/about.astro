@@ -47,7 +47,7 @@ const skills: { name: string; content: string }[] = [
   },
   {
     name: 'Music',
-    content: `Possess basic music theory knowledge and the ability to play some instruments;<br />Familiar with mixing workflows, with practical mixing experience;<br />Experience in independently designing and manufacturing <span class="${techItemStyle}">Irish whistles</span><br />Particularly advantageous in music-related projects.`,
+    content: `Basic music theory knowledge;<br />Practical mixing experience;<br />Independently designing and manufacturing <span class="${techItemStyle}">Irish whistles</span>`,
   },
 ];
 ---
@@ -69,12 +69,12 @@ const skills: { name: string; content: string }[] = [
   <h2 class={h2Style}>Experience</h2>
   <div class="flex flex-col lg:flex-row items-center justify-evenly">
     <div class="flex-2">
-      <p>
-        <span class={techItemStyle}>{workYears}</span> years of experience as an Electronics Engineer,
+      <p class="pl-2">
+        <span class={'font-extrabold text-2xl px-1 text-primary'}>{workYears}</span> years of experience as an Electronics Engineer,
         specializing in system design and development centered around microcontrollers. Extensive mass
         production experience with various consumer electronics including smart bands/watches (including
         mechanical parts types), e-cigarettes, etc. Also involved in the development and deployment of
-        projects across industries such as IoT, industrial control, medical, and military.
+        projects across industries such as IoT, industrial control, medical, and security.
       </p>
     </div>
     <div class="flex-3 mx-auto -mr-24">
