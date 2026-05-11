@@ -1,0 +1,25 @@
+---
+import Pages from '../../layouts/Pages.astro';
+import apps from '../../components/apps_data.ts';
+const h2Style = 'text-xl font-bold mt-4 mb-1 pb-1 border-b-4 border-primary';
+---
+
+<Pages>
+  <h2 class={h2Style}>Apps</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+    {
+      apps.map((app) => (
+        <a
+          href={app.url}
+          target="_blank"
+          class="block border border-base-content/20 rounded-lg p-5 hover:border-primary hover:bg-primary/5 transition-all duration-200 group"
+        >
+          <div class="flex flex-col gap-2">
+            <span class="text-lg font-bold text-primary group-hover:underline">{app.name}</span>
+            <span class="text-sm text-current/60">{app.description}</span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</Pages>

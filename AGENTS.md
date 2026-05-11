@@ -20,6 +20,7 @@
 | 首页 | `src/pages/index.astro` | Hero + Interests 轮播 + Friends + Footer |
 | 博客 | `src/pages/markdown/` | 列表页 + `[slug].astro` 渲染 MDX |
 | 作品 | `src/pages/project/` | 同上，对应 projects collection |
+| 应用 | `src/pages/app/` | 应用卡片列表页，链接外部 Web App（数据源：`src/components/apps_data.ts`） |
 | 导航 | `src/components/Nav.astro` | 双栏导航（固定层淡出 + 粘性层滑入） |
 | 交互组件 | `src/components/*.svelte` | Interests/DotsImage/Friends 等岛屿组件 |
 | 样式 | `src/styles/` | global.css（tailwind + daisy 主题）+ markdown.css（GitHub 风格） |
@@ -57,7 +58,7 @@
 ### 开发工作流
 
 ```bash
-npm run dev        # 本地开发
+npm run dev        # 本地开发（会阻塞式启动web服务，非直接要求不用运行）
 npm run build      # 生产构建（含备案号）
 npm run format     # Prettier 格式化全部
 ```
