@@ -13,7 +13,7 @@ const sortedProjects = projects.sort((a, b) => b.data.date.getTime() - a.data.da
     <ul class="list w-full divide-y divide-primary/20">
       {
         sortedProjects.map((post) => (
-          <Project slug={post.slug} content={post.body} {...post.data} />
+          <Project slug={post.id.replace(/\.(md|mdx)$/, '')} content={post.body} {...post.data} />
         ))
       }
     </ul>

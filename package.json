@@ -11,23 +11,23 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.14",
-    "@astrojs/svelte": "^7.2.5",
+    "@astrojs/mdx": "^5.0.3",
+    "@astrojs/svelte": "^8.0.4",
     "@tailwindcss/vite": "^4.2.2",
-    "astro": "^5.18.1",
+    "astro": "^6.1.5",
     "daisyui": "^5.5.19",
-    "marked": "^17.0.6",
+    "marked": "^18.0.0",
     "svelte": "^5.55.2",
     "tailwindcss": "^4.2.2",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "devDependencies": {
-    "@iconify-json/mingcute": "^1.2.5",
-    "@iconify-json/simple-icons": "^1.2.58",
+    "@iconify-json/mingcute": "^1.2.7",
+    "@iconify-json/simple-icons": "^1.2.77",
     "astro-icon": "^1.1.5",
     "cross-env": "^10.1.0",
-    "dotenv": "^17.2.3",
-    "prettier": "^3.6.2",
+    "dotenv": "^17.4.1",
+    "prettier": "^3.8.2",
     "prettier-plugin-astro": "^0.14.1"
   }
 }
