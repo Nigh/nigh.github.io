@@ -1,4 +1,4 @@
-const base = import.meta.env.PUBLIC_BASE_URL;
+const base = import.meta.env.BASE_URL;
 
 export default {
   items: [
