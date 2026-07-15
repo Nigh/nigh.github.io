@@ -1,9 +1,9 @@
-import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 // import { type CollectionEntry } from "astro:content"; // 引入 CollectionEntry
 
 const posts = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/posts" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/posts' }),
   schema: z.object({
     title: z.string(),
     date: z.date(),
@@ -13,7 +13,7 @@ const posts = defineCollection({
   }),
 });
 const projects = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/projects" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/projects' }),
   schema: z.object({
     title: z.string(),
     date: z.date(),
@@ -23,6 +23,8 @@ const projects = defineCollection({
     draft: z.boolean().optional(),
     tags: z.array(z.string()).optional(),
     description: z.string().optional(),
+    featured: z.boolean().optional(),
+    status: z.enum(['active', 'archived', 'experimental']).optional(),
   }),
 });
 

@@ -2,21 +2,36 @@
 import { getCollection } from 'astro:content';
 import Project from '../../layouts/project.astro';
 import Pages from '../../layouts/Pages.astro';
-import SectionH2 from '../../components/sectionheader.astro';
 const projects = await getCollection('projects');
-const sortedProjects = projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const sortedProjects = projects
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<Pages>
-  <div id="content" class="align-center justify-center">
-    <SectionH2>Projects</SectionH2>
-    <ul class="list w-full divide-y divide-primary/20">
+<Pages
+  title="Projects — xianii"
+  description="Selected software, hardware, and maker projects by xianii."
+>
+  <section>
+    <p class="text-sm font-medium uppercase tracking-[0.2em] text-primary">Selected work</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Projects</h1>
+    <p class="mt-4 max-w-2xl leading-7 text-base-content/70">
+      Software, embedded systems, and small experiments built to solve real problems or explore a
+      new idea.
+    </p>
+  </section>
+
+  <section class="mt-10">
+    <div class="mb-5 flex items-center justify-between">
+      <h2 class="text-lg font-semibold">{sortedProjects.length} projects</h2>
+      <span class="text-sm text-base-content/50">Newest first</span>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {
         sortedProjects.map((post) => (
-          <Project slug={post.id.replace(/\.(md|mdx)$/, '')} content={post.body} {...post.data} />
+          <Project slug={post.id.replace(/\.(md|mdx)$/, '')} {...post.data} />
         ))
       }
-    </ul>
-  </div>
-  <div class="h-40"></div>
+    </div>
+  </section>
 </Pages>

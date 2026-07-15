@@ -1,0 +1,64 @@
+---
+import Pages from '../../layouts/Pages.astro';
+import apps from '../../components/apps_data.ts';
+
+const appTypes = ['Web', 'Desktop', 'Mobile'] as const;
+---
+
+<Pages title="Apps — xianii" description="Web, desktop, and mobile apps you can use right now.">
+  <section>
+    <p class="text-sm font-medium uppercase tracking-[0.2em] text-primary">Use it now</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Apps</h1>
+    <p class="mt-4 max-w-2xl leading-7 text-base-content/70">
+      Small utilities and experiments available as web apps, desktop downloads, or installable
+      mobile apps.
+    </p>
+  </section>
+
+  {
+    appTypes.map((type) => {
+      const typedApps = apps.filter((app) => app.type === type);
+      return (
+        typedApps.length > 0 && (
+          <section class="mt-12">
+            <div class="mb-5 flex items-center gap-3">
+              <h2 class="text-2xl font-bold">{type}</h2>
+              <span class="rounded-full bg-base-200 px-2 py-1 text-xs text-base-content/60">
+                {typedApps.length}
+              </span>
+            </div>
+            <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {typedApps.map((app) => {
+                const href = app.url ?? app.downloadUrl ?? app.sourceUrl;
+                return (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex min-h-56 flex-col rounded-2xl border border-base-content/10 bg-base-200/60 p-5 transition hover:-translate-y-1 hover:border-primary/60 hover:bg-base-200"
+                  >
+                    <div class="flex items-start justify-between gap-3">
+                      <div class="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-lg text-primary">
+                        ◆
+                      </div>
+                      <span class="rounded-full bg-base-100 px-2 py-1 text-xs text-base-content/60">
+                        {app.status}
+                      </span>
+                    </div>
+                    <h3 class="mt-5 text-lg font-bold">{app.name}</h3>
+                    <p class="mt-2 grow text-sm leading-6 text-base-content/70">
+                      {app.description}
+                    </p>
+                    <span class="mt-5 text-sm font-medium text-primary">
+                      {app.url ? 'Open app' : app.downloadUrl ? 'Download app' : 'View source'} →
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        )
+      );
+    })
+  }
+</Pages>

@@ -14,22 +14,24 @@
 
 ### 关键模块
 
-| 模块 | 路径 | 职责 |
-|------|------|------|
-| Layout 层 | `src/layouts/` | HTML shell（Layout.astro）→ 页眉/页脚骨架（Pages.astro） |
-| 首页 | `src/pages/index.astro` | Hero + Interests 轮播 + Friends + Footer |
-| 博客 | `src/pages/markdown/` | 列表页 + `[slug].astro` 渲染 MDX |
-| 作品 | `src/pages/project/` | 同上，对应 projects collection |
-| 导航 | `src/components/Nav.astro` | 双栏导航（固定层淡出 + 粘性层滑入） |
-| 交互组件 | `src/components/*.svelte` | Interests/DotsImage/Friends 等岛屿组件 |
-| 样式 | `src/styles/` | global.css（tailwind + daisy 主题）+ markdown.css（GitHub 风格） |
+| 模块      | 路径                          | 职责                                                                      |
+| --------- | ----------------------------- | ------------------------------------------------------------------------- |
+| Layout 层 | `src/layouts/`                | HTML shell（Layout.astro）→ 侧栏内容框架（Pages.astro / IndexPage.astro） |
+| 首页      | `src/pages/index.astro`       | Hero（头像 + 名字 + 头衔，入口指向 About）+ 背景项目卡片流动墙（CSS marquee） |
+| Notes     | `src/pages/notes/`            | 文章列表页 + `[slug].astro` 渲染 MDX；`/markdown/` 保留为旧链接跳转       |
+| 作品      | `src/pages/project/`          | 项目案例卡片与详情页，对应 projects collection                            |
+| 应用      | `src/pages/app/`              | Web、桌面、移动端应用目录（数据源：`src/components/apps_data.ts`）        |
+| 友链      | `src/pages/friends.astro`     | 友链与本站链接自取                                                        |
+| 导航      | `src/components/navbar.astro` | 桌面固定侧边导航；`navbarMobile.astro` 提供移动端汉堡抽屉                 |
+| 交互组件  | `src/components/*.svelte`     | Friends、Toast 等客户端岛屿组件                                           |
+| 样式      | `src/styles/`                 | global.css（tailwind + daisy 主题）+ markdown.css（GitHub 风格）          |
 
 ### 设计哲学
 
 - **暗色优先** — 始终为 dark 色域构建
 - **性能敏感** — 禁用 Shiki 语法高亮，使用纯 CSS 标记样式；`markdown.css` 为 ≥1000 行的大文件
 - **内容驱动** — 所有页面内容源自 `src/content/` 中的 `.md` / `.mdx` 文件
-- **滚动感知导航** — 固定导航于滚动时淡出，粘性导航滑入；仅有 `scrolled` 类切换
+- **响应式导航** — 桌面端固定侧边栏，移动端使用带焦点管理的汉堡抽屉
 - **View Transitions** — 全局启用 `@view-transition`
 
 ---
@@ -50,14 +52,14 @@
 
 ### 内容与集合
 
-- **posts collection**：顶层命名为 `posts`。必需字段：`title`（string）、`date`（date）。可选字段：`draft`、`tags`、`description`。
-- **projects collection**：顶层命名为 `projects`。必需字段同上。特有可选字段：`links`（Record<string, string>）、`icon`、`image`（string[]）。
+- **posts collection**：顶层命名为 `posts`。必需字段：`title`（string）、`date`（date）。可选字段：`draft`、`tags`、`description`。所有公开列表和路由都应排除 `draft: true`。
+- **projects collection**：顶层命名为 `projects`。必需字段同上。特有可选字段：`links`（Record<string, string>）、`icon`、`image`（string[]）、`featured`、`status`（`active` / `archived` / `experimental`）。
 - 添加新条目前，验证 frontmatter 符合 Zod 模式（定义于 `src/content.config.ts`）。
 
 ### 开发工作流
 
 ```bash
-npm run dev        # 本地开发
+npm run dev        # 本地开发（会阻塞式启动web服务，非直接要求不用运行）
 npm run build      # 生产构建（含备案号）
 npm run format     # Prettier 格式化全部
 ```

@@ -1,44 +1,131 @@
 ---
-import Indexs from '../layouts/IndexPage.astro';
-import Hero from '../components/hero.astro';
-import Interests from '../components/interests.svelte';
-import Names from '../components/3in1.astro';
-import Friends from '../components/friends.svelte';
-import Footer from '../components/footer.astro';
+import { getCollection } from 'astro:content';
+import IndexPage from '../layouts/IndexPage.astro';
+import ProjectIcon from '../components/project_icon.astro';
 
-import bg from '../assets/blue.jpg';
+const base = import.meta.env.BASE_URL;
 
-const base = import.meta.env.PUBLIC_BASE_URL;
+const projects = (await getCollection('projects')).filter((p) => !p.data.draft);
+
+type WallCard = { title: string; icon?: string; image?: string };
+const cards: WallCard[] = [
+  ...projects.map((p) => ({ title: p.data.title, icon: p.data.icon })),
+  ...projects
+    .filter((p) => p.data.image?.length)
+    .map((p) => ({ title: p.data.title, image: p.data.image![0] })),
+];
+
+// ponytail: 3 固定行足够铺满视口，卡片按下标轮流分配
+const rows: WallCard[][] = [[], [], []];
+cards.forEach((card, i) => rows[i % 3].push(card));
 ---
 
-<Indexs>
-  <div class="bg-wrapper -z-50 fixed w-screen h-screen" style={`--bg-url: url(${bg.src});`}></div>
-  <Hero />
-  <Interests client:load client:only />
-  <Names />
+<IndexPage>
+  <div class="relative min-h-screen overflow-hidden">
+    <div class="wall pointer-events-none absolute select-none" aria-hidden="true">
+      {
+        rows.map((row, i) => (
+          <div class:list={['wall-row', i % 2 ? 'reverse' : '']}>
+            {[row, row].map((half) => (
+              <div class="wall-track">
+                {half.map((card) =>
+                  card.image ? (
+                    <div class="wall-card w-56 overflow-hidden p-0">
+                      <img
+                        src={card.image}
+                        alt=""
+                        loading="lazy"
+                        class="h-full w-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div class="wall-card flex-col gap-2 p-4">
+                      <div class="grid h-10 w-10 place-items-center">
+                        <ProjectIcon title={card.title} icon={card.icon} />
+                      </div>
+                      <span class="max-w-32 truncate text-xs text-base-content/60">
+                        {card.title}
+                      </span>
+                    </div>
+                  )
+                )}
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
 
-  <div class="divider"></div>
-  <Friends client:load />
-  <Footer />
-</Indexs>
+    <div
+      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--color-base-100)_25%,transparent_75%)]"
+    >
+    </div>
+
+    <section
+      class="relative mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center px-5 py-24 text-center"
+    >
+      <a href={`${base}about/`} class="group" aria-label="About xianii">
+        <img
+          src={`${base}xianii.webp`}
+          alt="xianii"
+          class="ring-primary ring-offset-base-100 h-40 w-40 rounded-full object-cover ring-4 ring-offset-4 transition group-hover:scale-105 sm:h-48 sm:w-48"
+        />
+      </a>
+      <h1 class="mt-8 text-5xl font-bold tracking-tight sm:text-6xl">xianii</h1>
+      <p class="mt-4 text-lg font-medium uppercase tracking-[0.16em] text-primary">
+        Full-Stack Electronics Engineer
+      </p>
+      <p class="mt-6 max-w-xl text-base leading-7 text-base-content/70">
+        Building useful things from circuits to software — embedded systems, practical tools, and
+        small experiments.
+      </p>
+      <a href={`${base}about/`} class="btn btn-primary mt-9">About me</a>
+    </section>
+  </div>
+</IndexPage>
 
 <style>
-  .bg-wrapper {
+  .wall {
+    inset: -20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    transform: rotate(-8deg);
+    opacity: 0.45;
   }
-
-  .bg-wrapper::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: var(--bg-url);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
-    /* background-only effects */
-    filter: brightness(0.33) blur(16px);
-
-    z-index: -50;
+  .wall-row {
+    display: flex;
+    width: max-content;
+    animation: marquee 90s linear infinite;
+  }
+  .wall-row.reverse {
+    animation-direction: reverse;
+    animation-duration: 110s;
+  }
+  .wall-track {
+    display: flex;
+    gap: 2rem;
+    padding-right: 2rem;
+  }
+  .wall-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 7rem;
+    flex: none;
+    border-radius: 1rem;
+    border: 1px solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
+    background: color-mix(in oklab, var(--color-base-200) 60%, transparent);
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wall-row {
+      animation: none;
+    }
   }
 </style>

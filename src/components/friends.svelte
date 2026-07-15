@@ -12,12 +12,16 @@
 
 <Toast />
 
-<div class="flex flex-col px-4 w-full justify-center items-start lg:items-center">
-  <div class="flex flex-col max-w-3xl">
-    <h2 class="text-3xl mb-4">Friends</h2>
+<div class="w-full">
+  <div class="flex flex-col">
     <div class="grid grid-cols-2 lg:grid-cols-3 gap-2">
       {#each links.friends as f}
-        <a href={f.link} target="_blank" class="hover:bg-primary p-4 rounded-xl">
+        <a
+          href={f.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:bg-primary p-4 rounded-xl"
+        >
           <div class="flex gap-x-4 w-full h-full">
             <div class="h-16 w-16 shrink-0 self-center rounded-full overflow-hidden outline-4 outline-white/60">
               <img src={f.pic} alt={f.name} />
@@ -39,8 +43,8 @@
       {/each}
     </div>
 
-    <h2 class="text-3xl mt-4">
-      My link<span class="text-right text-xs text-white/40 mx-2">Click to copy</span>
+    <h2 class="mt-10 text-lg font-bold">
+      My link<span class="mx-2 text-right text-xs text-white/40">Click to copy</span>
     </h2>
 
     <button class="cursor-pointer mr-auto hover:bg-primary p-4 rounded-xl text-left" on:click={copyMe}>
