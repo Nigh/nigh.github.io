@@ -1,0 +1,17 @@
+---
+import Pages from '../layouts/Pages.astro';
+import Friends from '../components/friends.svelte';
+---
+
+<Pages title="Friends — xianii" description="People and sites I enjoy following.">
+  <section>
+    <p class="text-sm font-medium uppercase tracking-[0.2em] text-primary">Around the web</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Friends</h1>
+    <p class="mt-4 max-w-2xl leading-7 text-base-content/70">
+      A small collection of people and sites worth visiting.
+    </p>
+  </section>
+  <div class="mt-10">
+    <Friends client:load />
+  </div>
+</Pages>

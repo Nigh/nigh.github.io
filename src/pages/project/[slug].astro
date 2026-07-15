@@ -1,22 +1,72 @@
 ---
 import Pages from '../../layouts/Pages.astro';
 import { getCollection, CollectionEntry, render } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import ProjectIcon from '../../components/project_icon.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
-  return projects.map((project) => ({
-    params: { slug: project.id.replace(/\.(md|mdx)$/, '') },
-    props: { project },
-  }));
+  return projects
+    .filter((project) => !project.data.draft)
+    .map((project) => ({
+      params: { slug: project.id.replace(/\.(md|mdx)$/, '') },
+      props: { project },
+    }));
 }
 interface Props {
-  project: CollectionEntry<"projects">;
+  project: CollectionEntry<'projects'>;
 }
 const { project } = Astro.props;
 const { Content } = await render(project);
 ---
 
-<Pages>
+<Pages title={`${project.data.title} — Projects — xianii`} description={project.data.description}>
+  <header class="mb-10 rounded-3xl border border-base-content/10 bg-base-200/60 p-6 sm:p-8">
+    <div class="flex items-start gap-5">
+      <div class="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-base-100">
+        <ProjectIcon title={project.data.title} icon={project.data.icon} />
+      </div>
+      <div>
+        <p class="text-sm font-medium text-primary">Project · {project.data.date.getFullYear()}</p>
+        <h1 class="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">{project.data.title}</h1>
+      </div>
+    </div>
+    <p class="mt-5 max-w-3xl leading-7 text-base-content/70">
+      {project.data.description || 'Project details are being documented.'}
+    </p>
+    <div class="mt-5 flex flex-wrap items-center gap-2">
+      {
+        project.data.tags?.map((tag) => (
+          <span class="rounded-full bg-primary/10 px-2.5 py-1 text-sm text-primary">{tag}</span>
+        ))
+      }
+      {
+        project.data.links?.github && (
+          <a
+            href={project.data.links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-sm btn-primary"
+          >
+            <Icon name="mingcute:github-2-fill" size="18px" />
+            Source
+          </a>
+        )
+      }
+      {
+        project.data.links?.demo && (
+          <a
+            href={project.data.links.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-sm btn-ghost"
+          >
+            View demo
+          </a>
+        )
+      }
+    </div>
+  </header>
   <div class="markdown-body">
     <Content />
   </div>

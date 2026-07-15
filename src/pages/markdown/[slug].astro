@@ -1,23 +1,14 @@
 ---
-import Pages from '../../layouts/Pages.astro';
-import { getCollection, CollectionEntry, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  return posts.map((post) => ({
-    params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
-    props: { post },
-  }));
+  return posts
+    .filter((post) => !post.data.draft)
+    .map((post) => ({
+      params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
+    }));
 }
-interface Props {
-  post: CollectionEntry<"posts">;
-}
-const { post } = Astro.props;
-const { Content } = await render(post);
----
 
-<Pages>
-  <div class="markdown-body">
-    <Content />
-  </div>
-</Pages>
+return Astro.redirect(`${import.meta.env.BASE_URL}notes/${Astro.params.slug}/`, 301);
+---

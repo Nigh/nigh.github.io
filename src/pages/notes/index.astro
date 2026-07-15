@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Pages from '../../layouts/Pages.astro';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Pages
+  title="Notes — xianii"
+  description="Technical notes, experiments, and things learned while building."
+>
+  <section>
+    <p class="text-sm font-medium uppercase tracking-[0.2em] text-primary">Writing</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Notes</h1>
+    <p class="mt-4 max-w-2xl leading-7 text-base-content/70">
+      Technical notes, field observations, and experiments from the workbench.
+    </p>
+  </section>
+
+  <section class="mt-10 space-y-3">
+    {
+      posts.map((post) => {
+        const href = `${import.meta.env.BASE_URL}notes/${post.id.replace(/\.(md|mdx)$/, '')}/`;
+        return (
+          <article class="rounded-2xl border border-base-content/10 bg-base-200/60 p-5 transition hover:border-primary/60">
+            <a href={href} class="block">
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-base-content/50">
+                <time>{post.data.date.toISOString().slice(0, 10)}</time>
+                {post.data.tags?.map((tag) => (
+                  <span class="text-primary">{tag}</span>
+                ))}
+              </div>
+              <h2 class="mt-2 text-xl font-bold">{post.data.title}</h2>
+              <p class="mt-2 text-sm leading-6 text-base-content/70">
+                {post.data.description || 'A note from xianii.'}
+              </p>
+            </a>
+          </article>
+        );
+      })
+    }
+  </section>
+</Pages>

@@ -16,7 +16,7 @@
   <div class="flex flex-col max-w-xs min-w-3xs border-primary/20 border rounded-xl text-wrap">
     <p class="text-lg font-bold mb-4 px-4 pt-4">赛博友人</p>
     {#each links.friends as f}
-      <a href={f.link} target="_blank" class="hover:bg-primary p-4 rounded-xl">
+      <a href={f.link} target="_blank" rel="noopener noreferrer" class="hover:bg-primary p-4 rounded-xl">
         <div class="flex gap-x-4 w-full">
           <div class="h-16 w-16 shrink-0 rounded-full overflow-hidden outline-4 outline-white/60">
             <img src={f.pic} alt={f.name} />

@@ -1,35 +1,72 @@
 ---
-import NavbarMD from './navbarMD.astro';
 import NavbarMobile from './navbarMobile.astro';
+import nav from './nav_item.ts';
+
+const avatar = `${import.meta.env.BASE_URL}xianii.webp`;
+const pathname = Astro.url.pathname;
 ---
 
-<script>
-  const navs = document.getElementsByClassName('xianii-nav');
-  const scrollThreshold = 50; // The number of pixels to scroll before it becomes sticky
+<aside class="hidden lg:flex fixed inset-y-0 left-0 z-30 w-64 p-5">
+  <div
+    class="flex w-full flex-col rounded-3xl border border-base-content/10 bg-base-200/70 p-4 shadow-2xl backdrop-blur-xl"
+  >
+    <a href={import.meta.env.BASE_URL} class="mb-8 flex items-center gap-3 px-2">
+      <img
+        src={avatar}
+        alt="xianii"
+        class="h-12 w-12 rounded-2xl object-cover ring-2 ring-primary"
+      />
+      <span>
+        <span class="block font-bold tracking-tight">xianii</span>
+        <span class="block text-xs text-base-content/60">Full-Stack Electronics Engineer</span>
+      </span>
+    </a>
 
-  function handleScroll() {
-    // window.scrollY is the current vertical scroll position
-    if (window.scrollY >= scrollThreshold) {
-      for (let index = 0; index < navs.length; index++) {
-        const nav = navs[index];
-        nav.classList.add('scrolled');
+    <nav aria-label="Primary navigation" class="space-y-1">
+      {
+        nav.items.map((item) => {
+          const isActive =
+            item.href === import.meta.env.BASE_URL
+              ? pathname === item.href
+              : pathname.startsWith(item.href);
+          return (
+            <a
+              href={item.href}
+              aria-current={isActive ? 'page' : undefined}
+              class:list={[
+                'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
+                isActive
+                  ? 'bg-primary text-primary-content'
+                  : 'text-base-content/70 hover:bg-base-100 hover:text-base-content',
+              ]}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                class="h-5 w-5 shrink-0"
+                fill="currentColor"
+              >
+                <path d={item.svg} />
+              </svg>
+              {item.name}
+            </a>
+          );
+        })
       }
-    } else {
-      for (let index = 0; index < navs.length; index++) {
-        const nav = navs[index];
-        nav.classList.remove('scrolled');
-      }
-    }
-  }
+    </nav>
 
-  // Attach the function to the scroll event
-  window.addEventListener('scroll', handleScroll);
+    <div class="mt-auto border-t border-base-content/10 pt-4">
+      <a
+        href="https://github.com/Nigh"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-base-content/60 transition-colors hover:bg-base-100 hover:text-base-content"
+      >
+        <span class="font-semibold">↗</span>
+        GitHub
+      </a>
+    </div>
+  </div>
+</aside>
 
-  // Clean up the event listener when the component is removed (good practice)
-  document.addEventListener('astro:before-swap', () => {
-    window.removeEventListener('scroll', handleScroll);
-  });
-</script>
-<NavbarMD navType="nav-fixed" />
-<NavbarMD navType="nav-sticky" />
 <NavbarMobile />
