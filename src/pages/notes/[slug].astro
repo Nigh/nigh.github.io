@@ -21,6 +21,12 @@ const { Content } = await render(post);
 ---
 
 <Pages title={`${post.data.title} — Notes — xianii`} description={post.data.description}>
+  <a
+    href={`${import.meta.env.BASE_URL}notes/`}
+    class="mb-6 inline-flex items-center gap-1 text-sm font-medium text-base-content/60 transition hover:text-primary"
+  >
+    ← Back to Notes
+  </a>
   <article>
     <header class="mb-10 border-b border-base-content/10 pb-8">
       <p class="text-sm text-base-content/50">{post.data.date.toISOString().slice(0, 10)}</p>

@@ -6,9 +6,9 @@ const avatar = `${import.meta.env.BASE_URL}xianii.webp`;
 const pathname = Astro.url.pathname;
 ---
 
-<div class="z-10 lg:hidden">
-  <!-- Hamburger toggle -->
-  <div class="fixed left-3 top-3 navbar items-center p-0">
+<div class="lg:hidden">
+  <!-- Hamburger toggle, bottom-right for one-handed reach -->
+  <div class="fixed bottom-4 right-4 z-30">
     <button
       id="mobile-nav-toggle"
       aria-label="Open navigation"
@@ -35,7 +35,7 @@ const pathname = Astro.url.pathname;
   <!-- Sliding drawer -->
   <aside
     id="mobile-nav-drawer"
-    class="fixed inset-y-0 left-0 flex w-72 max-w-[85%] flex-col border-r border-base-content/10 bg-base-200/95 transform -translate-x-full transition-transform duration-300 shadow-xl z-50"
+    class="fixed inset-y-0 right-0 flex w-72 max-w-[85%] flex-col border-l border-base-content/10 bg-base-200/95 transform translate-x-full transition-transform duration-300 shadow-xl z-50"
   >
     <div class="flex items-center justify-between border-b border-base-content/10 p-4">
       <a href={import.meta.env.BASE_URL} class="flex items-center gap-3">
@@ -64,7 +64,10 @@ const pathname = Astro.url.pathname;
       </button>
     </div>
 
-    <nav aria-label="Primary navigation" class="flex-1 space-y-1 overflow-y-auto p-3">
+    <nav
+      aria-label="Primary navigation"
+      class="flex flex-1 flex-col-reverse gap-1 overflow-y-auto p-3"
+    >
       {
         nav.items.map((item) => {
           const isActive =
@@ -101,7 +104,7 @@ const pathname = Astro.url.pathname;
       function open() {
         if (!drawer) return;
         previouslyFocused = document.activeElement as HTMLElement;
-        drawer.classList.remove('-translate-x-full');
+        drawer.classList.remove('translate-x-full');
         if (backdrop) {
           backdrop.classList.remove('opacity-0', 'pointer-events-none');
           backdrop.classList.add('opacity-100');
@@ -113,7 +116,7 @@ const pathname = Astro.url.pathname;
 
       function close() {
         if (!drawer) return;
-        drawer.classList.add('-translate-x-full');
+        drawer.classList.add('translate-x-full');
         if (backdrop) {
           backdrop.classList.add('opacity-0');
           backdrop.classList.add('pointer-events-none');
@@ -155,7 +158,7 @@ const pathname = Astro.url.pathname;
           });
         },
         toggle: () => {
-          const isOpen = drawer && !drawer.classList.contains('-translate-x-full');
+          const isOpen = drawer && !drawer.classList.contains('translate-x-full');
           if (isOpen) (window as any).mobileNav.close();
           else (window as any).mobileNav.open();
         },
