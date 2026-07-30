@@ -26,7 +26,8 @@ const apps: AppItem[] = [
   {
     name: '老黄历',
     url: 'https://laohuangli.tecnico.cc/',
-    description: '老黄历算命机器人',
+    description: 'Ingress 老黄历算命机器人',
+    sourceUrl: 'https://github.com/szres/ingress-laohuangli',
     type: 'Web',
     status: 'Active',
   },
@@ -52,13 +53,6 @@ const apps: AppItem[] = [
     sourceUrl: 'https://github.com/szres/ifs-gacha-system',
     type: 'Web',
     status: 'Experimental',
-  },
-  {
-    name: 'Ingress Op Sim',
-    description: 'Ingress 行动模拟器',
-    sourceUrl: 'https://github.com/szres/ingress-op-sim',
-    type: 'Desktop',
-    status: 'Archived',
   },
 ];
 

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
 import IndexPage from '../layouts/IndexPage.astro';
-import ProjectIcon from '../components/project_icon.astro';
 
 const base = import.meta.env.BASE_URL;
 
@@ -15,9 +15,22 @@ const cards: WallCard[] = [
     .map((p) => ({ title: p.data.title, image: p.data.image![0] })),
 ];
 
-// ponytail: 3 固定行足够铺满视口，卡片按下标轮流分配
-const rows: WallCard[][] = [[], [], []];
-cards.forEach((card, i) => rows[i % 3].push(card));
+// 每行完整列表 + 独立洗牌（种子=行号，构建可复现）
+const ROWS = 4;
+function shuffle<T>(arr: T[], seed: number): T[] {
+  const a = [...arr];
+  let s = seed + 1;
+  const rnd = () => {
+    s = (s * 16807) % 2147483647;
+    return (s - 1) / 2147483646;
+  };
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+const rows = Array.from({ length: ROWS }, (_, i) => shuffle(cards, i));
 ---
 
 <IndexPage>
@@ -25,12 +38,15 @@ cards.forEach((card, i) => rows[i % 3].push(card));
     <div class="wall pointer-events-none absolute select-none" aria-hidden="true">
       {
         rows.map((row, i) => (
-          <div class:list={['wall-row', i % 2 ? 'reverse' : '']}>
+          <div
+            class:list={['wall-row', i % 2 ? 'reverse' : '']}
+            style={`animation-duration: ${90 + i * 15}s`}
+          >
             {[row, row].map((half) => (
               <div class="wall-track">
                 {half.map((card) =>
                   card.image ? (
-                    <div class="wall-card w-56 overflow-hidden p-0">
+                    <div class="wall-card w-72 overflow-hidden p-0">
                       <img
                         src={card.image}
                         alt=""
@@ -39,11 +55,19 @@ cards.forEach((card, i) => rows[i % 3].push(card));
                       />
                     </div>
                   ) : (
-                    <div class="wall-card flex-col gap-2 p-4">
-                      <div class="grid h-10 w-10 place-items-center">
-                        <ProjectIcon title={card.title} icon={card.icon} />
+                    <div class="wall-card flex-col gap-3 p-5">
+                      <div class="grid h-14 w-14 place-items-center">
+                        {card.icon?.startsWith('http') ? (
+                          <img src={card.icon} alt="" loading="lazy" class="object-contain" />
+                        ) : (
+                          <Icon
+                            name={card.icon || 'mingcute:pic-fill'}
+                            size="56"
+                            class={card.icon ? 'text-primary/60' : 'text-current/40'}
+                          />
+                        )}
                       </div>
-                      <span class="max-w-32 truncate text-xs text-base-content/60">
+                      <span class="max-w-40 truncate text-sm text-base-content/60">
                         {card.title}
                       </span>
                     </div>
@@ -90,9 +114,9 @@ cards.forEach((card, i) => rows[i % 3].push(card));
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 2rem;
+    gap: 2.5rem;
     transform: rotate(-8deg);
-    opacity: 0.45;
+    opacity: 0.4;
   }
   .wall-row {
     display: flex;
@@ -101,18 +125,18 @@ cards.forEach((card, i) => rows[i % 3].push(card));
   }
   .wall-row.reverse {
     animation-direction: reverse;
-    animation-duration: 110s;
   }
   .wall-track {
     display: flex;
-    gap: 2rem;
-    padding-right: 2rem;
+    gap: 2.5rem;
+    padding-right: 2.5rem;
   }
   .wall-card {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 7rem;
+    height: 10rem;
+    min-width: 10rem;
     flex: none;
     border-radius: 1rem;
     border: 1px solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
