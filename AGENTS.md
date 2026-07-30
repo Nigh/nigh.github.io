@@ -64,6 +64,8 @@ npm run build      # 生产构建（含备案号）
 npm run format     # Prettier 格式化全部
 ```
 
+- **Node**：Astro 6 要求 `>=22.12.0`。GitHub Pages 部署用 `withastro/action@v6`，workflow 显式 `node-version: 22`。
+
 ---
 
 ## 关键约束：自我同步规则
