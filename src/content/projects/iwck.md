@@ -1,6 +1,5 @@
 ---
 title: 'IWCK'
-date: 2023-08-07
 tags: ['autohotkey', 'gui']
 links:
   github: 'https://github.com/Nigh/I-wanna-clean-keyboard'

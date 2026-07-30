@@ -1,6 +1,5 @@
 ---
 title: '批量字幕偏移'
-date: 2024-08-09
 tags: ['golang']
 links:
   github: 'https://github.com/Nigh/subtitle-ass-shifter'

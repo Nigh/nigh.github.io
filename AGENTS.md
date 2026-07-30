@@ -53,7 +53,7 @@
 ### 内容与集合
 
 - **posts collection**：顶层命名为 `posts`。必需字段：`title`（string）、`date`（date）。可选字段：`draft`、`tags`、`description`。所有公开列表和路由都应排除 `draft: true`。
-- **projects collection**：顶层命名为 `projects`。必需字段同上。特有可选字段：`links`（Record<string, string>）、`icon`、`image`（string[]）、`featured`、`status`（`active` / `archived` / `experimental`）。
+- **projects collection**：顶层命名为 `projects`。必需字段：`title`（string）。可选字段：`draft`、`tags`、`description`、`links`（Record<string, string>，含 `github` 时构建期拉取创建年与默认分支最新 commit 年）、`icon`、`image`（string[]）、`featured`。列表按 GitHub 最新 commit 时间排序；卡片展示生命周期年份（如 `2021–2026`）。不再使用手填 `date` / `status`。
 - 添加新条目前，验证 frontmatter 符合 Zod 模式（定义于 `src/content.config.ts`）。
 
 ### 开发工作流

@@ -1,6 +1,5 @@
 ---
 title: 'HAMKey Lite'
-date: 2021-04-19
 tags: ['hardware', 'BLE', 'HAM']
 links:
   github: 'https://github.com/HAM-Key/Lite-main'

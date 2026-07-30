@@ -1,6 +1,5 @@
 ---
 title: 'JandanX'
-date: 2025-04-22
 tags: ['userscript', 'js', 'css']
 links:
   github: 'https://github.com/Nigh/JandanX'

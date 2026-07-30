@@ -1,6 +1,5 @@
 ---
 title: 'TG inline消息限制机器人'
-date: 2024-04-27
 tags: ['Telegram', 'bot']
 links:
   github: 'https://github.com/szres/tg-inline-limit-bot'

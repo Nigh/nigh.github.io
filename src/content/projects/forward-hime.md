@@ -1,6 +1,5 @@
 ---
 title: '转发姬'
-date: 2024-06-13
 tags: ['koishi', 'plugin']
 links:
   github: 'https://github.com/Nigh/forward-hime'

@@ -2,10 +2,18 @@
 import { getCollection } from 'astro:content';
 import Project from '../../layouts/project.astro';
 import Pages from '../../layouts/Pages.astro';
-const projects = await getCollection('projects');
-const sortedProjects = projects
-  .filter((project) => !project.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+import { fetchRepoLifecycles, formatLifecycle } from '../../lib/github_repo_lifecycle.ts';
+
+const projects = (await getCollection('projects')).filter((p) => !p.data.draft);
+const lifecycles = await fetchRepoLifecycles(
+  projects.map((p) => p.data.links?.github).filter((u): u is string => Boolean(u))
+);
+
+const sortedProjects = [...projects].sort((a, b) => {
+  const ua = lifecycles.get(a.data.links?.github ?? '')?.updated?.getTime() ?? 0;
+  const ub = lifecycles.get(b.data.links?.github ?? '')?.updated?.getTime() ?? 0;
+  return ub - ua;
+});
 ---
 
 <Pages
@@ -24,13 +32,21 @@ const sortedProjects = projects
   <section class="mt-10">
     <div class="mb-5 flex items-center justify-between">
       <h2 class="text-lg font-semibold">{sortedProjects.length} projects</h2>
-      <span class="text-sm text-base-content/50">Newest first</span>
+      <span class="text-sm text-base-content/50">Recently active first</span>
     </div>
     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {
-        sortedProjects.map((post) => (
-          <Project slug={post.id.replace(/\.(md|mdx)$/, '')} {...post.data} />
-        ))
+        sortedProjects.map((post) => {
+          const gh = post.data.links?.github;
+          const life = gh ? lifecycles.get(gh) : undefined;
+          return (
+            <Project
+              slug={post.id.replace(/\.(md|mdx)$/, '')}
+              {...post.data}
+              lifecycle={formatLifecycle(life)}
+            />
+          );
+        })
       }
     </div>
   </section>
