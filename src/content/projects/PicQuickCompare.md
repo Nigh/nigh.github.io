@@ -1,6 +1,5 @@
 ---
 title: 'PicQuickCompare'
-date: 2023-08-27
 tags: ['autohotkey', 'ahk']
 links:
   github: 'https://github.com/Nigh/PicQuickCompare'

@@ -1,6 +1,5 @@
 ---
 title: 'AHK自动升级模板'
-date: 2021-10-14
 tags: ['autohotkey', 'ahk', 'template']
 links:
   github: 'https://github.com/Nigh/ahk-autoupdate-template'

@@ -16,6 +16,8 @@ jobs:
     env:
       PUBLIC_BASE_URL: '/'
       PUBLIC_SITE_URL: 'https://nigh.github.io'
+      # Build fetches project created/updated dates from GitHub GraphQL
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4

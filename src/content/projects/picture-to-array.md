@@ -1,6 +1,5 @@
 ---
 title: '图片批量转C数组'
-date: 2022-03-16
 tags: ['c', 'golang']
 links:
   github: 'https://github.com/Nigh/picture-to-array'

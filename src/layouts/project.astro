@@ -2,17 +2,17 @@
 import { Icon } from 'astro-icon/components';
 import Logo from '../components/project_icon.astro';
 
-const {
-  title,
-  date,
-  slug,
-  links,
-  icon,
-  image,
-  description,
-  tags = [],
-  status = 'archived',
-} = Astro.props;
+interface Props {
+  title: string;
+  slug: string;
+  links?: Record<string, string>;
+  icon?: string;
+  image?: string[];
+  description?: string;
+  tags?: string[];
+  lifecycle?: string;
+}
+const { title, slug, links, icon, image, description, tags = [], lifecycle } = Astro.props as Props;
 const detailHref = `${import.meta.env.BASE_URL}project/${slug}/`;
 ---
 
@@ -24,12 +24,7 @@ const detailHref = `${import.meta.env.BASE_URL}project/${slug}/`;
       <Logo title={title} icon={icon} />
     </div>
     <div class="min-w-0">
-      <div class="mb-1 flex items-center gap-2">
-        <span class="rounded-full bg-base-100 px-2 py-0.5 text-xs capitalize text-base-content/60">
-          {status}
-        </span>
-        <time class="text-xs text-base-content/50">{date.toISOString().slice(0, 4)}</time>
-      </div>
+      {lifecycle && <time class="mb-1 block text-xs text-base-content/50">{lifecycle}</time>}
       <h2 class="text-lg font-bold leading-tight">{title}</h2>
     </div>
   </div>
