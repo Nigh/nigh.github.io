@@ -1,16 +1,19 @@
 ---
 import nav from './nav_item.ts';
 import NavBtnMobile from './NavBtnMobile.astro';
+
+const avatar = `${import.meta.env.BASE_URL}xianii.webp`;
+const pathname = Astro.url.pathname;
 ---
 
-<div class="z-10 lg:hidden">
-  <!-- Hamburger toggle -->
-  <div class="fixed navbar items-center px-3 py-2">
+<div class="lg:hidden">
+  <!-- Hamburger toggle, bottom-right for one-handed reach -->
+  <div class="fixed bottom-4 right-4 z-30">
     <button
       id="mobile-nav-toggle"
       aria-label="Open navigation"
       aria-expanded="false"
-      class="p-2 bg-primary/20 rounded-md hover:bg-primary/80"
+      class="rounded-xl border border-base-content/10 bg-base-200/80 p-2 shadow-lg backdrop-blur hover:bg-primary hover:text-primary-content"
     >
       <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <path
@@ -32,14 +35,26 @@ import NavBtnMobile from './NavBtnMobile.astro';
   <!-- Sliding drawer -->
   <aside
     id="mobile-nav-drawer"
-    class="fixed inset-y-0 left-0 w-64 max-w-[50%] bg-base-100/60 transform -translate-x-full transition-transform duration-300 shadow-xl z-50"
+    class="fixed inset-y-0 right-0 flex w-72 max-w-[85%] flex-col border-l border-base-content/10 bg-base-200/95 transform translate-x-full transition-transform duration-300 shadow-xl z-50"
   >
-    <div class="flex items-center justify-between p-4 border-b">
-      <div class="font-bold text-lg">Nav</div>
+    <div class="flex items-start justify-between gap-2 border-b border-base-content/10 p-4">
+      <a href={import.meta.env.BASE_URL} class="flex min-w-0 flex-col gap-1.5">
+        <span class="flex items-center gap-2.5">
+          <img
+            src={avatar}
+            alt="xianii"
+            class="h-9 w-9 shrink-0 rounded-full object-cover ring-2 ring-primary"
+          />
+          <span class="text-base font-bold tracking-tight">xianii</span>
+        </span>
+        <span class="text-xs leading-snug text-base-content/60">
+          Full-Stack Electronics Engineer
+        </span>
+      </a>
       <button
         id="mobile-nav-close"
         aria-label="Close navigation"
-        class="p-2 rounded-md hover:bg-primary/80"
+        class="shrink-0 rounded-md p-2 hover:bg-primary/80"
       >
         <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path
@@ -51,17 +66,29 @@ import NavBtnMobile from './NavBtnMobile.astro';
       </button>
     </div>
 
-    <nav class="p-3 space-y-1 overflow-y-auto">
+    <nav
+      aria-label="Primary navigation"
+      class="flex flex-1 flex-col-reverse gap-1 overflow-y-auto p-3"
+    >
       {
-        nav.items.map((item) => (
-          <NavBtnMobile
-            href={item.href}
-            svg={item.svg}
-            class="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/80 transition-colors"
-          >
-            <span>{item.name}</span>
-          </NavBtnMobile>
-        ))
+        nav.items.map((item) => {
+          const isActive =
+            item.href === import.meta.env.BASE_URL
+              ? pathname === item.href
+              : pathname.startsWith(item.href);
+          return (
+            <NavBtnMobile
+              href={item.href}
+              svg={item.svg}
+              class:list={[
+                'mobile-nav-link w-full flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors',
+                isActive ? 'bg-primary text-primary-content' : 'hover:bg-base-100',
+              ]}
+            >
+              <span>{item.name}</span>
+            </NavBtnMobile>
+          );
+        })
       }
     </nav>
   </aside>
@@ -74,30 +101,40 @@ import NavBtnMobile from './NavBtnMobile.astro';
       const drawer = document.getElementById('mobile-nav-drawer');
       const backdrop = document.getElementById('mobile-nav-backdrop');
 
+      let previouslyFocused: HTMLElement | null = null;
+
       function open() {
         if (!drawer) return;
-        drawer.classList.remove('-translate-x-full');
+        previouslyFocused = document.activeElement as HTMLElement;
+        drawer.classList.remove('translate-x-full');
         if (backdrop) {
           backdrop.classList.remove('opacity-0', 'pointer-events-none');
           backdrop.classList.add('opacity-100');
         }
         openBtn && openBtn.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('overflow-hidden');
+        closeBtn?.focus();
       }
 
       function close() {
         if (!drawer) return;
-        drawer.classList.add('-translate-x-full');
+        drawer.classList.add('translate-x-full');
         if (backdrop) {
           backdrop.classList.add('opacity-0');
           backdrop.classList.add('pointer-events-none');
           backdrop.classList.remove('opacity-100');
         }
         openBtn && openBtn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('overflow-hidden');
+        previouslyFocused?.focus();
       }
 
       openBtn && openBtn.addEventListener('click', open);
       closeBtn && closeBtn.addEventListener('click', close);
       backdrop && backdrop.addEventListener('click', close);
+      drawer?.querySelectorAll('.mobile-nav-link').forEach((link) => {
+        link.addEventListener('click', close);
+      });
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') close();
@@ -123,7 +160,7 @@ import NavBtnMobile from './NavBtnMobile.astro';
           });
         },
         toggle: () => {
-          const isOpen = drawer && !drawer.classList.contains('-translate-x-full');
+          const isOpen = drawer && !drawer.classList.contains('translate-x-full');
           if (isOpen) (window as any).mobileNav.close();
           else (window as any).mobileNav.open();
         },

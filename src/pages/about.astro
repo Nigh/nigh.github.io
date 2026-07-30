@@ -47,111 +47,113 @@ const skills: { name: string; content: string }[] = [
   },
   {
     name: 'Music',
-    content: `Possess basic music theory knowledge and the ability to play some instruments;<br />Familiar with mixing workflows, with practical mixing experience;<br />Experience in independently designing and manufacturing <span class="${techItemStyle}">Irish whistles</span><br />Particularly advantageous in music-related projects.`,
+    content: `Basic music theory knowledge;<br />Practical mixing experience;<br />Independently designing and manufacturing <span class="${techItemStyle}">Irish whistles</span>`,
   },
 ];
 ---
 
-<Pages>
-  <div class="flex flex-col max-w-screen items-center">
-    <div>
-      <div class="w-32 h-32" style="view-transition-name:profile;">
-        <a href={base}>
-          <Profile />
-        </a>
+<Pages title="About — xianii" description="Background, experience, and skills of xianii.">
+  <div class="mx-auto w-full lg:max-w-[82%]">
+    <div class="flex flex-col max-w-screen items-center">
+      <div>
+        <div class="w-32 h-32" style="view-transition-name:profile;">
+          <a href={base}>
+            <Profile />
+          </a>
+        </div>
+      </div>
+      <div class="text-2xl font-bold text-primary">TecNico</div>
+      <div class="text-sm font-semibold text-current/40">
+        A Random Full-Stack Electronics Engineer
       </div>
     </div>
-    <div class="text-2xl font-bold text-primary">TecNico</div>
-    <div class="text-sm font-semibold text-current/40">
-      A Random Full-Stack Electronics Engineer
+    <h2 class={h2Style}>Experience</h2>
+    <div class="flex flex-col lg:flex-row items-center justify-evenly">
+      <div class="flex-2">
+        <p class="pl-2">
+          <span class={'font-extrabold text-2xl px-1 text-primary'}>{workYears}</span> years of experience
+          as an Electronics Engineer, specializing in system design and development centered around microcontrollers.
+          Extensive mass production experience with various consumer electronics including smart bands/watches
+          (including mechanical parts types), e-cigarettes, etc. Also involved in the development and
+          deployment of projects across industries such as IoT, industrial control, medical, and security.
+        </p>
+      </div>
+      <div class="flex-3 mx-auto -mr-24">
+        <ul class="timeline timeline-vertical">
+          <li>
+            <div class="timeline-start timeline-box">
+              <div class="w-title">MCU Software Engineer</div><div class="w-company">
+                @MOS-SOFT Technology
+              </div>
+            </div>
+            <div class="timeline-middle">
+              <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
+            </div>
+            <div class="timeline-end"><div class="w-time">2013-2015</div></div>
+            <hr />
+          </li>
+          <li>
+            <hr />
+            <div class="timeline-start timeline-box">
+              <div class="w-title">Technical Director</div><div class="w-company">
+                @Shenzhen SmartMovt Technology
+              </div>
+            </div>
+            <div class="timeline-middle">
+              <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
+            </div>
+            <div class="timeline-end"><div class="w-time">2015-2016</div></div>
+            <hr />
+          </li>
+          <li>
+            <hr />
+            <div class="timeline-start timeline-box">
+              <div class="w-title">Technical Lead</div><div class="w-company">
+                @Corumi (Shenzhen) Technology
+              </div>
+            </div>
+            <div class="timeline-middle">
+              <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
+            </div>
+            <div class="timeline-end"><div class="w-time">2018-2022</div></div>
+            <hr />
+          </li>
+          <li>
+            <hr />
+            <div class="timeline-start timeline-box">
+              <div class="w-title">Technical Lead</div><div class="w-company">
+                @Shenzhen Volwave Technology
+              </div>
+            </div>
+            <div class="timeline-middle">
+              <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
+            </div>
+            <div class="timeline-end"><div class="w-time">2022-2024</div></div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <h2 class={h2Style}>Experience</h2>
-  <div class="flex flex-col lg:flex-row items-center justify-evenly">
-    <div class="flex-2">
-      <p>
-        <span class={techItemStyle}>{workYears}</span> years of experience as an Electronics Engineer,
-        specializing in system design and development centered around microcontrollers. Extensive mass
-        production experience with various consumer electronics including smart bands/watches (including
-        mechanical parts types), e-cigarettes, etc. Also involved in the development and deployment of
-        projects across industries such as IoT, industrial control, medical, and military.
-      </p>
+    <h2 class={h2Style}>Skills</h2>
+    <div class="skill">
+      <table class="table table-z">
+        <tbody>
+          {
+            skills.map((skill) => (
+              <tr class="hover:text-primary">
+                <td class="font-bold text-md">{skill.name}</td>
+                <td class="flex flex-wrap items-center gap-2 h-full">
+                  <span class="text-current/80" set:html={skill.content} />
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     </div>
-    <div class="flex-3 mx-auto -mr-24">
-      <ul class="timeline timeline-vertical">
-        <li>
-          <div class="timeline-start timeline-box">
-            <div class="w-title">MCU Software Engineer</div><div class="w-company">
-              @MOS-SOFT Technology
-            </div>
-          </div>
-          <div class="timeline-middle">
-            <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
-          </div>
-          <div class="timeline-end"><div class="w-time">2013-2015</div></div>
-          <hr />
-        </li>
-        <li>
-          <hr />
-          <div class="timeline-start timeline-box">
-            <div class="w-title">Technical Director</div><div class="w-company">
-              @Shenzhen SmartMovt Technology
-            </div>
-          </div>
-          <div class="timeline-middle">
-            <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
-          </div>
-          <div class="timeline-end"><div class="w-time">2015-2016</div></div>
-          <hr />
-        </li>
-        <li>
-          <hr />
-          <div class="timeline-start timeline-box">
-            <div class="w-title">Technical Lead</div><div class="w-company">
-              @Corumi (Shenzhen) Technology
-            </div>
-          </div>
-          <div class="timeline-middle">
-            <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
-          </div>
-          <div class="timeline-end"><div class="w-time">2018-2022</div></div>
-          <hr />
-        </li>
-        <li>
-          <hr />
-          <div class="timeline-start timeline-box">
-            <div class="w-title">Technical Lead</div><div class="w-company">
-              @Shenzhen Volwave Technology
-            </div>
-          </div>
-          <div class="timeline-middle">
-            <Icon name="mingcute:round-fill" size="12px" class="text-primary" />
-          </div>
-          <div class="timeline-end"><div class="w-time">2022-2024</div></div>
-        </li>
-      </ul>
+    <div class="social">
+      <h2 class={h2Style}>Social Links</h2>
+      <Contact icon_size="48px" />
     </div>
-  </div>
-  <h2 class={h2Style}>Skills</h2>
-  <div class="skill">
-    <table class="table table-z">
-      <tbody>
-        {
-          skills.map((skill) => (
-            <tr class="hover:text-primary">
-              <td class="font-bold text-md">{skill.name}</td>
-              <td class="flex flex-wrap items-center gap-2 h-full">
-                <span class="text-current/80" set:html={skill.content} />
-              </td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
-  </div>
-  <div class="social">
-    <h2 class={h2Style}>Social Links</h2>
-    <Contact icon_size="48px" />
   </div>
 </Pages>
 <div class="h-32"></div>

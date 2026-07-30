@@ -13,9 +13,7 @@ const env = loadEnv(process.cwd(), '', ['PUBLIC_', 'BEIAN']); // 加载环境变
 export default defineConfig({
   integrations: [svelte(), icon(), mdx()],
   base: env.PUBLIC_BASE_URL || '/',
-  site: env.PUBLIC_SITE_URL
-    ? env.PUBLIC_SITE_URL + (env.PUBLIC_BASE_URL || '')
-    : undefined,
+  site: env.PUBLIC_SITE_URL ? env.PUBLIC_SITE_URL + (env.PUBLIC_BASE_URL || '') : undefined,
   vite: {
     plugins: [tailwindcss()],
   },
