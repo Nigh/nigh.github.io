@@ -20,7 +20,10 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
       - name: Install, build, and upload your site
-        uses: withastro/action@v3
+        uses: withastro/action@v6
+        with:
+          # Astro 6 requires Node >=22.12.0
+          node-version: 22
 
   deploy:
     needs: build
