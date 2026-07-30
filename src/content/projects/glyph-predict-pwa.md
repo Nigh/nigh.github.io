@@ -1,6 +1,5 @@
 ---
 title: 'Ingress glyph predict'
-date: 2024-03-25
 tags: ['ingress', 'PWA', 'glyph']
 links:
   github: 'https://github.com/szres/glyph-predict-pwa'

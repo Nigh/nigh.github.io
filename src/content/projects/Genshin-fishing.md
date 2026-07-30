@@ -1,6 +1,5 @@
 ---
 title: '原神钓鱼自动人偶'
-date: 2021-09-13
 tags: ['autohotkey', 'ahk', 'Genshin']
 links:
   github: 'https://github.com/Nigh/Genshin-fishing'

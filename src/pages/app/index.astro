@@ -37,13 +37,8 @@ const appTypes = ['Web', 'Desktop', 'Mobile'] as const;
                     rel="noopener noreferrer"
                     class="flex min-h-56 flex-col rounded-2xl border border-base-content/10 bg-base-200/60 p-5 transition hover:-translate-y-1 hover:border-primary/60 hover:bg-base-200"
                   >
-                    <div class="flex items-start justify-between gap-3">
-                      <div class="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-lg text-primary">
-                        ◆
-                      </div>
-                      <span class="rounded-full bg-base-100 px-2 py-1 text-xs text-base-content/60">
-                        {app.status}
-                      </span>
+                    <div class="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-lg text-primary">
+                      ◆
                     </div>
                     <h3 class="mt-5 text-lg font-bold">{app.name}</h3>
                     <p class="mt-2 grow text-sm leading-6 text-base-content/70">

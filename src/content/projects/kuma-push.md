@@ -1,6 +1,5 @@
 ---
 title: 'kuma push'
-date: 2024-01-31
 tags: ['uptime', 'uptime-kuma']
 links:
   github: 'https://github.com/Nigh/kuma-push'

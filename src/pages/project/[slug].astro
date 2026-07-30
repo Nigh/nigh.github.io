@@ -1,22 +1,33 @@
 ---
 import Pages from '../../layouts/Pages.astro';
-import { getCollection, CollectionEntry, render } from 'astro:content';
+import { getCollection, type CollectionEntry, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import ProjectIcon from '../../components/project_icon.astro';
+import {
+  fetchRepoLifecycles,
+  formatLifecycle,
+} from '../../lib/github_repo_lifecycle.ts';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
-  return projects
-    .filter((project) => !project.data.draft)
-    .map((project) => ({
+  const projects = (await getCollection('projects')).filter((p) => !p.data.draft);
+  const lifecycles = await fetchRepoLifecycles(
+    projects.map((p) => p.data.links?.github).filter((u): u is string => Boolean(u))
+  );
+  return projects.map((project) => {
+    const gh = project.data.links?.github;
+    const life = gh ? lifecycles.get(gh) : undefined;
+    return {
       params: { slug: project.id.replace(/\.(md|mdx)$/, '') },
-      props: { project },
-    }));
+      props: { project, lifecycle: formatLifecycle(life) },
+    };
+  });
 }
+
 interface Props {
   project: CollectionEntry<'projects'>;
+  lifecycle: string;
 }
-const { project } = Astro.props;
+const { project, lifecycle } = Astro.props;
 const { Content } = await render(project);
 ---
 
@@ -33,7 +44,9 @@ const { Content } = await render(project);
         <ProjectIcon title={project.data.title} icon={project.data.icon} />
       </div>
       <div>
-        <p class="text-sm font-medium text-primary">Project · {project.data.date.getFullYear()}</p>
+        <p class="text-sm font-medium text-primary">
+          {lifecycle ? `Project · ${lifecycle}` : 'Project'}
+        </p>
         <h1 class="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">{project.data.title}</h1>
       </div>
     </div>
