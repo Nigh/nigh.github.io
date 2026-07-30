@@ -22,7 +22,7 @@
 | 作品      | `src/pages/project/`          | 项目案例卡片与详情页，对应 projects collection                            |
 | 应用      | `src/pages/app/`              | Web、桌面、移动端应用目录（数据源：`src/components/apps_data.ts`）        |
 | 友链      | `src/pages/friends.astro`     | 友链与本站链接自取                                                        |
-| 导航      | `src/components/navbar.astro` | 桌面固定侧边导航；`navbarMobile.astro` 提供移动端汉堡抽屉                 |
+| 导航      | `src/components/navbar.astro` | 桌面固定侧边导航（底栏含 GitHub + 可选备案/版权）；`navbarMobile.astro` 提供移动端汉堡抽屉 |
 | 交互组件  | `src/components/*.svelte`     | Friends、Toast 等客户端岛屿组件                                           |
 | 样式      | `src/styles/`                 | global.css（tailwind + daisy 主题）+ markdown.css（GitHub 风格）          |
 
@@ -59,12 +59,15 @@
 ### 开发工作流
 
 ```bash
-npm run dev        # 本地开发（会阻塞式启动web服务，非直接要求不用运行）
-npm run build      # 生产构建（含备案号）
-npm run format     # Prettier 格式化全部
+npm run dev         # 本地开发（含 BEIAN；会阻塞式启动 web 服务，非直接要求不用运行）
+npm run build       # 生产构建（不含备案号）
+npm run build:beian # 生产构建并注入 BEIAN（国内部署用）
+npm run format      # Prettier 格式化全部
 ```
 
 - **Node**：Astro 6 要求 `>=22.12.0`。GitHub Pages 部署用 `withastro/action@v6`，workflow 显式 `node-version: 22`。
+- **备案**：`BEIAN` 经 Vite `loadEnv` 注入；有值时显示在侧栏/抽屉底栏（`footer.astro`）。`dev` / `build:beian` 会设置；默认 `build` 与 GitHub Pages CI 不设置。
+- **GitHub API**：构建期用 GraphQL 拉项目生命周期年份；可选设 `GITHUB_TOKEN` / `GH_TOKEN`（CI 已注入）。无 token 或限流时 warn 并跳过年份，不阻断构建。
 
 ---
 
