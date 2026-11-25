@@ -16,7 +16,6 @@
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.5",
     "daisyui": "^5.5.19",
-    "marked": "^18.0.0",
     "svelte": "^5.55.2",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2"
