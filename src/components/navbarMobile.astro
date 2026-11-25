@@ -1,9 +1,11 @@
 ---
 import nav from './nav_item.ts';
 import NavBtnMobile from './NavBtnMobile.astro';
+import Footer from './footer.astro';
 
 const avatar = `${import.meta.env.BASE_URL}xianii.webp`;
 const pathname = Astro.url.pathname;
+const beian = import.meta.env.BEIAN;
 ---
 
 <div class="lg:hidden">
@@ -91,6 +93,14 @@ const pathname = Astro.url.pathname;
         })
       }
     </nav>
+
+    {
+      beian && (
+        <div class="border-t border-base-content/10 p-4 pt-3">
+          <Footer />
+        </div>
+      )
+    }
   </aside>
 
   <script>

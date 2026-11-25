@@ -1,9 +1,11 @@
 ---
 import NavbarMobile from './navbarMobile.astro';
+import Footer from './footer.astro';
 import nav from './nav_item.ts';
 
 const avatar = `${import.meta.env.BASE_URL}xianii.webp`;
 const pathname = Astro.url.pathname;
+const beian = import.meta.env.BEIAN;
 ---
 
 <aside class="hidden lg:flex fixed inset-y-0 left-0 z-30 w-64 p-5">
@@ -70,6 +72,7 @@ const pathname = Astro.url.pathname;
         <span class="font-semibold">↗</span>
         GitHub
       </a>
+      {beian && <div class="mt-3"><Footer /></div>}
     </div>
   </div>
 </aside>

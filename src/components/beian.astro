@@ -2,11 +2,15 @@
 const beian = import.meta.env.BEIAN;
 ---
 
-<a
-  target="_blank"
-  rel="noopener noreferrer"
-  href="https://beian.miit.gov.cn/"
-  class="text-sm font-bold hover:underline"
->
-  {beian}
-</a>
+{
+  beian && (
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://beian.miit.gov.cn/"
+      class="hover:underline hover:text-base-content/70"
+    >
+      {beian}
+    </a>
+  )
+}
