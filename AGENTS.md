@@ -8,7 +8,7 @@
 
 - **Astro 6** (SSG) + **Svelte 5** (交互岛屿) + **TypeScript**
 - **Tailwind CSS 4 + DaisyUI 5** — 自定义暗色主题 `xianii`，纯 CSS 驱动
-- **MDX** — 博客与项目的唯一内容格式（`src/content/`）
+- **Markdown / MDX** — 博客与项目内容位于 `src/content/`，由 Astro 渲染，不再依赖 `marked` 或构建期远程拉取文章
 - **Astro Content Collections** — Zod 校验 frontmatter
 - **astro-icon** (Iconify: `mingcute`, `simple-icons`)
 
